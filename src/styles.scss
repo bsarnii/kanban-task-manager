@@ -1,1 +1,208 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
+
+// SCSS VARIABLES//
+$balck: #000112;
+$veryDarkGrey: #20212C;
+$darkGrey: #2B2C37;
+$darkLines: #3E3F4E;
+$mediumGrey: #828FA3;
+$lightLines: #E4EBFA;
+$lightGrey: #F4F7FD;
+$white: #FFFFFF;
+$mainPurple: #635FC7;
+$mainPurpleHover: #A8A4FF;
+$red: #EA5555;
+$redHover: #FF9898;
+
+//CSS VARIABLES//
+:root{
+    --color-bg: #20212C;
+    --color-sec-bg: #2B2C37;
+    --color-text: #FFFFFF;
+    --secondary-button-color: #FFFFFF;
+    --secondary-button-color-hover: #FFFFFF;
+    --checkbox-bg: #20212C;
+    --checkbox-color: #2B2C37;
+    --lines: #3E3F4E;
+}
+[data-theme = 'light'] {
+    --color-bg: #F4F7FD;
+    --color-sec-bg: #FFFFFF;
+    --color-text: #000112;
+    --secondary-button-color: #F4F7FD;
+    --secondary-button-color-hover: #E4EBFA;
+    --checkbox-bg: #F4F7FD;
+    --checkbox-color: #FFFFFF;
+    --lines: #E4EBFA;
+}
+
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+//TYPOGRAPHY//
+.heading-xl{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+.heading-l{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+.heading-m{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+.heading-s{
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+.body-l{
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 23px;
+    color: var(--color-text);
+}
+.body-m{
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+//BUTTONS//
+
+.button-primary-l{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 15px;
+    color: $white;
+    background-color: $mainPurple;
+    border: none;
+    padding: 1em;
+    border-radius: 3rem;
+    transition: background-color .3s;
+    cursor: pointer;
+    &:hover{
+        background-color: $mainPurpleHover;
+    }
+}
+.button-primary-s{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 13px;
+    color: $white;
+    background-color: $mainPurple;
+    border: none;
+    padding: 1em;
+    border-radius: 3rem;
+    transition: background-color .3s;
+    cursor: pointer;
+    &:hover{
+        background-color: $mainPurpleHover;
+    }
+}
+
+.button-secondary{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 13px;
+    color: $mainPurple;
+    background-color: var(--secondary-button-color);
+    border: none;
+    padding: 1em;
+    border-radius: 3rem;
+    transition: background-color .3s;
+    cursor: pointer;
+    &:hover{
+        background-color: var(--secondary-button-color-hover);
+    }
+}
+.button-destructive{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 13px;
+    color: $white;
+    background-color: $red;
+    border: none;
+    padding: 1em;
+    border-radius: 3rem;
+    transition: background-color .3s;
+    cursor: pointer;
+    &:hover{
+        background-color: $redHover;
+    }
+}
+.btn-vertical-dots{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+// FORM //
+
+.checkbox-container{
+    padding: 1em;
+    background-color: var(--checkbox-bg);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color .3s;
+    &:hover{
+        background-color: rgba(99,95,199,.25);
+    }
+    input{
+        visibility: hidden;
+        margin-right: .5em;
+        &:checked +.checkbox-replace{
+            background-color: $mainPurple;
+            border-color: transparent;
+            &::after{
+                    border-color: $white;
+                }
+        }
+    }
+    &:has(input:checked){
+        text-decoration: line-through;
+        color: $mediumGrey;
+    }
+
+    .checkbox-replace{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 1em;
+        height: 15px;
+        width: 15px;
+        background-color: var(--checkbox-color);
+        border: 1px solid $mediumGrey;
+        border-radius: 2px;
+        transition: background-color .3s, border-color .3s;
+        &::after{
+            content: "";
+            position: absolute;
+            display: block;
+            left: 4.5px;
+            bottom: 4px;
+            width: 3px;
+            height: 6px;
+            border: solid transparent;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            transition: border-color .3s;
+        }
+    }
+    
+}
+
