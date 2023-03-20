@@ -1,11 +1,13 @@
 <div class="header-left">
-    <img *ngIf="!lightmode" src="assets/logo-light.svg">
-    <img *ngIf="lightmode" src="assets/logo-dark.svg">
+    <img class="logo" *ngIf="!colorTheme.lightMode" src="assets/logo-light.svg" alt="logo">
+    <img class="logo" *ngIf="colorTheme.lightMode" src="assets/logo-dark.svg" alt="logo">
+    <div class="line"></div>
     <h1 class="heading-xl">Platform Launch</h1>
+    <button><img src="assets/icon-chevron-down.svg" alt="extend menu"></button>
 </div>
 <div class="header-right">
-    <button class="button-primary-l">+ Add New Task</button>
-    <button class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt=""></button>
+    <button class=" btn button-primary-l">+ <span>Add New Task</span></button>
+    <button class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
 </div>
 
 

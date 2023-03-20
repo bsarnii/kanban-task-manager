@@ -82,67 +82,50 @@ body{
 
 //BUTTONS//
 
-.button-primary-l{
+.btn{
     font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: 15px;
-    color: $white;
-    background-color: $mainPurple;
     border: none;
     padding: 1em;
     border-radius: 3rem;
-    transition: background-color .3s;
     cursor: pointer;
+    white-space: nowrap;
+}
+.button-primary-l{
+    font-size: 15px;
+    color: $white;
+    background-color: $mainPurple;
+    transition: background-color .3s;
     &:hover{
         background-color: $mainPurpleHover;
     }
 }
 .button-primary-s{
-    font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 13px;
     color: $white;
     background-color: $mainPurple;
-    border: none;
-    padding: 1em;
-    border-radius: 3rem;
     transition: background-color .3s;
-    cursor: pointer;
     &:hover{
         background-color: $mainPurpleHover;
     }
 }
 
 .button-secondary{
-    font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 13px;
     color: $mainPurple;
     background-color: var(--secondary-button-color);
-    border: none;
-    padding: 1em;
-    border-radius: 3rem;
     transition: background-color .3s;
-    cursor: pointer;
     &:hover{
         background-color: var(--secondary-button-color-hover);
     }
 }
 .button-destructive{
-    font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 13px;
     color: $white;
     background-color: $red;
-    border: none;
-    padding: 1em;
-    border-radius: 3rem;
     transition: background-color .3s;
-    cursor: pointer;
     &:hover{
         background-color: $redHover;
     }
-}
-.btn-vertical-dots{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 
 // FORM //
@@ -205,4 +188,8 @@ body{
     }
     
 }
-
+@media screen and (max-width: 575px) {
+    .heading-xl{
+        font-size: 18px;
+    }
+}

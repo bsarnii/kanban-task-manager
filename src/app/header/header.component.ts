@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ColorThemeService } from '../services/color-theme.service';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() lightmode:boolean = false;
-  logo = this.lightmode ? "assets/logo-dark.svg" : "assets/logo-light.svg";
+  constructor(public colorTheme: ColorThemeService ) {}
+
 }

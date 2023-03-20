@@ -6,21 +6,83 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var(--lines);
 }
 .header-left{
     display: flex;
-    img{
+    align-items: center;
+    .logo{
         padding: 0 1.5rem;
+        height: 25px;
     }
     h1{
         padding: 0 1.5rem;
-        border-left: 1px solid var(--lines);
+        position: relative;
+    }
+    .line{
+        width: 1px;
+        height: 5rem;
+        background-color: var(--lines);
+    }
+    button{
+        display: none;
+        background-color: transparent;
+        border: none;
+        padding: 0 .5rem;
     }
 }
 .header-right{
     display: flex;
     align-items: center;
-    img{
-        padding: 0 1.5rem;
+
+    .btn-vertical-dots{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        img{
+            padding: 0 1.5rem;
+        }
     }
+
+}
+
+@media screen and (max-width: 575px) {
+    :host{
+        height: 3rem;
+    }
+
+    .header-left{
+        .logo{
+            width: 55px;
+            object-fit:cover;
+            object-position: left;
+            padding: 0 1rem;
+        }
+        h1{
+            padding: 0 0 0 1rem;
+        }
+        .lines{
+            height: 3rem;
+        }
+        button{
+            display: block;
+            transform: rotate(180deg);
+        }
+    }
+
+    .header-right{
+        button:first-child{
+            padding:  0 1em .5em 1em;
+            span{
+                display: none;
+            }
+        }
+        .btn-vertical-dots{
+            img{
+                height: 1rem;
+                padding: 0 1rem;
+            }
+        }
+    }
+
 }
