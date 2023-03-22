@@ -6,14 +6,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
-import { ColorThemeService } from './services/color-theme.service'
+import { ColorThemeService } from './services/color-theme.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     BrowserModule,
