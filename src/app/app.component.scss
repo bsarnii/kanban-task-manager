@@ -4,3 +4,26 @@
 .header-main-wrapper{
     width: 100%;
 }
+.show-sidebar{
+    position: fixed;
+    bottom: 3rem;
+    left: 0;
+    background-color: #635FC7;
+    height: 48px;
+    width: 58px;
+    border: none;
+    border-radius: 0 50% 50% 0;
+    cursor: pointer;
+    transition: background-color .3s;
+    z-index: -1;
+
+    &:hover{
+        background-color: #A8A4FF;
+    }
+}
+
+@media screen and (max-width: 575px){
+    .show-sidebar{
+        display: none;
+    }
+}

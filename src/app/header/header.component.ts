@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorThemeService } from '../services/color-theme.service';
+import { SidebarToggleService } from '../services/sidebar-toggle.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,9 @@ import { ColorThemeService } from '../services/color-theme.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(public colorTheme: ColorThemeService ) {}
+  constructor(
+    public colorTheme: ColorThemeService, 
+    public sidebarService:SidebarToggleService 
+    ) {}
 
 }

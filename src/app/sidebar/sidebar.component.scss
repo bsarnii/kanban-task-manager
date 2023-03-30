@@ -8,12 +8,22 @@
     border-right: 1px solid var(--lines);
     padding: 0 1.5rem
 }
+:host[data-opened=true]{
+    display: flex;
+}
+:host[data-opened=false]{
+    display: none;
+}
 
 .sidebar-top{
     .logo-container{
         height: 5rem;
         display: flex;
         align-items: center;
+        img{
+            height: 25px;
+            width: 147px;
+        }
     }
     .boards{
         h2{
@@ -105,7 +115,10 @@
             position: absolute;
             right: 0;
             top: 0;
-            transition: .4s;
+            transition: .3s;
+            &:hover{
+                background-color: #A8A4FF;
+            }
         }
           
         .slider:before {
@@ -129,6 +142,32 @@
           
         .slider.round:before {
             border-radius: 50%;
+        }
+    }
+    .display-sidebar{
+        font-family: "Plus Jakarta Sans", sans-serif;
+        border: none;
+        color: #828FA3;
+        font-weight: bold;
+        padding: 1em 0;
+        border-radius: 3rem;
+        cursor: pointer;
+        white-space: nowrap;
+        width: 130%;
+        margin-left: -30%;
+        padding-left: 30%;
+        background-color: transparent;
+        text-align: left;
+        transition: color .3s, background-color .3s;
+        &:hover{
+            background-color: var(--sidebar-btn-hover);
+            color: #635FC7;
+            path{
+                fill: #635FC7;
+            }
+        }
+        span{
+            margin-left: 1rem;
         }
     }
 }

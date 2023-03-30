@@ -15,6 +15,9 @@
         padding: 0 1.5rem;
         height: 25px;
     }
+    .mobile-logo{
+        display: none;
+    }
     h1{
         padding: 0 1.5rem;
         position: relative;
@@ -53,9 +56,10 @@
 
     .header-left{
         .logo{
-            width: 55px;
-            object-fit:cover;
-            object-position: left;
+            display: none !important;
+        }
+        .mobile-logo{
+            display: block;
             padding: 0 1rem;
         }
         h1{
