@@ -1,10 +1,13 @@
 <div class="header-left">
     <img class="logo" *ngIf="!colorTheme.lightMode" [style.display]="sidebarService.sidebarOpened ? 'none' : 'block'" src="assets/logo-light.svg" alt="logo">
-    <img class="logo" *ngIf="colorTheme.lightMode" src="assets/logo-dark.svg" alt="logo">
+    <img class="logo" *ngIf="colorTheme.lightMode" [style.display]="sidebarService.sidebarOpened ? 'none' : 'block'" src="assets/logo-dark.svg" alt="logo">
     <img class="mobile-logo" src="assets/logo-mobile.svg" alt="logo-mobile">
     <div class="line"></div>
     <h1 class="heading-xl">Platform Launch</h1>
-    <button><img src="assets/icon-chevron-down.svg" alt="extend menu"></button>
+    <button (click)="sidebarService.toggleSidebar()" [ngSwitch]="sidebarService.sidebarOpened">
+        <img *ngSwitchCase="false" src="assets/icon-chevron-down.svg" alt="extend menu">
+        <img *ngSwitchCase="true" src="assets/icon-chevron-up.svg" alt="collapse menu">
+    </button>
 </div>
 <div class="header-right">
     <button class=" btn button-primary-l">+ <span>Add New Task</span></button>

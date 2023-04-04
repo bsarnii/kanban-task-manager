@@ -1,0 +1,24 @@
+:host{
+    height: calc(100vh - 5rem);
+    display: flex;
+    
+    &:has(.empty-board){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+}
+.empty-board{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    text-align: center;
+    h1{
+        color: #828FA3;
+    }
+    button{
+        margin: 2rem;
+    }
+}

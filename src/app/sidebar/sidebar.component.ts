@@ -13,4 +13,9 @@ export class SidebarComponent {
     public sidebarService: SidebarToggleService
     ) {}
   
+    handleOnBoardClick(){
+      if (window.innerWidth <= 575) {
+        this.sidebarService.sidebarOpened = false
+      }
+    }
 }

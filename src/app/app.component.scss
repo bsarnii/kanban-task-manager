@@ -3,6 +3,7 @@
 }
 .header-main-wrapper{
     width: 100%;
+    z-index: 3;
 }
 .show-sidebar{
     position: fixed;
@@ -15,15 +16,27 @@
     border-radius: 0 50% 50% 0;
     cursor: pointer;
     transition: background-color .3s;
-    z-index: -1;
+    z-index: 3;
 
     &:hover{
         background-color: #A8A4FF;
     }
 }
-
+.dark-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 4;
+}
 @media screen and (max-width: 575px){
     .show-sidebar{
         display: none;
+    }
+    .dark-background{
+        display: block;
     }
 }

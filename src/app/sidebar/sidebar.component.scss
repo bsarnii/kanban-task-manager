@@ -3,10 +3,12 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 300px;
-    min-height: 100vh;
+    height: 100vh;
     background-color: var(--color-sec-bg);
     border-right: 1px solid var(--lines);
-    padding: 0 1.5rem
+    padding: 0 1.5rem;
+    position: sticky;
+    z-index: 4;
 }
 :host[data-opened=true]{
     display: flex;
@@ -175,5 +177,35 @@
 @media screen and (max-width: 800px) {
     :host{
         min-width: 260px;
+    }
+}
+@media screen and (max-width: 575px){
+    :host{
+        position: fixed;
+        top: 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        justify-content: center;
+        min-height: 0;
+        height: auto;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
+        z-index: 5;
+        .sidebar-top{
+            .logo-container{
+                display: none;
+            }
+        }
+        .sidebar-bottom{
+            padding-bottom: 1rem;
+            .theme-switcher-container{
+                margin-bottom: 0;
+            }
+            .display-sidebar{
+                display: none;
+            }
+        }
     }
 }

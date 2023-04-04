@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
 import { ColorThemeService } from './services/color-theme.service';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
+import { ColumnComponent } from './column/column.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SidebarToggleService } from './services/sidebar-toggle.service';
     HeaderComponent,
     SidebarComponent,
     MainComponent,
+    ColumnComponent,
   ],
   imports: [
     BrowserModule,
