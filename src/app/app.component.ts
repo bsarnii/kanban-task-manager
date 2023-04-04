@@ -11,8 +11,10 @@ export class AppComponent {
   constructor (public sidebarService: SidebarToggleService) {}
 
   ngOnInit(){
+    console.log(window.innerWidth)
     if (window.innerWidth <= 575){
       this.sidebarService.sidebarOpened = false;
     }
+    console.log(this.sidebarService.sidebarOpened)
   }
 }

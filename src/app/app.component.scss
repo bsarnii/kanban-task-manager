@@ -4,6 +4,7 @@
 .header-main-wrapper{
     width: 100%;
     z-index: 3;
+    overflow: auto;
 }
 .show-sidebar{
     position: fixed;
