@@ -2,9 +2,10 @@
     <h1 class="heading-l">This board is empty. Create a new column to get started</h1>
     <button class="btn button-primary-l">+ Add New Column</button>
 </div>
-<app-column></app-column>
-<app-column></app-column>
-<app-column></app-column>
-<app-column></app-column>
-<app-column></app-column>
-<app-column></app-column>
+<app-column 
+*ngFor="let column of this.currentBoardService.currentBoard.columns; let i = index"
+[columnName]="column.name"
+[taskNumber]="column.tasks.length"
+[tasks]="column.tasks"
+[color]="colors[i]"
+></app-column>

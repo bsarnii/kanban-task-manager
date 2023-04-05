@@ -6,9 +6,25 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent {
-@Input() columnName:string = "TODO"
-@Input() taskTitle:string = "Build UI for search"
-@Input() completedSubtasks:number = 0;
-@Input() totalSubtasks:number = 3;
+@Input() color:string = "#49C4E5";
+@Input() columnName:string = "TODO";
+@Input() taskNumber:number = 0;
+@Input() tasks= [
+  {
+    description: "",
+    status: "",
+    subtasks: [
+      {
+        isCompleted: false,
+        title: ""
+      }
+    ],
+    title: ""
+  }
+]
+
+filterCompletedTasks(subtasks: any):number{
+  return subtasks.filter((subtask: { isCompleted: boolean; }) => subtask.isCompleted === true).length
+}
 
 }

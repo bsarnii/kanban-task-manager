@@ -1,11 +1,11 @@
 <div class="column-head">
-    <span></span>
-    <h2 class="heading-s">{{columnName}} (4)</h2>
+    <span [style.background-color]="color"></span>
+    <h2 class="heading-s">{{columnName}} ({{taskNumber}})</h2>
 </div>
 <div class="column-body">
-    <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]" class="task">
-        <h3 class="heading-m">{{taskTitle}}</h3>
-        <p class="body-m">{{completedSubtasks}} of {{totalSubtasks}} subtasks</p>
+    <div *ngFor="let task of tasks" class="task">
+        <h3 class="heading-m">{{task.title}}</h3>
+        <p class="body-m">{{filterCompletedTasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
     </div>
 </div>
 

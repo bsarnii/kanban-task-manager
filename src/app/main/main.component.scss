@@ -2,11 +2,27 @@
     min-height: calc(100vh - 5rem);
     height: calc(100vh - 5rem);
     display: flex;
-    overflow: scroll;
+    overflow: auto;
+    scrollbar-color: #635FC7 transparent;
+    scrollbar-width: thin;
     &:has(.empty-board){
     display: flex;
     justify-content: center;
     align-items: center;
+    }
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #635FC7;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
     }
 }
 .empty-board{
