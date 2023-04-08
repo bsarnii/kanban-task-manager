@@ -4,10 +4,10 @@
         <img *ngIf="colorTheme.lightMode" src="assets/logo-dark.svg" alt="logo">
     </div>
     <div class="boards">
-        <h2 class="heading-s">ALL BOARDS ({{boards.boards.length}})</h2>
+        <h2 class="heading-s">ALL BOARDS ({{boardsService.boards.boards.length}})</h2>
         <ul>
             <li 
-            *ngFor="let board of boards.boards; let i = index"
+            *ngFor="let board of boardsService.boards.boards; let i = index"
             >
                 <button 
                 (click)="handleOnBoardClick(i)"

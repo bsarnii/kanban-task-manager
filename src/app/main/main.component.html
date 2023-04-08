@@ -3,9 +3,13 @@
     <button class="btn button-primary-l">+ Add New Column</button>
 </div>
 <app-column 
-*ngFor="let column of this.currentBoardService.currentBoard.columns; let i = index"
+*ngFor="let column of this.boardsService.currentBoard.columns; let i = index"
 [columnName]="column.name"
 [taskNumber]="column.tasks.length"
 [tasks]="column.tasks"
 [color]="colors[i]"
+[columnIndex]="i"
 ></app-column>
+<div class="new-column">
+    <h2 class="heading-xl">+ New Column</h2>
+</div>

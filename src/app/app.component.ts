@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import data from '../assets/data.json';
-import { CurrentBoardService } from './services/current-board.service';
+import { BoardsService } from './services/boards.service';
+import { ModalShowService } from './services/modal-show.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,14 @@ export class AppComponent implements OnInit {
 
   constructor (
     public sidebarService: SidebarToggleService,
-    public currentBoardService: CurrentBoardService
+    public boardsService: BoardsService,
+    public modalShowService: ModalShowService
     ) {
       if (localStorage.length === 0){
-        localStorage.setItem("boards", JSON.stringify(data))
+        boardsService.setBoards(data)
       }
-      currentBoardService.setCurrentBoard(JSON.parse(localStorage["boards"]).boards[0])
+      boardsService.getBoards();
+      boardsService.setCurrentBoard(boardsService.boards.boards[0])
     }
 
   ngOnInit(){

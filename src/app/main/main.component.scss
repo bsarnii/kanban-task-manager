@@ -39,3 +39,27 @@
         margin: 2rem;
     }
 }
+
+.new-column{
+    margin-top: 47px;
+    margin-right: 1rem;
+    display: flex;
+    margin-left: 1rem;
+    min-width: 280px;
+    width: 280px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background: var(--new-column-bg);
+    cursor: pointer;
+    h2{
+        color: #828FA3;
+        transition: color .3s;
+
+    }
+    &:hover{
+        h2{
+            color: #635FC7;
+        }
+    }
+}

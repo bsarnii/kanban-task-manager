@@ -39,15 +39,6 @@
     display: flex;
     align-items: center;
 
-    .btn-vertical-dots{
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        img{
-            padding: 0 1.5rem;
-        }
-    }
-
 }
 
 @media screen and (max-width: 575px) {

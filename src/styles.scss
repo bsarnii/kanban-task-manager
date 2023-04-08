@@ -25,7 +25,7 @@ $redHover: #FF9898;
     --checkbox-color: #2B2C37;
     --lines: #3E3F4E;
     --sidebar-btn-hover: #FFFFFF;
-
+    --new-column-bg: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
     --phone-width: 575px;
     --tablet-width: 800px;
 }
@@ -39,6 +39,7 @@ $redHover: #FF9898;
     --checkbox-color: #FFFFFF;
     --lines: #E4EBFA;
     --sidebar-btn-hover: #F4F7FD;
+    --new-column-bg: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
 }
 
 body{
@@ -133,7 +134,7 @@ body{
     }
 }
 
-// FORM //
+// FORM CHECKBOX //
 
 .checkbox-container{
     padding: 1em;
@@ -192,6 +193,36 @@ body{
         }
     }
     
+}
+// FORM SELECT //
+.select{
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    border: 1px solid rgba(130, 143, 163,.25);
+    background: transparent;
+    color: var(--color-text);
+    outline: none;
+    padding: .5rem;
+    background-image: url(assets/icon-chevron-down.svg);
+    background-repeat: no-repeat;
+    background-position: 97.5%;
+    border-radius: 6px;
+    option{
+        background-color: var(--color-bg);
+        padding: .5rem;
+    }
+}
+.btn-vertical-dots{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    img{
+        padding: 0 1.5rem;
+    }
+    &:hover{
+        opacity: .8;
+    }
 }
 @media screen and (max-width: 575px) {
     .heading-xl{

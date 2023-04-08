@@ -1,9 +1,9 @@
 <div class="column-head">
     <span [style.background-color]="color"></span>
-    <h2 class="heading-s">{{columnName}} ({{taskNumber}})</h2>
+    <h2 class="heading-s">{{columnName | uppercase}} ({{taskNumber}})</h2>
 </div>
 <div class="column-body">
-    <div *ngFor="let task of tasks" class="task">
+    <div *ngFor="let task of tasks; let i = index" class="task" (click)="onTaskClick(i)">
         <h3 class="heading-m">{{task.title}}</h3>
         <p class="body-m">{{filterCompletedTasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
     </div>

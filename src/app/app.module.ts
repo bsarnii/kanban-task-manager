@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { ColorThemeService } from './services/color-theme.service';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import { ColumnComponent } from './column/column.component';
+import { TaskModalComponent } from './task-modal/task-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ColumnComponent } from './column/column.component';
     SidebarComponent,
     MainComponent,
     ColumnComponent,
+    TaskModalComponent,
   ],
   imports: [
     BrowserModule,
