@@ -3,7 +3,7 @@
     <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
         <button class="edit-task">Edit Task</button>
-        <button class="delete-task">Delete Task</button>
+        <button (click)="deleteTask()" class="delete-task">Delete Task</button>
     </div>
 </div>
 <p class="body-l">{{boardsService.currentTask.description}}</p>
@@ -14,16 +14,14 @@
     *ngFor="let subtask of boardsService.currentTask.subtasks; let i = index"
     (click)="handleCheckboxClick(i)"
     >
-        <div >
-            <input [checked]="subtask.isCompleted" type="checkbox">
-            <span class="checkbox-replace"></span>
-            {{subtask.title}}
-        </div>
+        <input [checked]="subtask.isCompleted" type="checkbox">
+        <span class="checkbox-replace"></span>
+        {{subtask.title}}
     </div>
 </div>
 <div class="status-container">
     <label class="heading-s">Current Status</label>
-    <select (click)="consoleLog()" name="status" id="status-select" class="select">
+    <select #stauts (change)="changeStatus(stauts.value)" name="status" id="status-select" class="select">
         <option 
         *ngFor="let column of boardsService.currentBoard.columns" 
         value={{column.name}}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BoardsService } from '../services/boards.service';
 import { Boards, Subtask } from '../types/boards.interface';
+import { ModalShowService } from '../services/modal-show.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -8,8 +9,12 @@ import { Boards, Subtask } from '../types/boards.interface';
   styleUrls: ['./task-modal.component.scss']
 })
 export class TaskModalComponent {
+value: any;
 
-  constructor(public boardsService: BoardsService) {}
+  constructor(
+    public boardsService: BoardsService,
+    public modalShowService: ModalShowService
+    ) {}
 
   indexes = this.boardsService.indexes;
   showEditDeleteContainer = false;
@@ -23,9 +28,20 @@ export class TaskModalComponent {
     this.boardsService.setBoards(this.boardsService.boards)
   }
 
-  consoleLog(){
-    console.log(this.boardsService.currentTask.status)
+  changeStatus(value:string){
+    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex].status = value;
+    this.boardsService.currentBoard.columns.find(column => column.name === value)?.tasks.unshift(this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex]);
+    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
+    this.boardsService.setBoards(this.boardsService.boards);
+    this.modalShowService.closeModal();
   }
+
+  deleteTask(){
+    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
+    this.boardsService.setBoards(this.boardsService.boards);
+    this.modalShowService.closeModal();
+  }
+
 
   filterCompletedTasks(subtasks: Array<Subtask>):number{
     return subtasks.filter(subtask => subtask.isCompleted === true).length
