@@ -2,7 +2,7 @@
     <h4 class="heading-l">{{boardsService.currentTask.title}}</h4>
     <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
-        <button class="edit-task">Edit Task</button>
+        <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
         <button (click)="deleteTask()" class="delete-task">Delete Task</button>
     </div>
 </div>

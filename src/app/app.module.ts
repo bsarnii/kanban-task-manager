@@ -10,6 +10,8 @@ import { ColorThemeService } from './services/color-theme.service';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import { ColumnComponent } from './column/column.component';
 import { TaskModalComponent } from './task-modal/task-modal.component';
+import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
+import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { TaskModalComponent } from './task-modal/task-modal.component';
     MainComponent,
     ColumnComponent,
     TaskModalComponent,
+    EditTaskModalComponent,
+    TaskModalFrameComponent,
   ],
   imports: [
     BrowserModule,

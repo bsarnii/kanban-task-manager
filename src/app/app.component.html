@@ -9,6 +9,7 @@
 <div (click)="sidebarService.toggleSidebar()" *ngIf="sidebarService.sidebarOpened" class="dark-background"></div>
 <div (click)="modalShowService.closeModal()" *ngIf="modalShowService.darkBackground" class="modal-dark-background"></div>
 <app-task-modal *ngIf="modalShowService.showTaskModal"></app-task-modal>
+<app-edit-task-modal *ngIf="modalShowService.showEditTaskModal"></app-edit-task-modal>
 
 <!--
 <h1 class="heading-xl">This is an example!</h1>
