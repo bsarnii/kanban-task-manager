@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ModalShowService {
-  darkBackground = true;
+  darkBackground = false;
   showTaskModal = false;
-  showEditTaskModal = true;
+  showEditTaskModal = false;
 
   openTaskModal(){
     this.darkBackground = true;

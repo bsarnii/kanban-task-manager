@@ -95,6 +95,7 @@ body{
     border-radius: 3rem;
     cursor: pointer;
     white-space: nowrap;
+    font-weight: 700;
 }
 .button-primary-l{
     font-size: 15px;
@@ -204,7 +205,7 @@ body{
     color: var(--color-text);
     outline: none;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: .5rem 0 1rem 0;
+    margin: .5rem 0 .5rem 0;
     border-radius: 4px;
 }
 .description-input{

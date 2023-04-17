@@ -21,7 +21,7 @@
 </div>
 <div class="status-container">
     <label class="heading-s">Current Status</label>
-    <select #stauts (change)="changeStatus(stauts.value)" name="status" id="status-select" class="select">
+    <select #status (change)="changeStatus(status.value)" name="status" id="status-select" class="select">
         <option 
         *ngFor="let column of boardsService.currentBoard.columns" 
         value={{column.name}}

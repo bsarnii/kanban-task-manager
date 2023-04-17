@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BoardsService } from '../services/boards.service';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class EditTaskModalComponent {
 
+  constructor(public boardsService:BoardsService) {}
 }

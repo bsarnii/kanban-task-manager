@@ -1,1 +1,8 @@
-<app-task-modal-frame></app-task-modal-frame>
+<app-task-modal-frame modalName="Edit Task"
+[titleValue]="boardsService.currentTask.title"
+[descriptionValue]="boardsService.currentTask.description"
+[subtasks]="boardsService.currentTask.subtasks"
+[statusValues]="boardsService.currentBoard.columns"
+buttonName="Save Changes"
+>
+</app-task-modal-frame>
