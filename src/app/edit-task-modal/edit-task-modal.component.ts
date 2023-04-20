@@ -9,4 +9,6 @@ import { BoardsService } from '../services/boards.service';
 export class EditTaskModalComponent {
 
   constructor(public boardsService:BoardsService) {}
+
+  subtaskCopy = this.boardsService.currentTask.subtasks.map(subtask => subtask)
 }

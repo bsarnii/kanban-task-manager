@@ -7,9 +7,7 @@ import { BoardsService } from '../services/boards.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-  constructor(public boardsService: BoardsService){
-
-  }
+  constructor(public boardsService: BoardsService){}
 
   colors=["#49C4E5","#8471F2","#67E2AE","#d6d45a","#e09660","#e0635e","#de5fc7","#5d64de"]
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Task, Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
 import { BoardsService } from '../services/boards.service';
@@ -8,7 +8,7 @@ import { BoardsService } from '../services/boards.service';
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss']
 })
-export class ColumnComponent {
+export class ColumnComponent{
 
 constructor(
   public modalShowService: ModalShowService,

@@ -3,15 +3,19 @@
     <img class="logo" *ngIf="colorTheme.lightMode" [style.display]="sidebarService.sidebarOpened ? 'none' : 'block'" src="assets/logo-dark.svg" alt="logo">
     <img class="mobile-logo" src="assets/logo-mobile.svg" alt="logo-mobile">
     <div class="line"></div>
-    <h1 class="heading-xl">{{this.boardsService.currentBoard.name}}</h1>
+    <h1 *ngIf="this.boardsService.currentBoard" class="heading-xl">{{this.boardsService.currentBoard.name}}</h1>
     <button (click)="sidebarService.toggleSidebar()" [ngSwitch]="sidebarService.sidebarOpened">
         <img *ngSwitchCase="false" src="assets/icon-chevron-down.svg" alt="extend menu">
         <img *ngSwitchCase="true" src="assets/icon-chevron-up.svg" alt="collapse menu">
     </button>
 </div>
 <div class="header-right">
-    <button class=" btn button-primary-l">+ <span>Add New Task</span></button>
-    <button class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+    <button (click)="modalShowService.openCreateTaskModal()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
+    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+    <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
+        <button (click)="modalShowService.openEditBoardModal()" class="edit-board">Edit Board</button>
+        <button (click)="openDeleteBoardModal()" class="delete-board">Delete Board</button>
+    </div>
 </div>
 
 

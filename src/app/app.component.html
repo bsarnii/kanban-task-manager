@@ -10,7 +10,8 @@
 <div (click)="modalShowService.closeModal()" *ngIf="modalShowService.darkBackground" class="modal-dark-background"></div>
 <app-task-modal *ngIf="modalShowService.showTaskModal"></app-task-modal>
 <app-edit-task-modal *ngIf="modalShowService.showEditTaskModal"></app-edit-task-modal>
-
+<app-create-task-modal *ngIf="modalShowService.showCreateTaskModal"></app-create-task-modal>
+<app-confirm-delete-board *ngIf="modalShowService.showDeleteBoardModal"></app-confirm-delete-board>
 <!--
 <h1 class="heading-xl">This is an example!</h1>
 <h1 class="heading-l">This is an example!</h1>

@@ -9,6 +9,31 @@
     background: var(--color-sec-bg);
     padding: 2rem;
     border-radius: 6px;
+    max-height: 90%;
+    scrollbar-color: #635FC7 transparent;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #635FC7;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
+    &:has(.checkbox-container:nth-child(7)){
+        overflow: auto;
+        .modal-head{
+            .edit-delete-container{
+                transform: translate(0, 75%);
+            }
+        }
+    }
     .modal-head{
         display: flex;
         justify-content: space-between;

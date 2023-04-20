@@ -14,14 +14,12 @@ export class SidebarComponent {
     public sidebarService: SidebarToggleService,
     public boardsService: BoardsService,
     ) {}
-
-    selectedIndex:number = 0;
   
     handleOnBoardClick(index:number){
       if (window.innerWidth <= 575) {
         this.sidebarService.sidebarOpened = false
       }
-      this.selectedIndex = index;
+      this.sidebarService.selectedIndex = index;
       this.boardsService.setCurrentBoard(this.boardsService.boards.boards[index])
       this.boardsService.indexes.boardIndex = index;
  

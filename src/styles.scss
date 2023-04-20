@@ -197,17 +197,41 @@ body{
 }
 
 //INPUT TEXT
-
-.text-input{
-    padding: .5rem;
-    border: 1px solid rgba(130, 143, 163,.25);
-    background: transparent;
-    color: var(--color-text);
-    outline: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: .5rem 0 .5rem 0;
-    border-radius: 4px;
+span{
+    width: 100%;
+    position: relative;
+    .text-input{
+        padding: .5rem;
+        border: 1px solid rgba(130, 143, 163,.25);
+        background: transparent;
+        color: var(--color-text);
+        outline: none;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: .5rem 0 .5rem 0;
+        border-radius: 4px;
+        transition: border .3s;
+        position: relative;
+        width: 100%;
+        &:focus{
+            border: 1px solid #635FC7;
+        }
+    }
+    .text-input.ng-invalid.ng-touched{
+        border: 1px solid $red;
+    }
+    &:has(.text-input.ng-invalid.ng-touched){
+        &::after{
+            content:"Can't be empty";
+            display: block;
+            color: $red;
+            position: absolute;
+            top: 1rem;
+            right: .5rem;
+            font-size: 13.3px;
+        }
+    }
 }
+
 .description-input{
     padding: .5rem;
     border: 1px solid rgba(130, 143, 163,.25);
@@ -219,6 +243,10 @@ body{
     min-height: 115px;
     border-radius: 4px;
     resize: none;
+    transition: border .3s;
+    &:focus{
+        border: 1px solid #635FC7;
+    }
 }
 
 // FORM SELECT //

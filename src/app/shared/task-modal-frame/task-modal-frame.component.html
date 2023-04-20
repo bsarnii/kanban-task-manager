@@ -3,21 +3,15 @@
 </h4>
 <form>
     <label class="heading-s" for="title">Title</label>
-    <input #title class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break">
+    <span><input [formControl]="name" #title class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break"></span>
     <label class="heading-s" for="description">Description</label>
     <textarea #description class="description-input" name="description" id="description" [value]="descriptionValue" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
     <label class="heading-s" for="subtasks">Subtasks</label>
     <div #subtasksInput class="subtask-container">
-        <div *ngIf="subtasks === []" class="subtask">
-            <input class="text-input" type="text" placeholder="e.g. Make coffee">
-            <button><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
+        <div *ngFor="let subtask of subtasks; let subtaskIndex = index" class="subtask">
+            <span><input [value]="subtask.title" class="text-input" type="text" placeholder="e.g. Make coffee"></span>
+            <button (click)="removeSubtask(subtaskIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
         </div>
-        <ng-container *ngIf="subtasks !== []">
-            <div *ngFor="let subtask of subtasks; let subtaskIndex = index" class="subtask">
-                <input [value]="subtask.title" class="text-input" type="text" placeholder="e.g. Make coffee">
-                <button (click)="removeSubtask(subtaskIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
-            </div>
-        </ng-container>
     </div>
     <button (click)="addNewSubtask($event)" class="btn button-secondary add-new-subtask">+ Add new Subtask</button>
     <label class="heading-s status-label">Status</label>
@@ -28,5 +22,6 @@
         >
             {{value.name}}</option>
     </select>
-    <button (click)="saveTask($event, title.value, description.value, status.value, subtasksInput)" class="btn button-primary-s submit">Save Changes</button>
+    <button *ngIf="modalName === 'Edit Task'" (click)="saveTask($event, title.value, description.value, status.value, subtasksInput)" class="btn button-primary-s submit">Save Changes</button>
+    <button *ngIf="modalName === 'Add New Task'" (click)="createTask($event, title.value, description.value, status.value, subtasksInput)" class="btn button-primary-s submit">Create Task</button>
 </form>

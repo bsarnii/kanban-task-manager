@@ -11,7 +11,11 @@ export class BoardsService {
   boards!:Boards;
   copyBoards!:Boards;
   currentBoard!:Board
-  currentTask!:Task;
+  currentTask:Task = {description: "string",
+    status: "string",
+    subtasks: [],
+    title: "string",
+  }
   indexes = {
     boardIndex: 0,
     columnIndex: 0,
