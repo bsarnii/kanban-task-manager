@@ -1,0 +1,78 @@
+:host{
+    display: block;
+    position: fixed;
+    z-index: 10;
+    width: 480px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    background: var(--color-sec-bg);
+    padding: 2rem;
+    border-radius: 6px;
+    max-height: 90%;
+    overflow: auto;
+    scrollbar-color: #635FC7 transparent;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #635FC7;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
+    h4{
+        padding-bottom: 1.5rem;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    span{
+        .title-input{
+            margin-bottom: 1rem;
+        }
+    }
+    .columns-container{
+        .column{
+            display: flex;
+            justify-content: space-between;
+            input{
+                width: 100%;
+                margin-bottom: .5rem;
+            }
+            button{
+                background-color: transparent;
+                border: none;
+                padding: 1rem 0 1rem 1rem;
+                cursor: pointer;
+                &:hover{
+                    svg{
+                        g{
+                            fill: #EA5555;
+                        }
+                    }
+                }
+                svg{
+                    g{
+                        transition: fill .3s;
+                    }
+                }
+            }
+        }
+    }
+    .submit{
+        margin-top: 1.5rem;
+    }
+}
+@media screen and (max-width: 575px) {
+    :host{
+        width: 90%;
+    }
+}

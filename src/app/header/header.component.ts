@@ -24,6 +24,10 @@ export class HeaderComponent {
       this.showEditDeleteContainer = !this.showEditDeleteContainer;
     }
 
+    openEditBoardModal(){
+      this.modalShowService.openEditBoardModal();
+      this.showEditDeleteContainer = !this.showEditDeleteContainer;
+    }
     openDeleteBoardModal(){
       this.showEditDeleteContainer = !this.showEditDeleteContainer;
       this.modalShowService.openDeleteBoardModal();

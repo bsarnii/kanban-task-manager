@@ -36,10 +36,8 @@ value: any;
     this.modalShowService.closeModal();
   }
 
-  deleteTask(){
-    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
-    this.boardsService.setBoards(this.boardsService.boards);
-    this.modalShowService.closeModal();
+  openDeleteTaskModal(){
+    this.modalShowService.openDeleteTaskModal()
   }
 
 

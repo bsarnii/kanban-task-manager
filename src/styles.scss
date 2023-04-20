@@ -19,6 +19,7 @@ $redHover: #FF9898;
     --color-bg: #20212C;
     --color-sec-bg: #2B2C37;
     --color-text: #FFFFFF;
+    --label-text-color: #FFFFFF;
     --secondary-button-color: #FFFFFF;
     --secondary-button-color-hover: #FFFFFF;
     --checkbox-bg: #20212C;
@@ -33,6 +34,7 @@ $redHover: #FF9898;
     --color-bg: #F4F7FD;
     --color-sec-bg: #FFFFFF;
     --color-text: #000112;
+    --label-text-color: #828FA3;
     --secondary-button-color: #F4F7FD;
     --secondary-button-color-hover: #E4EBFA;
     --checkbox-bg: #F4F7FD;
@@ -72,7 +74,7 @@ body{
 .heading-s{
     font-size: 12px;
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--label-text-color);
 }
 .body-l{
     font-size: 13px;

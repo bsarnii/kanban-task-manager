@@ -1,0 +1,6 @@
+<h3 class="heading-l">Delete this task?</h3>
+<p class="body-l">Are you sure you want to delete the '{{boardsService.currentTask.title}}' task and it's subtasks? This action cannot be reversed.</p>
+<div class="button-container">
+    <button (click)="deleteTask()" class="btn button-destructive">Delete</button>
+    <button (click)="cancelDelete()" class="btn button-secondary">Cancel</button>
+</div>

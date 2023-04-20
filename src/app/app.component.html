@@ -12,6 +12,11 @@
 <app-edit-task-modal *ngIf="modalShowService.showEditTaskModal"></app-edit-task-modal>
 <app-create-task-modal *ngIf="modalShowService.showCreateTaskModal"></app-create-task-modal>
 <app-confirm-delete-board *ngIf="modalShowService.showDeleteBoardModal"></app-confirm-delete-board>
+<app-confirm-delete-task *ngIf="modalShowService.showDeleteTaskModal" ></app-confirm-delete-task>
+<app-board-modal-frame *ngIf="modalShowService.showCreatedBoardModal"
+modalName="Add New Board"
+>
+</app-board-modal-frame>
 <!--
 <h1 class="heading-xl">This is an example!</h1>
 <h1 class="heading-l">This is an example!</h1>

@@ -1,5 +1,5 @@
 <h3 class="heading-l">Delete this board?</h3>
-<p class="body-l">Are you sure you want to delete the NAME board? This action will remove all columns and tasks and cannot be reversed.</p>
+<p class="body-l">Are you sure you want to delete the '{{boardsService.currentBoard.name}}' board? This action will remove all columns and tasks and cannot be reversed.</p>
 <div class="button-container">
     <button (click)="deleteBoard()" class="btn button-destructive">Delete</button>
     <button (click)="cancelDelete()" class="btn button-secondary">Cancel</button>

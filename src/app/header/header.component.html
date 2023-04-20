@@ -13,7 +13,7 @@
     <button (click)="modalShowService.openCreateTaskModal()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
     <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
-        <button (click)="modalShowService.openEditBoardModal()" class="edit-board">Edit Board</button>
+        <button (click)="openEditBoardModal()" class="edit-board">Edit Board</button>
         <button (click)="openDeleteBoardModal()" class="delete-board">Delete Board</button>
     </div>
 </div>
