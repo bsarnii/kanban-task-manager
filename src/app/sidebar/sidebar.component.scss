@@ -85,7 +85,6 @@
         }
     }
 }
-
 .sidebar-bottom{
     padding-bottom: 3rem;
     .theme-switcher-container{
@@ -122,22 +121,7 @@
                 background-color: #A8A4FF;
             }
         }
-          
-        .slider:before {
-            background-color: #fff;
-            bottom: 3px;
-            content: "";
-            height: 14px;
-            right: 3px;
-            position: absolute;
-            transition: .4s;
-            width: 14px;
-        }
-          
-        input:checked + .slider:before {
-            transform: translateX(-20px);
-        }
-          
+
         .slider.round {
             border-radius: 34px;
         }

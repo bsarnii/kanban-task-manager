@@ -281,6 +281,33 @@ span{
         opacity: .8;
     }
 }
+
+[data-theme = 'dark'] {
+    .slider:before{
+        background-color: #fff;
+        bottom: 3px;
+        content: "";
+        height: 14px;
+        right: 3px;
+        position: absolute;
+        transition: .4s;
+        width: 14px;
+    }
+}
+[data-theme = 'light'] {
+    .slider:before{
+        background-color: #fff;
+        bottom: 3px;
+        content: "";
+        height: 14px;
+        right: 3px;
+        position: absolute;
+        transition: .4s;
+        width: 14px;
+        transform: translateX(-20px);
+    }
+}
+
 @media screen and (max-width: 575px) {
     .heading-xl{
         font-size: 18px;
