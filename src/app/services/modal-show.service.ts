@@ -57,6 +57,7 @@ export class ModalShowService {
     this.showDeleteBoardModal = false;
     this.showDeleteTaskModal = false;
     this.showCreatedBoardModal = false;
+    this.showEditBoardModal = false;
   }
 
 }

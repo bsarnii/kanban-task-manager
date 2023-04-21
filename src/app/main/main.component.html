@@ -11,7 +11,7 @@
     [color]="colors[i]"
     [columnIndex]="i"
     ></app-column>
-    <div class="new-column">
+    <div (click)="onNewColumnClick()" class="new-column">
         <h2 class="heading-xl">+ New Column</h2>
     </div>
 </ng-container>

@@ -30,6 +30,7 @@ export class BoardModalFrameComponent implements OnInit {
 
   name = new FormControl('', Validators.required);
   indexes = this.boardsService.indexes;
+  columnsCopy:any;
 
   removeColumn(columnIndex:number,event:Event){
     event.preventDefault()
@@ -43,17 +44,30 @@ export class BoardModalFrameComponent implements OnInit {
     })
   }
   
-  saveBoard(event:Event){
+  saveBoard(event:Event,columnsContainer:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
       return
     }
     //Change title
     this.boardsService.currentBoard.name = this.name.value || "";
+
+    for ( let i = 0; i < columnsContainer.children.length; i++){
+      if (!columnsContainer.children[i].firstChild.firstChild.value){
+        continue
+      }
+      if (!this.boardsService.currentBoard.columns[i]){
+        this.boardsService.currentBoard.columns.push({
+          name: columnsContainer.children[i].firstChild.firstChild.value,
+          tasks: []
+        })
+      }
+      this.boardsService.currentBoard.columns[i].name = columnsContainer.children[i].firstChild.firstChild.value
+    }
     this.modalShowService.closeModal();
   }
 
-  createBoard(event:Event){
+  createBoard(event:Event,columnsContainer:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
       return
@@ -62,10 +76,22 @@ export class BoardModalFrameComponent implements OnInit {
       columns: [],
       name: this.name.value || ""
     })
+    this.boardsService.currentBoard = this.boardsService.boards.boards[0];
+    for ( let i = 0; i < columnsContainer.children.length; i++){
+      if (!columnsContainer.children[i].firstChild.firstChild.value){
+        continue
+      }
+      this.boardsService.currentBoard.columns.push({
+        name: columnsContainer.children[i].firstChild.firstChild.value,
+        tasks: []
+      })
+    }
+    this.boardsService.setBoards(this.boardsService.boards)
     this.modalShowService.closeModal();
   }
   
   ngOnInit(){
     this.name.setValue(this.titleValue)
+    this.columnsCopy = this.columns.map((column: any) => column)
   }
 }

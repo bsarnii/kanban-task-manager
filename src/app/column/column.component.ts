@@ -24,7 +24,6 @@ constructor(
 onTaskClick(i:number){
   this.boardsService.setCurrentTask(this.tasks[i])
   this.modalShowService.openTaskModal()
-  console.log(this.boardsService.currentTask)
   this.boardsService.indexes.columnIndex = this.columnIndex;
   this.boardsService.indexes.taskIndex = i;
 }

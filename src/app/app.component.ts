@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
       boardsService.getBoards();
       boardsService.setCurrentBoard(boardsService.boards.boards[0])
     }
-
+    columnsCopy:any;
+    
   ngOnInit(){
     if (window.innerWidth <= 575){
       this.sidebarService.sidebarOpened = false;

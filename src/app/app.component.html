@@ -17,6 +17,11 @@
 modalName="Add New Board"
 >
 </app-board-modal-frame>
+<app-board-modal-frame *ngIf="modalShowService.showEditBoardModal"
+modalName="Edit Board"
+[titleValue]="boardsService.currentBoard.name"
+[columns]="boardsService.currentBoard.columns"
+></app-board-modal-frame>
 <!--
 <h1 class="heading-xl">This is an example!</h1>
 <h1 class="heading-l">This is an example!</h1>
