@@ -20,6 +20,7 @@ export class ConfirmDeleteBoardComponent {
   deleteBoard(){
     this.boardsService.boards.boards.splice(this.indexes.boardIndex,1)
     this.boardsService.currentBoard = this.boardsService.boards.boards[0]
+    this.boardsService.indexes.boardIndex = 0;
     this.sidebarService.selectedIndex = 0;
     this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
