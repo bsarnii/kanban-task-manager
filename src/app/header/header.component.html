@@ -9,7 +9,7 @@
         <img *ngSwitchCase="true" src="assets/icon-chevron-up.svg" alt="collapse menu">
     </button>
 </div>
-<div class="header-right">
+<div *ngIf="boardsService.boards.boards.length > 0" class="header-right">
     <button (click)="modalShowService.openCreateTaskModal()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
     <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteContainer" class="edit-delete-container">

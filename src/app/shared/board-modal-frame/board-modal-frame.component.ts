@@ -34,11 +34,11 @@ export class BoardModalFrameComponent implements OnInit {
 
   removeColumn(columnIndex:number,event:Event){
     event.preventDefault()
-    this.columns.splice(columnIndex,1)
+    this.columnsCopy.splice(columnIndex,1)
   }
   addNewColumn(event:Event){
     event.preventDefault()
-    this.columns.push({
+    this.columnsCopy.push({
       name:"",
       tasks:[]
     })
@@ -51,12 +51,9 @@ export class BoardModalFrameComponent implements OnInit {
     }
     //Change title
     this.boardsService.currentBoard.name = this.name.value || "";
-
+    this.boardsService.currentBoard.columns = this.columnsCopy;
     for ( let i = 0; i < columnsContainer.children.length; i++){
-      if (!columnsContainer.children[i].firstChild.firstChild.value){
-        continue
-      }
-      if (!this.boardsService.currentBoard.columns[i]){
+      if (!this.boardsService.currentBoard.columns[i] && columnsContainer.children[i].firstChild.firstChild.value ){
         this.boardsService.currentBoard.columns.push({
           name: columnsContainer.children[i].firstChild.firstChild.value,
           tasks: []
@@ -64,6 +61,8 @@ export class BoardModalFrameComponent implements OnInit {
       }
       this.boardsService.currentBoard.columns[i].name = columnsContainer.children[i].firstChild.firstChild.value
     }
+    this.boardsService.currentBoard.columns = this.boardsService.currentBoard.columns.filter(column => !!column.name)
+    this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
   }
 
