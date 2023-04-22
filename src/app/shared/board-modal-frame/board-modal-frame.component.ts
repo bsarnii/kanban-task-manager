@@ -28,7 +28,7 @@ export class BoardModalFrameComponent implements OnInit {
   @Input() statusValues:any = [];
   @Input() buttonName:string = "";
 
-  name = new FormControl('', Validators.required);
+  name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
   indexes = this.boardsService.indexes;
   columnsCopy:any;
 

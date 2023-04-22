@@ -221,17 +221,16 @@ span{
     .text-input.ng-invalid.ng-touched{
         border: 1px solid $red;
     }
-    &:has(.text-input.ng-invalid.ng-touched){
-        &::after{
-            content:"Can't be empty";
-            display: block;
-            color: $red;
-            position: absolute;
-            top: 1rem;
-            right: .5rem;
-            font-size: 13.3px;
-        }
+    .error-message{
+        position: absolute;
+        display: block;
+        color: $red;
+        position: absolute;
+        top: 1rem;
+        right: .5rem;
+        font-size: 13.3px;
     }
+
 }
 
 .description-input{

@@ -1,7 +1,11 @@
 <h4 class="heading-l">{{modalName}}</h4>
 <form>
     <label class="heading-s" for="title">Board Name</label>
-    <span><input [formControl]="name" class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break"></span>
+    <span>
+        <input [formControl]="name" class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break">
+        <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched) && name.hasError('required')">Can't be empty</div>
+        <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched) && name.hasError('maxlength')">Maximum length reached</div>
+    </span>
     <label class="heading-s" for="columns">Board Columns</label>
     <div #columnsContainer class="columns-container">
         <div *ngFor="let column of columnsCopy; let columnIndex=index" class="column">
