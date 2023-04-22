@@ -17,20 +17,13 @@ export class HeaderComponent {
     public modalShowService: ModalShowService 
     ) {}
 
-    showEditDeleteContainer = false;
-
-
-    openEditDeleteContainer(){
-      this.showEditDeleteContainer = !this.showEditDeleteContainer;
-    }
-
     openEditBoardModal(){
       this.modalShowService.openEditBoardModal();
-      this.showEditDeleteContainer = !this.showEditDeleteContainer;
+      this.modalShowService.closeEditDeleteContainer();
     }
     openDeleteBoardModal(){
-      this.showEditDeleteContainer = !this.showEditDeleteContainer;
       this.modalShowService.openDeleteBoardModal();
+      this.modalShowService.closeEditDeleteContainer();
     }
 
 }

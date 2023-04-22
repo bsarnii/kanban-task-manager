@@ -43,15 +43,23 @@ export class TaskModalFrameComponent implements OnInit {
     //Change subtasks
     this.boardsService.currentTask.subtasks = this.subtasks
     for ( let i = 0; i < subtaskInput.children.length; i++){
-      this.boardsService.currentTask.subtasks[i].title = subtaskInput.children[i].firstChild.firstChild.value
-      if (!this.boardsService.currentTask.subtasks[i].title) {
-        this.boardsService.currentTask.subtasks.splice(i,1)
+      if (!this.boardsService.currentTask.subtasks[i] && subtaskInput.children[i].firstChild.firstChild.value) {
+        this.boardsService.currentTask.subtasks.push({
+          title: subtaskInput.children[i].firstChild.firstChild.value,
+          isCompleted: false,
+        })
+      } else{
+      this.boardsService.currentTask.subtasks[i].title = subtaskInput.children[i].firstChild.firstChild.value;
       }
     }
+    this.boardsService.currentTask.subtasks = this.boardsService.currentTask.subtasks.filter(subtask => !!subtask.title);
     //Change status
-    this.boardsService.currentTask.status = status
-    this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift(this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex]);
-    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
+    if (status !== this.boardsService.currentTask.status){
+      this.boardsService.currentTask.status = status
+      this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift(this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex]);
+      this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
+    }
+
     this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
   }

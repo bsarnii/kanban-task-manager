@@ -18,6 +18,8 @@ export class ModalShowService {
   showDeleteBoardModal = false;
   showCreatedBoardModal = false;
 
+  showEditDeleteContainer = false;
+
   openTaskModal(){
     this.darkBackground = true;
     this.showTaskModal = true;
@@ -47,6 +49,14 @@ export class ModalShowService {
   openCreateBoardModal(){
     this.darkBackground = true;
     this.showCreatedBoardModal = true;
+  }
+
+  onEditDeleteContainerClick(){
+    this.showEditDeleteContainer = !this.showEditDeleteContainer
+  }
+
+  closeEditDeleteContainer(){
+    this.showEditDeleteContainer = false;
   }
 
   closeModal(){

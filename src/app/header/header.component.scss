@@ -19,21 +19,27 @@
     .mobile-logo{
         display: none;
     }
-    h1{
-        padding: 0 1.5rem;
-        position: relative;
-    }
     .line{
         width: 1px;
         height: 5rem;
         background-color: var(--lines);
     }
     button{
-        display: none;
         background-color: transparent;
         border: none;
-        padding: 0 .5rem;
-        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        h1{
+            padding: 0 1.5rem;
+            position: relative;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-weight: 700;
+        }
+        img{
+            display: none;
+        }
     }
 }
 .header-right{
@@ -91,15 +97,17 @@
             display: block;
             padding: 0 1rem;
         }
-        h1{
-            padding: 0 0 0 1rem;
-        }
         .line{
             height: 3rem;
             display: none;
         }
         button{
-            display: block;
+            h1{
+                padding: 0 0 0 1rem;
+            }
+            img{
+                display:block;
+            }
         }
     }
 
