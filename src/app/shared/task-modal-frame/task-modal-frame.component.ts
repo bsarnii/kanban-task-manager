@@ -21,6 +21,7 @@ export class TaskModalFrameComponent implements OnInit {
 
   name = new FormControl('', Validators.required);
   indexes = this.boardsService.indexes;
+  subtaskPlaceholders = ["e.g. Make coffee", "e.g Drink coffee & smile", "e.g. Enjoy your caffeine boost", "e.g. Wash the cup"]
 
   removeSubtask(subtaskIndex:number,event:Event){
     event.preventDefault()
@@ -34,6 +35,7 @@ export class TaskModalFrameComponent implements OnInit {
   saveTask(event:Event, title:string, description:string, status:string, subtaskInput:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
+      this.name.markAsDirty();
       return
     }
     //Change title
@@ -67,6 +69,7 @@ export class TaskModalFrameComponent implements OnInit {
   createTask(event:Event, title:string, description:string, status:string, subtaskInput:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
+      this.name.markAsDirty();
       return
     }
     //Adding value to subtasks variable

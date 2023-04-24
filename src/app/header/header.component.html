@@ -10,7 +10,7 @@
     </button>
 </div>
 <div *ngIf="boardsService.boards.boards.length > 0" class="header-right">
-    <button *ngIf="boardsService.currentBoard.columns.length > 0" (click)="modalShowService.openCreateTaskModal()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
+    <button [disabled]="boardsService.currentBoard.columns.length === 0" (click)="modalShowService.openCreateTaskModal()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
     <button (click)="modalShowService.onEditDeleteContainerClick()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="modalShowService.showEditDeleteContainer" class="edit-delete-container">
         <button (click)="openEditBoardModal()" class="edit-board">Edit Board</button>

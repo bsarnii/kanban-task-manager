@@ -136,7 +136,13 @@ body{
         background-color: $redHover;
     }
 }
-
+button:disabled{
+    opacity: .5;
+    cursor: default;
+    &:hover{
+        background-color: $mainPurple;
+    }
+}
 // FORM CHECKBOX //
 
 .checkbox-container{

@@ -31,6 +31,7 @@ export class BoardModalFrameComponent implements OnInit {
   name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
   indexes = this.boardsService.indexes;
   columnsCopy:any;
+  columnPlaceholders = ["e.g Todo", "e.g Doing", "e.g Done", "e.g Now", "e.g Next", "e.g Later"]
 
   removeColumn(columnIndex:number,event:Event){
     event.preventDefault()
