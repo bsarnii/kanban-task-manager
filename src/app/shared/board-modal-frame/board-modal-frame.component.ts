@@ -48,6 +48,7 @@ export class BoardModalFrameComponent implements OnInit {
   saveBoard(event:Event,columnsContainer:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
+      this.name.markAsDirty();
       return
     }
     //Change title
@@ -70,6 +71,7 @@ export class BoardModalFrameComponent implements OnInit {
   createBoard(event:Event,columnsContainer:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
+      this.name.markAsDirty();
       return
     }
     this.boardsService.boards.boards.unshift({

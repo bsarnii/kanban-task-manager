@@ -9,12 +9,29 @@
     padding: 0 1.5rem;
     position: sticky;
     z-index: 4;
+    transition: margin-left .3s;
+    overflow: auto;
+    scrollbar-color: #635FC7 transparent;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #635FC7;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
 }
-:host[data-opened=true]{
-    display: flex;
-}
+
 :host[data-opened=false]{
-    display: none;
+    display: flex;
+    margin-left: -300px;
 }
 
 .sidebar-top{
@@ -162,6 +179,9 @@
     :host{
         min-width: 260px;
     }
+    :host[data-opened=false]{
+        margin-left: -260px;
+    }
 }
 @media screen and (max-width: 575px){
     :host{
@@ -169,14 +189,13 @@
         top: 5rem;
         left: 50%;
         transform: translateX(-50%);
-        overflow: hidden;
-        justify-content: center;
-        min-height: 0;
-        height: auto;
+        height:auto;
+        max-height: 60%;
         border: none;
         border-radius: 8px;
         box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
         z-index: 5;
+        transition: left .3s;
         .sidebar-top{
             .logo-container{
                 display: none;
@@ -191,5 +210,9 @@
                 display: none;
             }
         }
+    }
+    :host[data-opened=false]{
+        margin-left: 0;
+        left: -100%;
     }
 }
