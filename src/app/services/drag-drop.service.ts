@@ -30,6 +30,9 @@ export class DragDropService {
       e.preventDefault()
       const index = this.boardsService.indexes.taskIndex;
       this.boardsService.currentBoard.columns[this.boardsService.indexes.columnIndex].tasks.splice(index, 1);
+      if (this.dragging) {
+        this.dragging.status = this.boardsService.currentBoard.columns[this.boardsService.indexes.dropColumnIndex].name;
+      }
       this.boardsService.currentBoard.columns[this.boardsService.indexes.dropColumnIndex].tasks.unshift(this.dragging!);
       this.dragging = undefined;
       this.boardsService.setBoards(this.boardsService.boards);
