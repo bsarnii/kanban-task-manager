@@ -14,7 +14,7 @@
     *ngFor="let subtask of boardsService.currentTask.subtasks; let i = index"
     (click)="handleCheckboxClick(i)"
     >
-        <input [checked]="subtask.isCompleted" type="checkbox">
+        <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
         <span class="checkbox-replace"></span>
         {{subtask.title}}
     </div>

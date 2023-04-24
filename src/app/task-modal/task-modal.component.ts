@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BoardsService } from '../services/boards.service';
-import { Boards, Subtask } from '../types/boards.interface';
+import { Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
 
 @Component({

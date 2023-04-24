@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, Validators } from "@angular/forms"
+import { Column } from 'src/app/types/boards.interface';
 
 @Component({
   selector: 'app-board-modal-frame',
@@ -15,7 +16,7 @@ export class BoardModalFrameComponent implements OnInit {
   @Input() modalName:string = "";
   @Input() titleValue:string = "";
   @Input() descriptionValue:string = "";
-  @Input() columns:any = [
+  @Input() columns:Array<Column> = [
     {
     name: "",
     tasks: []
@@ -25,12 +26,12 @@ export class BoardModalFrameComponent implements OnInit {
     tasks: []
     }
   ];
-  @Input() statusValues:any = [];
+  @Input() statusValues:string[] = [];
   @Input() buttonName:string = "";
 
   name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
   indexes = this.boardsService.indexes;
-  columnsCopy:any;
+  columnsCopy!: Array<Column>;
   columnPlaceholders = ["e.g Todo", "e.g Doing", "e.g Done", "e.g Now", "e.g Next", "e.g Later"]
 
   removeColumn(columnIndex:number,event:Event){
@@ -94,6 +95,6 @@ export class BoardModalFrameComponent implements OnInit {
   
   ngOnInit(){
     this.name.setValue(this.titleValue)
-    this.columnsCopy = this.columns.map((column: any) => column)
+    this.columnsCopy = this.columns.map((column: Column) => column)
   }
 }

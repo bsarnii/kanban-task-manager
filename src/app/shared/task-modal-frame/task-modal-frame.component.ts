@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, Validators } from "@angular/forms"
+import { Column, Subtask } from 'src/app/types/boards.interface';
 
 @Component({
   selector: 'app-task-modal-frame',
@@ -15,8 +16,8 @@ export class TaskModalFrameComponent implements OnInit {
   @Input() modalName:string = "";
   @Input() titleValue:string = "";
   @Input() descriptionValue:string = "";
-  @Input() subtasks:any = [];
-  @Input() statusValues:any = [];
+  @Input() subtasks:Array<Subtask> = [];
+  @Input() statusValues:Array<Column> = [];
   @Input() buttonName:string = "";
 
   name = new FormControl('', Validators.required);
@@ -32,7 +33,7 @@ export class TaskModalFrameComponent implements OnInit {
     this.subtasks.push({title:"",isCompleted:false})
   }
   
-  saveTask(event:Event, title:string, description:string, status:string, subtaskInput:any){
+  saveTask(event:Event, title:string, description:string, status:string, subtasksInput:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
@@ -44,14 +45,14 @@ export class TaskModalFrameComponent implements OnInit {
     this.boardsService.currentTask.description = description
     //Change subtasks
     this.boardsService.currentTask.subtasks = this.subtasks
-    for ( let i = 0; i < subtaskInput.children.length; i++){
-      if (!this.boardsService.currentTask.subtasks[i] && subtaskInput.children[i].firstChild.firstChild.value) {
+    for ( let i = 0; i < subtasksInput.children.length; i++){
+      if (!this.boardsService.currentTask.subtasks[i] && subtasksInput.children[i].firstChild.firstChild.value) {
         this.boardsService.currentTask.subtasks.push({
-          title: subtaskInput.children[i].firstChild.firstChild.value,
+          title: subtasksInput.children[i].firstChild.firstChild.value,
           isCompleted: false,
         })
       } else{
-      this.boardsService.currentTask.subtasks[i].title = subtaskInput.children[i].firstChild.firstChild.value;
+      this.boardsService.currentTask.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value;
       }
     }
     this.boardsService.currentTask.subtasks = this.boardsService.currentTask.subtasks.filter(subtask => !!subtask.title);
@@ -66,15 +67,15 @@ export class TaskModalFrameComponent implements OnInit {
     this.modalShowService.closeModal();
   }
 
-  createTask(event:Event, title:string, description:string, status:string, subtaskInput:any){
+  createTask(event:Event, title:string, description:string, status:string, subtasksInput:any){
     event.preventDefault()
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
     }
     //Adding value to subtasks variable
-    for ( let i = 0; i < subtaskInput.children.length; i++){
-      this.subtasks[i].title = subtaskInput.children[i].firstChild.firstChild.value
+    for ( let i = 0; i < subtasksInput.children.length; i++){
+      this.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value
       if (!this.subtasks[i].title) {
         this.subtasks.splice(i,1)
       }

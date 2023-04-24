@@ -224,7 +224,7 @@ span{
             border: 1px solid #635FC7;
         }
     }
-    .text-input.ng-invalid.ng-touched{
+    .text-input.ng-invalid.ng-touched, .text-input.ng-invalid.ng-dirty{
         border: 1px solid $red;
     }
     .error-message{

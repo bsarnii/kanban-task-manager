@@ -20,7 +20,8 @@ export class BoardsService {
     boardIndex: 0,
     columnIndex: 0,
     taskIndex: 0,
-    subtaskIndex: 0
+    subtaskIndex: 0,
+    dropColumnIndex: 0
   }
 
   getOnlyBoards(){
