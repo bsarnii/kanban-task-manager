@@ -16,7 +16,10 @@ export class TaskModalFrameComponent implements OnInit {
   @Input() modalName:string = "";
   @Input() titleValue:string = "";
   @Input() descriptionValue:string = "";
-  @Input() subtasks:Array<Subtask> = [];
+  @Input() subtasks:Array<Subtask> = [
+    {title: "", isCompleted: false},
+    {title: "", isCompleted: false}
+  ];
   @Input() statusValues:Array<Column> = [];
   @Input() buttonName:string = "";
 
@@ -75,11 +78,13 @@ export class TaskModalFrameComponent implements OnInit {
     }
     //Adding value to subtasks variable
     for ( let i = 0; i < subtasksInput.children.length; i++){
-      this.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value
-      if (!this.subtasks[i].title) {
-        this.subtasks.splice(i,1)
+      if (!this.subtasks[i]){
+        this.subtasks[i] = {title:"", isCompleted: false}
       }
+      this.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value;
+      this.subtasks = this.subtasks.filter(subtask => !!subtask.title)
     }
+    this.boardsService.currentTask.subtasks = this.subtasks
     //Find column after status value then create new task
         this.boardsService.currentTask.status = status
         this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift({
@@ -88,6 +93,7 @@ export class TaskModalFrameComponent implements OnInit {
           status: status,
           subtasks: this.subtasks
         })
+    this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
   }
   
