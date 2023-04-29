@@ -3,6 +3,7 @@ import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, Validators } from "@angular/forms"
 import { Column } from 'src/app/types/boards.interface';
+import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
 
 @Component({
   selector: 'app-board-modal-frame',
@@ -11,7 +12,11 @@ import { Column } from 'src/app/types/boards.interface';
 })
 export class BoardModalFrameComponent implements OnInit {
 
-  constructor(public boardsService:BoardsService, public modalShowService:ModalShowService){}
+  constructor(
+    public boardsService:BoardsService,
+    public modalShowService:ModalShowService,
+    public sidebarService:SidebarToggleService
+    ){}
 
   @Input() modalName:string = "";
   @Input() titleValue:string = "";
@@ -89,6 +94,7 @@ export class BoardModalFrameComponent implements OnInit {
         tasks: []
       })
     }
+    this.sidebarService.selectedIndex = 0;
     this.boardsService.setBoards(this.boardsService.boards)
     this.modalShowService.closeModal();
   }
