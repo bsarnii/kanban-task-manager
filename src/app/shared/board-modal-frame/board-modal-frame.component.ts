@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, Validators } from "@angular/forms"
@@ -34,6 +34,8 @@ export class BoardModalFrameComponent implements OnInit {
   @Input() statusValues:string[] = [];
   @Input() buttonName:string = "";
 
+  @ViewChildren('templateColumn') columnChildren!: QueryList<ElementRef<HTMLInputElement>>;
+
   name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
   indexes = this.boardsService.indexes;
   columnsCopy!: Array<Column>;
@@ -51,8 +53,9 @@ export class BoardModalFrameComponent implements OnInit {
     })
   }
   
-  saveBoard(event:Event,columnsContainer:any){
+  saveBoard(event:Event){
     event.preventDefault()
+    const columnArray = this.columnChildren.toArray();
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
@@ -60,22 +63,23 @@ export class BoardModalFrameComponent implements OnInit {
     //Change title
     this.boardsService.currentBoard.name = this.name.value || "";
     this.boardsService.currentBoard.columns = this.columnsCopy;
-    for ( let i = 0; i < columnsContainer.children.length; i++){
-      if (!this.boardsService.currentBoard.columns[i] && columnsContainer.children[i].firstChild.firstChild.value ){
+    for ( let i = 0; i < columnArray.length; i++){
+      if (!this.boardsService.currentBoard.columns[i] && columnArray[i].nativeElement.value ){
         this.boardsService.currentBoard.columns.push({
-          name: columnsContainer.children[i].firstChild.firstChild.value,
+          name: columnArray[i].nativeElement.value,
           tasks: []
         })
       }
-      this.boardsService.currentBoard.columns[i].name = columnsContainer.children[i].firstChild.firstChild.value
+      this.boardsService.currentBoard.columns[i].name = columnArray[i].nativeElement.value
     }
     this.boardsService.currentBoard.columns = this.boardsService.currentBoard.columns.filter(column => !!column.name)
     this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
   }
 
-  createBoard(event:Event,columnsContainer:any){
+  createBoard(event:Event){
     event.preventDefault()
+    const columnArray = this.columnChildren.toArray();
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
@@ -85,12 +89,12 @@ export class BoardModalFrameComponent implements OnInit {
       name: this.name.value || ""
     })
     this.boardsService.currentBoard = this.boardsService.boards.boards[0];
-    for ( let i = 0; i < columnsContainer.children.length; i++){
-      if (!columnsContainer.children[i].firstChild.firstChild.value){
+    for ( let i = 0; i < columnArray.length; i++){
+      if (!columnArray[i].nativeElement.value){
         continue
       }
       this.boardsService.currentBoard.columns.push({
-        name: columnsContainer.children[i].firstChild.firstChild.value,
+        name: columnArray[i].nativeElement.value,
         tasks: []
       })
     }

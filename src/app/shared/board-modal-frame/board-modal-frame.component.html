@@ -7,13 +7,13 @@
         <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched) && name.hasError('maxlength')">Maximum length reached</div>
     </span>
     <label class="heading-s" for="columns">Board Columns</label>
-    <div #columnsContainer class="columns-container">
+    <div class="columns-container">
         <div *ngFor="let column of columnsCopy; let columnIndex=index" class="column">
-            <span><input class="text-input" type="text" [value]="column.name" [placeholder]="columnPlaceholders[columnIndex] || 'e.g Todo'"></span>
+            <span><input #templateColumn class="text-input" type="text" [value]="column.name" [placeholder]="columnPlaceholders[columnIndex] || 'e.g Todo'"></span>
             <button (click)="removeColumn(columnIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
         </div>
     </div>
     <button (click)="addNewColumn($event)" class="btn button-secondary">+ Add new Column</button>
-    <button *ngIf="modalName === 'Add New Board' " (click)="createBoard($event, columnsContainer)" class="btn button-primary-s submit">Create New Board</button>
-    <button *ngIf="modalName === 'Edit Board' " (click)="saveBoard($event, columnsContainer)" class="btn button-primary-s submit">Save Changes</button>
+    <button *ngIf="modalName === 'Add New Board' " (click)="createBoard($event)" class="btn button-primary-s submit">Create New Board</button>
+    <button *ngIf="modalName === 'Edit Board' " (click)="saveBoard($event)" class="btn button-primary-s submit">Save Changes</button>
 </form>

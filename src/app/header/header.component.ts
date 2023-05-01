@@ -26,4 +26,9 @@ export class HeaderComponent {
       this.modalShowService.closeEditDeleteContainer();
     }
 
+    handleAddNewTask(){
+      this.boardsService.currentTask.status = "";
+      this.modalShowService.openCreateTaskModal();
+    }
+
 }

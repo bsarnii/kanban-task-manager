@@ -10,9 +10,9 @@
     <label class="heading-s" for="description">Description</label>
     <textarea #description class="description-input" name="description" id="description" [value]="descriptionValue" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
     <label class="heading-s" for="subtasks">Subtasks</label>
-    <div #subtasksInput class="subtask-container">
+    <div class="subtask-container">
         <div *ngFor="let subtask of subtasks; let subtaskIndex = index" class="subtask">
-            <span><input [value]="subtask.title" class="text-input" type="text" [placeholder]="subtaskPlaceholders[subtaskIndex] || 'e.g. Make coffee'"></span>
+            <span><input #templateSubtask [value]="subtask.title" class="text-input" type="text" [placeholder]="subtaskPlaceholders[subtaskIndex] || 'e.g. Make coffee'"></span>
             <button (click)="removeSubtask(subtaskIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
         </div>
     </div>
@@ -25,6 +25,6 @@
         >
             {{value.name}}</option>
     </select>
-    <button *ngIf="modalName === 'Edit Task'" (click)="saveTask($event, title.value, description.value, status.value, subtasksInput)" class="btn button-primary-s submit">Save Changes</button>
-    <button *ngIf="modalName === 'Add New Task'" (click)="createTask($event, title.value, description.value, status.value, subtasksInput)" class="btn button-primary-s submit">Create Task</button>
+    <button *ngIf="modalName === 'Edit Task'" (click)="saveTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Save Changes</button>
+    <button *ngIf="modalName === 'Add New Task'" (click)="createTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Create Task</button>
 </form>

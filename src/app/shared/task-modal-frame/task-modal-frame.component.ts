@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, Validators } from "@angular/forms"
@@ -23,9 +23,12 @@ export class TaskModalFrameComponent implements OnInit {
   @Input() statusValues:Array<Column> = [];
   @Input() buttonName:string = "";
 
+  @ViewChildren('templateSubtask') subtasksInputChildren!: QueryList<ElementRef<HTMLInputElement>>;
+
   name = new FormControl('', Validators.required);
   indexes = this.boardsService.indexes;
   subtaskPlaceholders = ["e.g. Make coffee", "e.g Drink coffee & smile", "e.g. Enjoy your caffeine boost", "e.g. Wash the cup"]
+
 
   removeSubtask(subtaskIndex:number,event:Event){
     event.preventDefault()
@@ -36,8 +39,9 @@ export class TaskModalFrameComponent implements OnInit {
     this.subtasks.push({title:"",isCompleted:false})
   }
   
-  saveTask(event:Event, title:string, description:string, status:string, subtasksInput:any){
+  saveTask(event:Event, title:string, description:string, status:string){
     event.preventDefault()
+    const subtasksArray = this.subtasksInputChildren.toArray()
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
@@ -47,17 +51,17 @@ export class TaskModalFrameComponent implements OnInit {
     //Change description
     this.boardsService.currentTask.description = description
     //Change subtasks
-    this.boardsService.currentTask.subtasks = this.subtasks
-    for ( let i = 0; i < subtasksInput.children.length; i++){
-      if (!this.boardsService.currentTask.subtasks[i] && subtasksInput.children[i].firstChild.firstChild.value) {
-        this.boardsService.currentTask.subtasks.push({
-          title: subtasksInput.children[i].firstChild.firstChild.value,
+    for ( let i = 0; i < subtasksArray.length; i++){
+      if (!this.subtasks[i] && subtasksArray[i].nativeElement.value) {
+        this.subtasks.push({
+          title: subtasksArray[i].nativeElement.value,
           isCompleted: false,
         })
       } else{
-      this.boardsService.currentTask.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value;
+      this.subtasks[i].title = subtasksArray[i].nativeElement.value;
       }
     }
+    this.boardsService.currentTask.subtasks = this.subtasks
     this.boardsService.currentTask.subtasks = this.boardsService.currentTask.subtasks.filter(subtask => !!subtask.title);
     //Change status
     if (status !== this.boardsService.currentTask.status){
@@ -70,14 +74,25 @@ export class TaskModalFrameComponent implements OnInit {
     this.modalShowService.closeModal();
   }
 
-  createTask(event:Event, title:string, description:string, status:string, subtasksInput:any){
+  createTask(event:Event, title:string, description:string, status:string){
     event.preventDefault()
+    const subtasksArray = this.subtasksInputChildren.toArray()
+    console.log(this.subtasksInputChildren)
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
     }
     //Adding value to subtasks variable
-    for ( let i = 0; i < subtasksInput.children.length; i++){
+      for ( let i = 0; i < subtasksArray.length; i++){
+      if (!this.subtasks[i]){
+        this.subtasks[i] = {title:"", isCompleted: false}
+      }
+      console.log(subtasksArray[i].nativeElement.value)
+      this.subtasks[i].title = subtasksArray[i].nativeElement.value;
+      this.subtasks = this.subtasks.filter(subtask => !!subtask.title)
+    }
+    this.boardsService.currentTask.subtasks = this.subtasks
+    /*for ( let i = 0; i < subtasksInput.children.length; i++){
       if (!this.subtasks[i]){
         this.subtasks[i] = {title:"", isCompleted: false}
       }
@@ -85,6 +100,7 @@ export class TaskModalFrameComponent implements OnInit {
       this.subtasks = this.subtasks.filter(subtask => !!subtask.title)
     }
     this.boardsService.currentTask.subtasks = this.subtasks
+    */
     //Find column after status value then create new task
         this.boardsService.currentTask.status = status
         this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift({
