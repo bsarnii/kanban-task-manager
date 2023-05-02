@@ -61,8 +61,7 @@ export class TaskModalFrameComponent implements OnInit {
       this.subtasks[i].title = subtasksArray[i].nativeElement.value;
       }
     }
-    this.boardsService.currentTask.subtasks = this.subtasks
-    this.boardsService.currentTask.subtasks = this.boardsService.currentTask.subtasks.filter(subtask => !!subtask.title);
+    this.boardsService.currentTask.subtasks = this.subtasks.filter(subtask => !!subtask.title);
     //Change status
     if (status !== this.boardsService.currentTask.status){
       this.boardsService.currentTask.status = status
@@ -77,7 +76,6 @@ export class TaskModalFrameComponent implements OnInit {
   createTask(event:Event, title:string, description:string, status:string){
     event.preventDefault()
     const subtasksArray = this.subtasksInputChildren.toArray()
-    console.log(this.subtasksInputChildren)
     if (this.name.status === "INVALID"){
       this.name.markAsDirty();
       return
@@ -87,27 +85,15 @@ export class TaskModalFrameComponent implements OnInit {
       if (!this.subtasks[i]){
         this.subtasks[i] = {title:"", isCompleted: false}
       }
-      console.log(subtasksArray[i].nativeElement.value)
       this.subtasks[i].title = subtasksArray[i].nativeElement.value;
-      this.subtasks = this.subtasks.filter(subtask => !!subtask.title)
     }
-    this.boardsService.currentTask.subtasks = this.subtasks
-    /*for ( let i = 0; i < subtasksInput.children.length; i++){
-      if (!this.subtasks[i]){
-        this.subtasks[i] = {title:"", isCompleted: false}
-      }
-      this.subtasks[i].title = subtasksInput.children[i].firstChild.firstChild.value;
-      this.subtasks = this.subtasks.filter(subtask => !!subtask.title)
-    }
-    this.boardsService.currentTask.subtasks = this.subtasks
-    */
+
     //Find column after status value then create new task
-        this.boardsService.currentTask.status = status
         this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift({
           title: title,
           description: description,
           status: status,
-          subtasks: this.subtasks
+          subtasks: this.subtasks.filter(subtask => !!subtask.title)
         })
     this.boardsService.setBoards(this.boardsService.boards);
     this.modalShowService.closeModal();
