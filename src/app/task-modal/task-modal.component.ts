@@ -9,7 +9,7 @@ import { ModalShowService } from '../services/modal-show.service';
   styleUrls: ['./task-modal.component.scss']
 })
 export class TaskModalComponent {
-value: any;
+
 
   constructor(
     public boardsService: BoardsService,

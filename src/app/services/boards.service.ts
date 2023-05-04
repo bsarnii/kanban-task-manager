@@ -9,7 +9,6 @@ export class BoardsService {
   constructor() { }
 
   boards!:Boards;
-  copyBoards!:Boards;
   currentBoard!:Board
   currentTask:Task = {description: "string",
     status: "string",
@@ -24,12 +23,8 @@ export class BoardsService {
     dropColumnIndex: 0
   }
 
-  getOnlyBoards(){
-    this.boards =JSON.parse(localStorage['boards'])
-  }
   getBoards(){
     this.boards =JSON.parse(localStorage['boards'])
-    this.copyBoards = JSON.parse(localStorage['boards']);
   }
 
   setBoards(boards:Boards){
