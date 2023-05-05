@@ -33,7 +33,7 @@ export class DragDropService {
       if (this.dragging) {
         this.dragging.status = this.boardsService.currentBoard.columns[this.boardsService.indexes.dropColumnIndex].name;
       }
-      this.boardsService.currentBoard.columns[this.boardsService.indexes.dropColumnIndex].tasks.unshift(this.dragging!);
+      this.boardsService.currentBoard.columns[this.boardsService.indexes.dropColumnIndex].tasks.splice(this.boardsService.indexes.dropTaskIndex,0,this.dragging!)
       this.dragging = undefined;
       this.boardsService.setBoards(this.boardsService.boards);
     }

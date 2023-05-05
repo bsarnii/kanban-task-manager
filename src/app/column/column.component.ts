@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, ElementRef, Input, QueryList, ViewChildren} from '@angular/core';
 import { Task, Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
 import { BoardsService } from '../services/boards.service';
@@ -42,8 +42,19 @@ export class ColumnComponent{
     this.dragDropService.dragStart(e,item);
   }
 
-  onDrop(e:DragEvent){
+  getDragOverTaskIndex(index:number){
+    this.boardsService.indexes.dropTaskIndex = index;
+  }
+  onParentDragOver(e:DragEvent){
     this.boardsService.indexes.dropColumnIndex = this.columnIndex;
+    this.dragDropService.dragOver(e);
+  }
+
+  onDrop(e:DragEvent){
     this.dragDropService.drop(e)
+  }
+
+  onDragEnd(e:DragEvent, task: Task){
+    this.dragDropService.dragEnd(e,task)
   }
 }

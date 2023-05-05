@@ -2,8 +2,8 @@
     <span [style.background-color]="color"></span>
     <h2 class="heading-s">{{columnName | uppercase}} ({{taskNumber}})</h2>
 </div>
-<div (dragover)="dragDropService.dragOver($event)" (drop)="onDrop($event)" class="column-body">
-    <div draggable="true" (dragstart)="onDragStart($event, task, i)" (dragend)="dragDropService.dragEnd($event,task)" *ngFor="let task of tasks; let i = index" class="task" (click)="onTaskClick(i)">
+<div (dragover)="onParentDragOver($event)" (drop)="onDrop($event)" class="column-body">
+    <div (dragover)="getDragOverTaskIndex(i)"  draggable="true" (dragstart)="onDragStart($event, task, i)" (dragend)="dragDropService.dragEnd($event,task)" *ngFor="let task of tasks; let i = index" class="task" (click)="onTaskClick(i)">
         <h3 class="heading-m">{{task.title}}</h3>
         <p class="body-m">{{filterCompletedTasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
     </div>
