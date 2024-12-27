@@ -3,12 +3,13 @@ import { Task, Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
 import { BoardsService } from '../services/boards.service';
 import { DragDropService } from '../services/drag-drop.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-column',
     templateUrl: './column.component.html',
     styleUrls: ['./column.component.scss'],
-    standalone: false
+    imports: [CommonModule]
 })
 export class ColumnComponent{
 

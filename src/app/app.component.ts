@@ -4,12 +4,23 @@ import data from '../assets/data.json';
 import { BoardsService } from './services/boards.service';
 import { ModalShowService } from './services/modal-show.service';
 import { ColorThemeService } from './services/color-theme.service';
+import { CommonModule } from '@angular/common';
+import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal-frame.component';
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { HeaderComponent } from "./header/header.component";
+import { MainComponent } from "./main/main.component";
+import { TaskModalComponent } from "./task-modal/task-modal.component";
+import { EditTaskModalComponent } from "./edit-task-modal/edit-task-modal.component";
+import { CreateTaskModalComponent } from "./create-task-modal/create-task-modal.component";
+import { ConfirmDeleteBoardComponent } from "./confirm-delete-board/confirm-delete-board.component";
+import { ConfirmDeleteTaskComponent } from "./confirm-delete-task/confirm-delete-task.component";
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [CommonModule, BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, EditTaskModalComponent, CreateTaskModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
+    standalone: true
 })
 export class AppComponent implements OnInit {
 

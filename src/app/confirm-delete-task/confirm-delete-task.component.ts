@@ -6,8 +6,7 @@ import { SidebarToggleService } from '../services/sidebar-toggle.service';
 @Component({
     selector: 'app-confirm-delete-task',
     templateUrl: './confirm-delete-task.component.html',
-    styleUrls: ['./confirm-delete-task.component.scss'],
-    standalone: false
+    styleUrls: ['./confirm-delete-task.component.scss']
 })
 export class ConfirmDeleteTaskComponent {
   constructor(
