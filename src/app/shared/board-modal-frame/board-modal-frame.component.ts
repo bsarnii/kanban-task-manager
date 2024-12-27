@@ -6,9 +6,10 @@ import { Column } from 'src/app/types/boards.interface';
 import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
 
 @Component({
-  selector: 'app-board-modal-frame',
-  templateUrl: './board-modal-frame.component.html',
-  styleUrls: ['./board-modal-frame.component.scss']
+    selector: 'app-board-modal-frame',
+    templateUrl: './board-modal-frame.component.html',
+    styleUrls: ['./board-modal-frame.component.scss'],
+    standalone: false
 })
 export class BoardModalFrameComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import { BoardsService } from '../services/boards.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
 
 @Component({
-  selector: 'app-confirm-delete-board',
-  templateUrl: './confirm-delete-board.component.html',
-  styleUrls: ['./confirm-delete-board.component.scss']
+    selector: 'app-confirm-delete-board',
+    templateUrl: './confirm-delete-board.component.html',
+    styleUrls: ['./confirm-delete-board.component.scss'],
+    standalone: false
 })
 export class ConfirmDeleteBoardComponent {
   constructor(

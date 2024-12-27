@@ -5,9 +5,10 @@ import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent {
   constructor(

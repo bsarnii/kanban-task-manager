@@ -5,9 +5,10 @@ import { FormControl, Validators } from "@angular/forms"
 import { Column, Subtask } from 'src/app/types/boards.interface';
 
 @Component({
-  selector: 'app-task-modal-frame',
-  templateUrl: './task-modal-frame.component.html',
-  styleUrls: ['./task-modal-frame.component.scss']
+    selector: 'app-task-modal-frame',
+    templateUrl: './task-modal-frame.component.html',
+    styleUrls: ['./task-modal-frame.component.scss'],
+    standalone: false
 })
 export class TaskModalFrameComponent implements OnInit {
 

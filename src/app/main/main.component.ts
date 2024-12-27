@@ -3,9 +3,10 @@ import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: false
 })
 export class MainComponent {
   constructor(public boardsService: BoardsService,public modalShowService:ModalShowService){}

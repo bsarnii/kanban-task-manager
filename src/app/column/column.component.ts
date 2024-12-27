@@ -5,9 +5,10 @@ import { BoardsService } from '../services/boards.service';
 import { DragDropService } from '../services/drag-drop.service';
 
 @Component({
-  selector: 'app-column',
-  templateUrl: './column.component.html',
-  styleUrls: ['./column.component.scss']
+    selector: 'app-column',
+    templateUrl: './column.component.html',
+    styleUrls: ['./column.component.scss'],
+    standalone: false
 })
 export class ColumnComponent{
 
