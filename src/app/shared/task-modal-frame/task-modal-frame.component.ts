@@ -3,13 +3,13 @@ import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Column, Subtask } from 'src/app/types/boards.interface';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-task-modal-frame',
     templateUrl: './task-modal-frame.component.html',
     styleUrls: ['./task-modal-frame.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class TaskModalFrameComponent implements OnInit {
 

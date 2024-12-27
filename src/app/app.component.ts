@@ -4,7 +4,7 @@ import data from '../assets/data.json';
 import { BoardsService } from './services/boards.service';
 import { ModalShowService } from './services/modal-show.service';
 import { ColorThemeService } from './services/color-theme.service';
-import { CommonModule } from '@angular/common';
+
 import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal-frame.component';
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { HeaderComponent } from "./header/header.component";
@@ -19,7 +19,7 @@ import { ConfirmDeleteTaskComponent } from "./confirm-delete-task/confirm-delete
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    imports: [CommonModule, BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, EditTaskModalComponent, CreateTaskModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
+    imports: [BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, EditTaskModalComponent, CreateTaskModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
     standalone: true
 })
 export class AppComponent implements OnInit {

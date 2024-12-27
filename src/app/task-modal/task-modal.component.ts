@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { BoardsService } from '../services/boards.service';
 import { Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-task-modal',
     templateUrl: './task-modal.component.html',
     styleUrls: ['./task-modal.component.scss'],
-    imports: [CommonModule]
+    imports: []
 })
 export class TaskModalComponent {
 

@@ -1,32 +1,36 @@
 <div class="modal-head">
-    <h4 class="heading-l">{{boardsService.currentTask.title}}</h4>
-    <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
-    <div *ngIf="showEditDeleteContainer" class="edit-delete-container">
-        <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
-        <button (click)="openDeleteTaskModal()" class="delete-task">Delete Task</button>
+  <h4 class="heading-l">{{boardsService.currentTask.title}}</h4>
+  <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+  @if (showEditDeleteContainer) {
+    <div class="edit-delete-container">
+      <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
+      <button (click)="openDeleteTaskModal()" class="delete-task">Delete Task</button>
     </div>
+  }
 </div>
 <p class="body-l">{{boardsService.currentTask.description}}</p>
 <h5 class="heading-s">Subtasks({{filterCompletedTasks(boardsService.currentTask.subtasks)}} of {{boardsService.currentTask.subtasks.length}})</h5>
 <div class="subtask-container">
-    <div 
-    class="checkbox-container" 
-    *ngFor="let subtask of boardsService.currentTask.subtasks; let i = index"
-    (click)="handleCheckboxClick(i)"
-    >
-        <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
-        <span class="checkbox-replace"></span>
-        {{subtask.title}}
+  @for (subtask of boardsService.currentTask.subtasks; let i = $index; track i) {
+    <div
+      class="checkbox-container"
+      (click)="handleCheckboxClick(i)"
+      >
+      <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
+      <span class="checkbox-replace"></span>
+      {{subtask.title}}
     </div>
+  }
 </div>
 <div class="status-container">
-    <label class="heading-s">Current Status</label>
-    <select #status (change)="changeStatus(status.value)" name="status" id="status-select" class="select">
-        <option 
-        *ngFor="let column of boardsService.currentBoard.columns" 
+  <label class="heading-s">Current Status</label>
+  <select #status (change)="changeStatus(status.value)" name="status" id="status-select" class="select">
+    @for (column of boardsService.currentBoard.columns; track $index) {
+      <option
         value={{column.name}}
         [selected]="column.name == boardsService.currentTask.status">
         {{column.name}}
-        </option>
-    </select>
+      </option>
+    }
+  </select>
 </div>

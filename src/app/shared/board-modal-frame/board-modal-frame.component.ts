@@ -4,13 +4,13 @@ import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Column } from 'src/app/types/boards.interface';
 import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-board-modal-frame',
     templateUrl: './board-modal-frame.component.html',
     styleUrls: ['./board-modal-frame.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class BoardModalFrameComponent implements OnInit {
 

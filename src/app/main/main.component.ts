@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 import { ColumnComponent } from "../column/column.component";
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss'],
-    imports: [CommonModule, ColumnComponent]
+    imports: [ColumnComponent]
 })
 export class MainComponent {
   constructor(public boardsService: BoardsService,public modalShowService:ModalShowService){}
