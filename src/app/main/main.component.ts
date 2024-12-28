@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
+import { ColumnComponent } from "../column/column.component";
+
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    imports: [ColumnComponent]
 })
 export class MainComponent {
   constructor(public boardsService: BoardsService,public modalShowService:ModalShowService){}

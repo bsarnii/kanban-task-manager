@@ -4,10 +4,12 @@ import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 
+
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    imports: []
 })
 export class SidebarComponent {
   constructor (

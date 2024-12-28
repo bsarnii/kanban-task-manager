@@ -1,30 +1,40 @@
 <h4 class="heading-l">
-    {{modalName}}
+  {{modalName}}
 </h4>
 <form>
-    <label class="heading-s" for="title">Title</label>
-    <span>
-        <input [formControl]="name" #title class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break">
-        <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched) && name.hasError('required')">Can't be empty</div>
-    </span>
-    <label class="heading-s" for="description">Description</label>
-    <textarea #description class="description-input" name="description" id="description" [value]="descriptionValue" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
-    <label class="heading-s" for="subtasks">Subtasks</label>
-    <div class="subtask-container">
-        <div *ngFor="let subtask of subtasks; let subtaskIndex = index" class="subtask">
-            <span><input #templateSubtask [value]="subtask.title" class="text-input" type="text" [placeholder]="subtaskPlaceholders[subtaskIndex] || 'e.g. Make coffee'"></span>
-            <button (click)="removeSubtask(subtaskIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
-        </div>
-    </div>
-    <button (click)="addNewSubtask($event)" class="btn button-secondary add-new-subtask">+ Add new Subtask</button>
-    <label class="heading-s status-label">Status</label>
-    <select #status class="select" name="status">
-        <option *ngFor="let value of statusValues"
+  <label class="heading-s" for="title">Title</label>
+  <span>
+    <input [formControl]="name" #title class="text-input title-input" name="title" id="title" type="text" [value]="titleValue" placeholder="e.g. Take coffe break">
+    @if (name.invalid && (name.dirty || name.touched) && name.hasError('required')) {
+      <div class="error-message">Can't be empty</div>
+    }
+  </span>
+  <label class="heading-s" for="description">Description</label>
+  <textarea #description class="description-input" name="description" id="description" [value]="descriptionValue" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
+  <label class="heading-s" for="subtasks">Subtasks</label>
+  <div class="subtask-container">
+    @for (subtask of subtasks; let subtaskIndex = $index; track subtaskIndex) {
+      <div class="subtask">
+        <span><input #templateSubtask [value]="subtask.title" class="text-input" type="text" [placeholder]="subtaskPlaceholders[subtaskIndex] || 'e.g. Make coffee'"></span>
+        <button (click)="removeSubtask(subtaskIndex,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
+      </div>
+    }
+  </div>
+  <button (click)="addNewSubtask($event)" class="btn button-secondary add-new-subtask">+ Add new Subtask</button>
+  <label class="heading-s status-label">Status</label>
+  <select #status class="select" name="status">
+    @for (value of statusValues; track $index) {
+      <option
         [value]="value.name"
         [selected]="value.name == boardsService.currentTask.status"
         >
-            {{value.name}}</option>
-    </select>
-    <button *ngIf="modalName === 'Edit Task'" (click)="saveTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Save Changes</button>
-    <button *ngIf="modalName === 'Add New Task'" (click)="createTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Create Task</button>
+      {{value.name}}</option>
+    }
+  </select>
+  @if (modalName === 'Edit Task') {
+    <button (click)="saveTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Save Changes</button>
+  }
+  @if (modalName === 'Add New Task') {
+    <button (click)="createTask($event, title.value, description.value, status.value)" class="btn button-primary-s submit">Create Task</button>
+  }
 </form>

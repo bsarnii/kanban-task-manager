@@ -3,10 +3,12 @@ import { BoardsService } from '../services/boards.service';
 import { Subtask } from '../types/boards.interface';
 import { ModalShowService } from '../services/modal-show.service';
 
+
 @Component({
-  selector: 'app-task-modal',
-  templateUrl: './task-modal.component.html',
-  styleUrls: ['./task-modal.component.scss']
+    selector: 'app-task-modal',
+    templateUrl: './task-modal.component.html',
+    styleUrls: ['./task-modal.component.scss'],
+    imports: []
 })
 export class TaskModalComponent {
 

@@ -3,11 +3,13 @@ import { ColorThemeService } from '../services/color-theme.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [CommonModule]
 })
 export class HeaderComponent {
   constructor(
