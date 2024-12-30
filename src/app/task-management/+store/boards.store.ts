@@ -21,16 +21,41 @@ const initialState: BoardsState = {
  export const BoardsStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store) => ({
-        loadBoards: () => {
-            const localStorageBoards = localStorage['boards'];
-            if(localStorageBoards) {
-                patchState(store, () => ({ loading: true }));
-                patchState(store, (state) => ({ boards: [...state.boards, ...JSON.parse(localStorage['boards']).boards ]}));
-                patchState(store, () => ({ loading: false, loaded: true }));
+    withMethods((store) => {
+        const saveToLocalStorage = () => {
+            localStorage.setItem('boards', JSON.stringify({ boards: store.boards() }));
+        };
+        return {
+            loadBoards: () => {
+                const localStorageBoards = localStorage['boards'];
+                if(localStorageBoards) {
+                    patchState(store, () => ({ loading: true }));
+                    patchState(store, (state) => ({ boards: [...state.boards, ...JSON.parse(localStorage['boards']).boards ]}));
+                    patchState(store, () => ({ loading: false, loaded: true }));
+                }
+            },
+            addBoard: (board: Board) => {
+                patchState(store, (state) => ({ boards: [...state.boards, board] }));
+                saveToLocalStorage();
+            },
+            editBoard: (editedBoard: Board) => {
+                patchState(store, (state) => ({ boards: state.boards.map(board => {
+                    if(board.name === editedBoard.name) {
+                        return editedBoard;
+                    }
+                    return board;
+                }) }));
+                saveToLocalStorage();
+            },
+            deleteBoard: (boardToBeDeleted: Board) => {
+                patchState(store, (state) => ({ boards: state.boards.filter(board => board.name !== boardToBeDeleted.name) }))
+                saveToLocalStorage();
+            },
+            setActiveBoard: (board: Board) => {
+                patchState(store, () => ({ currentBoard: board }));
             }
-        }
-    })),
+    }
+    }),
     withHooks({
         onInit(store) {
             store.loadBoards();
