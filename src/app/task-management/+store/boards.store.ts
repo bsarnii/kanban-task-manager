@@ -1,19 +1,18 @@
-import { computed } from '@angular/core';
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
 import { Board, Task } from '../../types/boards.interface';
 
 type BoardsState = { 
     boards: Board[],
-    currentBoard: Board | null,
-    currentTask: Task | null,
+    activeBoard: Board | null,
+    activeTask: Task | null,
     loading: boolean,
     loaded: boolean
 };
 
 const initialState: BoardsState = {
     boards: [],
-    currentBoard: null,
-    currentTask : null,
+    activeBoard: null,
+    activeTask : null,
     loading: false,
     loaded: false
  };
@@ -52,9 +51,61 @@ const initialState: BoardsState = {
                 saveToLocalStorage();
             },
             setActiveBoard: (board: Board) => {
-                patchState(store, () => ({ currentBoard: board }));
+                patchState(store, () => ({ activeBoard: board }));
+            },
+            //Task methods
+            //TODO: Move tasks to a different store
+            addTask: (task: Task, status:string) => {
+                patchState(store, (state) => ({ boards: state.boards.map(board => {
+                    if(board.name === state.activeBoard?.name) {
+                        return { ...board, columns: board.columns.map(col => {
+                            if(col.name === status) {
+                                return { ...col, tasks: [...col.tasks, task] };
+                            }
+                            return col;
+                        }) };
+                    }
+                    return board;
+                }) }));
+                saveToLocalStorage();
+            },
+            editTask: (editedTask: Task, status: string) => {
+                patchState(store, (state) => ({ boards: state.boards.map(board => {
+                    if(board.name === state.activeBoard?.name) {
+                        return { ...board, columns: board.columns.map(col => {
+                            if(col.name === status) {
+                                return { ...col, tasks: col.tasks.map(task => {
+                                    if(task.title === editedTask.title) {
+                                        return editedTask;
+                                    }
+                                    return task;
+                                }) };
+                            }
+                            return col;
+                        }) };
+                    }
+                    return board;
+                }) }));
+                saveToLocalStorage();
+            },
+            deleteTask: (taskToBeDeleted: Task, status: string) => {
+                patchState(store, (state) => ({ boards: state.boards.map(board => {
+                    if(board.name === state.activeBoard?.name) {
+                        return { ...board, columns: board.columns.map(col => {
+                            if(col.name === status) {
+                                return { ...col, tasks: col.tasks.filter(task => task.title !== taskToBeDeleted.title) };
+                            }
+                            return col;
+                        }) };
+                    }
+                    return board;
+                }) }));
+                saveToLocalStorage();
+            },
+            setActiveTask: (task: Task) => {
+                patchState(store, () => ({ activeTask: task }));
             }
-    }
+        }
     }),
     withHooks({
         onInit(store) {
