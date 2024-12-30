@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
     public modalShowService: ModalShowService,
     public colorThemeService:ColorThemeService
     ) {
-      if (localStorage.getItem("boards") === null){
+      /*if (localStorage.getItem("boards") === null){
         boardsService.setBoards(data)
-      }
+      }*/
       boardsService.getBoards();
       boardsService.setCurrentBoard(boardsService.boards.boards[0])
       if (localStorage.getItem("lightMode") === null){

@@ -25,7 +25,12 @@ export class BoardsService {
   }
 
   getBoards(){
-    this.boards =JSON.parse(localStorage['boards'])
+    const localStorageBoards = localStorage['boards'];
+    if (localStorageBoards){
+      this.boards = JSON.parse(localStorageBoards)
+    } else {
+      this.boards = {boards: []}
+    }
   }
 
   setBoards(boards:Boards){
