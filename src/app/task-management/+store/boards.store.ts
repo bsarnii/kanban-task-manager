@@ -39,25 +39,25 @@ const initialState: BoardsState = {
             },
             editBoard: (editedBoard: Board) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.name === editedBoard.name) {
+                    if(board.id === editedBoard.id) {
                         return editedBoard;
                     }
                     return board;
                 }) }));
                 saveToLocalStorage();
             },
-            deleteBoard: (boardToBeDeleted: Board) => {
-                patchState(store, (state) => ({ boards: state.boards.filter(board => board.name !== boardToBeDeleted.name) }))
+            deleteBoard: (id: string) => {
+                patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
                 saveToLocalStorage();
             },
-            setActiveBoard: (board: Board) => {
-                patchState(store, () => ({ activeBoard: board }));
+            setActiveBoard: (id: string) => {
+                patchState(store, (state) => ({ activeBoard: state.boards.find(board => board.id === id) || null }) );
             },
             //Task methods
             //TODO: Move tasks to a different store
             addTask: (task: Task, status:string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.name === state.activeBoard?.name) {
+                    if(board.id === state.activeBoard?.id) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: [...col.tasks, task] };
@@ -71,7 +71,7 @@ const initialState: BoardsState = {
             },
             editTask: (editedTask: Task, status: string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.name === state.activeBoard?.name) {
+                    if(board.id === state.activeBoard?.id) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: col.tasks.map(task => {
@@ -90,7 +90,7 @@ const initialState: BoardsState = {
             },
             deleteTask: (taskToBeDeleted: Task, status: string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.name === state.activeBoard?.name) {
+                    if(board.id === state.activeBoard?.id) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: col.tasks.filter(task => task.title !== taskToBeDeleted.title) };

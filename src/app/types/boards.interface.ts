@@ -4,6 +4,7 @@ export interface Boards{
 }
 
 export interface Board{
+    id: string
     columns: Array<Column>
     name: string
 }
