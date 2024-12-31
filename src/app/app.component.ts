@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
 import data from '../assets/data.json';
-import { BoardsService } from './services/boards.service';
 import { ModalShowService } from './services/modal-show.service';
 import { ColorThemeService } from './services/color-theme.service';
 
@@ -14,6 +13,7 @@ import { EditTaskModalComponent } from "./edit-task-modal/edit-task-modal.compon
 import { CreateTaskModalComponent } from "./create-task-modal/create-task-modal.component";
 import { ConfirmDeleteBoardComponent } from "./confirm-delete-board/confirm-delete-board.component";
 import { ConfirmDeleteTaskComponent } from "./confirm-delete-task/confirm-delete-task.component";
+import { BoardsStore } from './task-management/+store/boards.store';
 
 @Component({
     selector: 'app-root',
@@ -26,20 +26,18 @@ export class AppComponent implements OnInit {
 
   constructor (
     public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
     public modalShowService: ModalShowService,
     public colorThemeService:ColorThemeService
     ) {
       /*if (localStorage.getItem("boards") === null){
         boardsService.setBoards(data)
       }*/
-      boardsService.getBoards();
-      boardsService.setCurrentBoard(boardsService.boards.boards[0])
       if (localStorage.getItem("lightMode") === null){
         colorThemeService.setTheme("false");
       }
       colorThemeService.getTheme();
     }
+    boardsStore = inject(BoardsStore);
     
   ngOnInit(){
     if (window.innerWidth <= 575){

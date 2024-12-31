@@ -1,9 +1,10 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Column } from 'src/app/types/boards.interface';
 import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
+import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class BoardModalFrameComponent implements OnInit {
     public modalShowService:ModalShowService,
     public sidebarService:SidebarToggleService
     ){}
+  
+  boardsStore = inject(BoardsStore)
 
   @Input() modalName:string = "";
   @Input() titleValue:string = "";
@@ -63,19 +66,21 @@ export class BoardModalFrameComponent implements OnInit {
       return
     }
     //Change title
-    this.boardsService.currentBoard.name = this.name.value || "";
-    this.boardsService.currentBoard.columns = this.columnsCopy;
-    for ( let i = 0; i < columnArray.length; i++){
-      if (!this.boardsService.currentBoard.columns[i] && columnArray[i].nativeElement.value ){
-        this.boardsService.currentBoard.columns.push({
-          name: columnArray[i].nativeElement.value,
-          tasks: []
-        })
-      }
-      this.boardsService.currentBoard.columns[i].name = columnArray[i].nativeElement.value
+    const editedBoard = {
+      ...this.boardsStore.activeBoard()!,
+      name: this.name.value || "",
+      columns: columnArray.flatMap((column:ElementRef<HTMLInputElement>) => {
+        if (!column.nativeElement.value){
+          return []
+        }else {
+          return {
+            name: column.nativeElement.value,
+            tasks: []
+          }
+        }
+      })
     }
-    this.boardsService.currentBoard.columns = this.boardsService.currentBoard.columns.filter(column => !!column.name)
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.boardsStore.editBoard(editedBoard);
     this.modalShowService.closeModal();
   }
 
@@ -86,22 +91,23 @@ export class BoardModalFrameComponent implements OnInit {
       this.name.markAsDirty();
       return
     }
-    this.boardsService.boards.boards.unshift({
-      columns: [],
-      name: this.name.value || ""
-    })
-    this.boardsService.currentBoard = this.boardsService.boards.boards[0];
-    for ( let i = 0; i < columnArray.length; i++){
-      if (!columnArray[i].nativeElement.value){
-        continue
-      }
-      this.boardsService.currentBoard.columns.push({
-        name: columnArray[i].nativeElement.value,
-        tasks: []
-      })
+    const newBoard = {
+      columns: columnArray.flatMap((column:ElementRef<HTMLInputElement>) => {
+        if (!column.nativeElement.value){
+          return []
+        }else {
+          return {
+            name: column.nativeElement.value,
+            tasks: []
+          }
+        }
+      }),
+      name: this.name.value || "",
+      id: Math.random().toString(36).substring(7)
     }
     this.sidebarService.selectedIndex = 0;
-    this.boardsService.setBoards(this.boardsService.boards)
+    this.boardsStore.addBoard(newBoard);
+    this.boardsStore.setActiveBoardId(newBoard.id);
     this.modalShowService.closeModal();
   }
   

@@ -33,10 +33,11 @@
     >
   </app-board-modal-frame>
 }
-@if (modalShowService.showEditBoardModal) {
+@let activeBoard = boardsStore.activeBoard();
+@if (modalShowService.showEditBoardModal && activeBoard) {
   <app-board-modal-frame
     modalName="Edit Board"
-    [titleValue]="boardsService.currentBoard.name"
-    [columns]="boardsService.currentBoard.columns"
+    [titleValue]="activeBoard.name"
+    [columns]="activeBoard.columns"
   ></app-board-modal-frame>
 }

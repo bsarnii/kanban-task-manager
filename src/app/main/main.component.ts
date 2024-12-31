@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { BoardsService } from '../services/boards.service';
+import { Component, inject } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
 import { ColumnComponent } from "../column/column.component";
+import { BoardsStore } from '../task-management/+store/boards.store';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { ColumnComponent } from "../column/column.component";
     imports: [ColumnComponent]
 })
 export class MainComponent {
-  constructor(public boardsService: BoardsService,public modalShowService:ModalShowService){}
+  constructor(public modalShowService:ModalShowService){}
+  boardsStore = inject(BoardsStore);
 
   onNewColumnClick(){
     this.modalShowService.openEditBoardModal()

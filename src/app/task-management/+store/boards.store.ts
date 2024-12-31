@@ -1,18 +1,19 @@
-import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { Board, Task } from '../../types/boards.interface';
+import { computed } from '@angular/core';
 
 type BoardsState = { 
     boards: Board[],
-    activeBoard: Board | null,
-    activeTask: Task | null,
+    activeBoardId: string | null,
+    activeTaskId: string | null,
     loading: boolean,
     loaded: boolean
 };
 
 const initialState: BoardsState = {
     boards: [],
-    activeBoard: null,
-    activeTask : null,
+    activeBoardId: null,
+    activeTaskId : null,
     loading: false,
     loaded: false
  };
@@ -34,7 +35,7 @@ const initialState: BoardsState = {
                 }
             },
             addBoard: (board: Board) => {
-                patchState(store, (state) => ({ boards: [...state.boards, board] }));
+                patchState(store, (state) => ({ boards: [board, ...state.boards] }));
                 saveToLocalStorage();
             },
             editBoard: (editedBoard: Board) => {
@@ -50,14 +51,15 @@ const initialState: BoardsState = {
                 patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
                 saveToLocalStorage();
             },
-            setActiveBoard: (id: string) => {
-                patchState(store, (state) => ({ activeBoard: state.boards.find(board => board.id === id) || null }) );
+            setActiveBoardId: (id: string) => {
+                console.log('active board', id);
+                patchState(store, () => ({ activeBoardId: id }) );
             },
             //Task methods
             //TODO: Move tasks to a different store
             addTask: (task: Task, status:string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoard?.id) {
+                    if(board.id === state.activeBoardId) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: [...col.tasks, task] };
@@ -71,7 +73,7 @@ const initialState: BoardsState = {
             },
             editTask: (editedTask: Task, status: string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoard?.id) {
+                    if(board.id === state.activeBoardId) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: col.tasks.map(task => {
@@ -90,7 +92,7 @@ const initialState: BoardsState = {
             },
             deleteTask: (taskToBeDeleted: Task, status: string) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoard?.id) {
+                    if(board.id === state.activeBoardId) {
                         return { ...board, columns: board.columns.map(col => {
                             if(col.name === status) {
                                 return { ...col, tasks: col.tasks.filter(task => task.title !== taskToBeDeleted.title) };
@@ -102,14 +104,23 @@ const initialState: BoardsState = {
                 }) }));
                 saveToLocalStorage();
             },
-            setActiveTask: (task: Task) => {
-                patchState(store, () => ({ activeTask: task }));
+            setActiveTaskId: (taskId: string) => {
+                patchState(store, () => ({ activeTaskId: taskId }));
             }
         }
     }),
+    withComputed(({boards, activeBoardId}) => ({
+        activeBoard: computed(() => {
+            return boards().find(board => board.id === activeBoardId()) || null;
+        })
+
+    })),
     withHooks({
         onInit(store) {
             store.loadBoards();
+            if(!store.activeBoard() && store.boards().length) {
+                store.setActiveBoardId(store.boards()[0].id);
+            }
         },
     })
   );
