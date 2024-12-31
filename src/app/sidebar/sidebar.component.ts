@@ -23,11 +23,10 @@ export class SidebarComponent {
 
     boardsStore = inject(BoardsStore);
   
-    handleOnBoardClick(boardId: string, index: number){
+    handleOnBoardClick(boardId: string){
       if (window.innerWidth <= 575) {
         this.sidebarService.sidebarOpened = false
       }
-      this.sidebarService.selectedIndex = index;
       this.boardsStore.setActiveBoardId(boardId);
     }
     onCreateBoardClick(){

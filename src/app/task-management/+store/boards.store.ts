@@ -51,8 +51,7 @@ const initialState: BoardsState = {
                 patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
                 saveToLocalStorage();
             },
-            setActiveBoardId: (id: string) => {
-                console.log('active board', id);
+            setActiveBoardId: (id: string | null) => {
                 patchState(store, () => ({ activeBoardId: id }) );
             },
             //Task methods
