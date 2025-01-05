@@ -1,3 +1,5 @@
+import { Status } from "./status.interface"
+import { Task as Task2}  from "./task.interface"
 
 export interface Boards{
     boards: Array<Board>
@@ -6,10 +8,13 @@ export interface Boards{
 export interface Board{
     id: string
     columns: Array<Column>
+    tasks: Task2[]
     name: string
+    statuses: Status[]
 }
 
 export interface Column{
+    id: string
     name: string
     tasks: Array<Task>
 }

@@ -37,7 +37,7 @@
 @if (modalShowService.showEditBoardModal && activeBoard) {
   <app-board-modal-frame
     modalName="Edit Board"
-    [titleValue]="activeBoard.name"
-    [columns]="activeBoard.columns"
+    [boardName]="activeBoard.name"
+    [initialStatuses]="activeBoard.statuses"
   ></app-board-modal-frame>
 }
