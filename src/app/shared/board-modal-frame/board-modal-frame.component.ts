@@ -1,5 +1,4 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';

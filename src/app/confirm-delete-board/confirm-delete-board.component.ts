@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
-import { BoardsService } from '../services/boards.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { BoardsStore } from '../task-management/+store/boards.store';
 
@@ -10,14 +9,9 @@ import { BoardsStore } from '../task-management/+store/boards.store';
     styleUrls: ['./confirm-delete-board.component.scss']
 })
 export class ConfirmDeleteBoardComponent {
-  constructor(
-    public modalShowService:ModalShowService,
-    public boardsService:BoardsService,
-    public sidebarService: SidebarToggleService
-    ) {}
-    boardsStore = inject(BoardsStore);
-
-  indexes = this.boardsService.indexes;
+  modalShowService = inject(ModalShowService);
+  sideBarService = inject(SidebarToggleService);
+  boardsStore = inject(BoardsStore);
 
   deleteBoard(){
     this.boardsStore.deleteBoard(this.boardsStore.activeBoard()!.id);

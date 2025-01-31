@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
-import { BoardsService } from '../services/boards.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { TasksStore } from '../task-management/+store/tasks.store';
 

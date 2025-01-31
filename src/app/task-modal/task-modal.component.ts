@@ -1,5 +1,4 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 import { TasksStore } from '../task-management/+store/tasks.store';
 import { Task, Subtask } from '../types/task.interface';

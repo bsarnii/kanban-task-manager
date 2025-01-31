@@ -1,5 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { BoardsService } from 'src/app/services/boards.service';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ModalShowService } from 'src/app/services/modal-show.service';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Subtask } from 'src/app/types/task.interface';
