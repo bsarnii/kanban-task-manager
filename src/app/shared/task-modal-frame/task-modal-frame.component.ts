@@ -1,10 +1,19 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { BoardsService } from 'src/app/services/boards.service';
 import { ModalShowService } from 'src/app/services/modal-show.service';
-import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Column, Subtask } from 'src/app/types/boards.interface';
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Subtask } from 'src/app/types/task.interface';
+import { Status } from 'src/app/types/status.interface';
+import { TasksStore } from 'src/app/task-management/+store/tasks.store';
+import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 
+type SubtaskControl = {
+  id: FormControl<string>;
+  name: FormControl<string>;
+  isCompleted: FormControl<boolean>;
+}
 
+//TODO: Make component dumb!
 @Component({
     selector: 'app-task-modal-frame',
     templateUrl: './task-modal-frame.component.html',
@@ -13,95 +22,112 @@ import { Column, Subtask } from 'src/app/types/boards.interface';
 })
 export class TaskModalFrameComponent implements OnInit {
 
-  constructor(public boardsService:BoardsService, public modalShowService:ModalShowService){}
+  constructor(public modalShowService:ModalShowService){}
 
   @Input() modalName:string = "";
-  @Input() titleValue:string = "";
-  @Input() descriptionValue:string = "";
-  @Input() subtasks:Array<Subtask> = [
-    {title: "", isCompleted: false},
-    {title: "", isCompleted: false}
+  @Input() taskName:string = "";
+  @Input() description:string = "";
+  @Input() subtasks:Subtask[] = [
+    {id: 'test', name: "", isCompleted: false},
   ];
-  @Input() statusValues:Array<Column> = [];
+  @Input() statuses:Status[] = [];
+  @Input() initialStatusId = "";
   @Input() buttonName:string = "";
+  @Input() taskId:string | null = null;
+  @Input() position = 0;
+  @Input() latestPosition = 0;
 
-  @ViewChildren('templateSubtask') subtasksInputChildren!: QueryList<ElementRef<HTMLInputElement>>;
+  fb = inject(NonNullableFormBuilder);
+  tasksStore = inject(TasksStore);
+  boardsStore = inject(BoardsStore);
+  form = this.fb.group({
+    name: ['', Validators.required],
+    description: [''],
+    subtasks: this.fb.array([] as FormGroup<SubtaskControl>[]),
+    status: ['', Validators.required]
+  })
 
-  name = new FormControl('', Validators.required);
-  indexes = this.boardsService.indexes;
   subtaskPlaceholders = ["e.g. Make coffee", "e.g Drink coffee & smile", "e.g. Enjoy your caffeine boost", "e.g. Wash the cup"]
 
 
-  removeSubtask(subtaskIndex:number,event:Event){
-    event.preventDefault()
-    this.subtasks.splice(subtaskIndex,1)
+  removeSubtask(index:number,event:Event){
+    event.preventDefault();
+    this.formSubtasks.removeAt(index);
   }
   addNewSubtask(event:Event){
-    event.preventDefault()
-    this.subtasks.push({title:"",isCompleted:false})
+    event.preventDefault();
+    this.formSubtasks.push(this.fb.group({
+      id: new FormControl(Math.random().toString(36).substring(7), { nonNullable: true }),
+      name: new FormControl('', { nonNullable: true }),
+      isCompleted: new FormControl(false, { nonNullable: true })
+    }));
   }
   
-  saveTask(event:Event, title:string, description:string, status:string){
-    event.preventDefault()
-    const subtasksArray = this.subtasksInputChildren.toArray()
-    if (this.name.status === "INVALID"){
-      this.name.markAsDirty();
-      return
+  saveTask(event:Event){
+    event.preventDefault();
+    if(this.form.invalid){
+      this.form.markAllAsTouched();
+      return;
     }
-    //Change title
-    this.boardsService.currentTask.title = title;
-    //Change description
-    this.boardsService.currentTask.description = description
-    //Change subtasks
-    for ( let i = 0; i < subtasksArray.length; i++){
-      if (!this.subtasks[i] && subtasksArray[i].nativeElement.value) {
-        this.subtasks.push({
-          title: subtasksArray[i].nativeElement.value,
-          isCompleted: false,
-        })
-      } else{
-      this.subtasks[i].title = subtasksArray[i].nativeElement.value;
-      }
-    }
-    this.boardsService.currentTask.subtasks = this.subtasks.filter(subtask => !!subtask.title);
-    //Change status
-    if (status !== this.boardsService.currentTask.status){
-      this.boardsService.currentTask.status = status
-      this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift(this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex]);
-      this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
-    }
-
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.tasksStore.editTask({
+      id: this.taskId || Math.random().toString(36).substring(7),
+      boardId: this.boardsStore.activeBoardId() || "",
+      name: this.formName.value,
+      description: this.formDescription.value,
+      statusId: this.formStatus.value,
+      subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
+        id: subtask.id, 
+        name: subtask.name, 
+        isCompleted: subtask.isCompleted
+      })).filter(subtask => subtask.name !== "")
+    })
     this.modalShowService.closeModal();
   }
 
-  createTask(event:Event, title:string, description:string, status:string){
+  createTask(event:Event){
     event.preventDefault()
-    const subtasksArray = this.subtasksInputChildren.toArray()
-    if (this.name.status === "INVALID"){
-      this.name.markAsDirty();
-      return
+    if(this.form.invalid){
+      this.form.markAllAsTouched();
+      return;
     }
-    //Adding value to subtasks variable
-      for ( let i = 0; i < subtasksArray.length; i++){
-      if (!this.subtasks[i]){
-        this.subtasks[i] = {title:"", isCompleted: false}
-      }
-      this.subtasks[i].title = subtasksArray[i].nativeElement.value;
-    }
-
-    //Find column after status value then create new task
-        this.boardsService.currentBoard.columns.find(column => column.name === status)?.tasks.unshift({
-          title: title,
-          description: description,
-          status: status,
-          subtasks: this.subtasks.filter(subtask => !!subtask.title)
-        })
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.tasksStore.addTask({
+      id: Math.random().toString(36).substring(7),
+      boardId: this.boardsStore.activeBoardId() || "",
+      name: this.formName.value,
+      description: this.formDescription.value,
+      statusId: this.formStatus.value,
+      subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
+        id: Math.random().toString(36).substring(7), 
+        name: subtask.name, 
+        isCompleted: false
+      })).filter(subtask => subtask.name !== "")
+    })
     this.modalShowService.closeModal();
   }
-  
+
+  get formName() {
+    return this.form.get('name') as FormControl<string>;
+  }
+  get formDescription() {
+    return this.form.get('description') as FormControl<string>;
+  }
+  get formSubtasks(){
+    return this.form.get('subtasks') as FormArray<FormGroup<SubtaskControl>>;
+  }
+  get formStatus(){
+    return this.form.get('status') as FormControl<string>;
+  }
+
   ngOnInit(){
-    this.name.setValue(this.titleValue)
+    this.formName.setValue(this.taskName);
+    this.formDescription.setValue(this.description);
+    this.formStatus.setValue(this.initialStatusId || this.statuses[0].id);
+    this.subtasks.map(subtask => {
+      this.formSubtasks.push(this.fb.group({
+        id: subtask.id,
+        name: subtask.name,
+        isCompleted: subtask.isCompleted
+      }))
+    });
   }
 }

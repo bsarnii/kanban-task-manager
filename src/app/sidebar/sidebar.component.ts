@@ -4,14 +4,12 @@ import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
 import { BoardsStore } from '../task-management/+store/boards.store';
-import { JsonPipe } from '@angular/common';
-
 
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
-    imports: [JsonPipe]
+    imports: []
 })
 export class SidebarComponent {
   constructor (

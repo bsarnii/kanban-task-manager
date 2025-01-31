@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
 import { ColumnComponent } from "../column/column.component";
 import { BoardsStore } from '../task-management/+store/boards.store';
-
+import { TasksStore } from '../task-management/+store/tasks.store';
+import { Task } from '../types/task.interface';
 
 @Component({
     selector: 'app-main',
@@ -13,6 +14,18 @@ import { BoardsStore } from '../task-management/+store/boards.store';
 export class MainComponent {
   constructor(public modalShowService:ModalShowService){}
   boardsStore = inject(BoardsStore);
+  tasksStore = inject(TasksStore);
+
+  columnsVM = computed(() => {
+    const statuses = this.boardsStore.activeBoard()?.statuses || [];
+    return statuses.map((status, index) => ({
+      statusId: status.id,
+      columnName: status.name,
+      tasks: this.tasksStore.tasks().filter(task => task.statusId === status.id),
+      color: this.colors[index]
+    }))
+  })
+  draggedTask = signal<Task|null>(null);
 
   onNewColumnClick(){
     this.modalShowService.openEditBoardModal()

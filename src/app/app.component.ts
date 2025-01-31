@@ -9,17 +9,17 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { HeaderComponent } from "./header/header.component";
 import { MainComponent } from "./main/main.component";
 import { TaskModalComponent } from "./task-modal/task-modal.component";
-import { EditTaskModalComponent } from "./edit-task-modal/edit-task-modal.component";
-import { CreateTaskModalComponent } from "./create-task-modal/create-task-modal.component";
 import { ConfirmDeleteBoardComponent } from "./confirm-delete-board/confirm-delete-board.component";
 import { ConfirmDeleteTaskComponent } from "./confirm-delete-task/confirm-delete-task.component";
 import { BoardsStore } from './task-management/+store/boards.store';
+import { TasksStore } from './task-management/+store/tasks.store';
+import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    imports: [BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, EditTaskModalComponent, CreateTaskModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
+    imports: [BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, TaskModalFrameComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
     standalone: true
 })
 export class AppComponent implements OnInit {
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
       colorThemeService.getTheme();
     }
     boardsStore = inject(BoardsStore);
+    tasksStore = inject(TasksStore);
     
   ngOnInit(){
     if (window.innerWidth <= 575){

@@ -1,13 +1,10 @@
-import { Status } from "./status.interface"
-
 export interface Task{
     id: string
     boardId: string
     name: string
     description: string
-    status: Status
+    statusId: string
     subtasks: Subtask[]
-
 }
 
 export interface Subtask{

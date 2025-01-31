@@ -111,7 +111,8 @@ const initialState: BoardsState = {
     withComputed(({boards, activeBoardId}) => ({
         activeBoard: computed(() => {
             return boards().find(board => board.id === activeBoardId()) || null;
-        })
+        }),
+        activeBoardStatuses: computed(() => boards().find(board => board.id === activeBoardId())?.statuses || [])
 
     })),
     withHooks({

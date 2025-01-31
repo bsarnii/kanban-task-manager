@@ -1,5 +1,5 @@
 <div class="modal-head">
-  <h4 class="heading-l">{{boardsService.currentTask.title}}</h4>
+  <h4 class="heading-l">{{task().name}}</h4>
   <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
   @if (showEditDeleteContainer) {
     <div class="edit-delete-container">
@@ -8,28 +8,28 @@
     </div>
   }
 </div>
-<p class="body-l">{{boardsService.currentTask.description}}</p>
-<h5 class="heading-s">Subtasks({{filterCompletedTasks(boardsService.currentTask.subtasks)}} of {{boardsService.currentTask.subtasks.length}})</h5>
+<p class="body-l">{{task().description}}</p>
+<h5 class="heading-s">Subtasks({{ completedSubtasks().length }} of {{task().subtasks.length}})</h5>
 <div class="subtask-container">
-  @for (subtask of boardsService.currentTask.subtasks; let i = $index; track i) {
+  @for (subtask of task().subtasks; let i = $index; track i) {
     <div
       class="checkbox-container"
-      (click)="handleCheckboxClick(i)"
+      (click)="handleCheckboxClick(subtask)"
       >
       <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
       <span class="checkbox-replace"></span>
-      {{subtask.title}}
+      {{subtask.name}}
     </div>
   }
 </div>
 <div class="status-container">
   <label class="heading-s">Current Status</label>
   <select #status (change)="changeStatus(status.value)" name="status" id="status-select" class="select">
-    @for (column of boardsService.currentBoard.columns; track $index) {
+    @for (status of statuses(); track status.id) {
       <option
-        value={{column.name}}
-        [selected]="column.name == boardsService.currentTask.status">
-        {{column.name}}
+        [value]="status.id"
+        [selected]="status.id === task().statusId">
+        {{status.name}}
       </option>
     }
   </select>

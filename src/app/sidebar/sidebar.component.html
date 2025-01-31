@@ -10,7 +10,6 @@
   <div class="boards">
     <h2 class="heading-s">ALL BOARDS ({{boardsStore.boards().length}})</h2>
     <ul>
-      {{boardsStore.boards() | json}}
       @for (board of boardsStore.boards(); let i = $index; track i) {
         <li
           >
