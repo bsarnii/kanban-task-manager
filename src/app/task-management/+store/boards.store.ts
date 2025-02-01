@@ -1,11 +1,10 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { Board, Task } from '../../types/boards.interface';
+import { Board } from '../../types/boards.interface';
 import { computed } from '@angular/core';
 
 type BoardsState = { 
     boards: Board[],
     activeBoardId: string | null,
-    activeTaskId: string | null,
     loading: boolean,
     loaded: boolean
 };
@@ -13,7 +12,6 @@ type BoardsState = {
 const initialState: BoardsState = {
     boards: [],
     activeBoardId: null,
-    activeTaskId : null,
     loading: false,
     loaded: false
  };
@@ -54,58 +52,6 @@ const initialState: BoardsState = {
             setActiveBoardId: (id: string | null) => {
                 patchState(store, () => ({ activeBoardId: id }) );
             },
-            //Task methods
-            //TODO: Move tasks to a different store
-            addTask: (task: Task, status:string) => {
-                patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoardId) {
-                        return { ...board, columns: board.columns.map(col => {
-                            if(col.name === status) {
-                                return { ...col, tasks: [...col.tasks, task] };
-                            }
-                            return col;
-                        }) };
-                    }
-                    return board;
-                }) }));
-                saveToLocalStorage();
-            },
-            editTask: (editedTask: Task, status: string) => {
-                patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoardId) {
-                        return { ...board, columns: board.columns.map(col => {
-                            if(col.name === status) {
-                                return { ...col, tasks: col.tasks.map(task => {
-                                    if(task.title === editedTask.title) {
-                                        return editedTask;
-                                    }
-                                    return task;
-                                }) };
-                            }
-                            return col;
-                        }) };
-                    }
-                    return board;
-                }) }));
-                saveToLocalStorage();
-            },
-            deleteTask: (taskToBeDeleted: Task, status: string) => {
-                patchState(store, (state) => ({ boards: state.boards.map(board => {
-                    if(board.id === state.activeBoardId) {
-                        return { ...board, columns: board.columns.map(col => {
-                            if(col.name === status) {
-                                return { ...col, tasks: col.tasks.filter(task => task.title !== taskToBeDeleted.title) };
-                            }
-                            return col;
-                        }) };
-                    }
-                    return board;
-                }) }));
-                saveToLocalStorage();
-            },
-            setActiveTaskId: (taskId: string) => {
-                patchState(store, () => ({ activeTaskId: taskId }));
-            }
         }
     }),
     withComputed(({boards, activeBoardId}) => ({

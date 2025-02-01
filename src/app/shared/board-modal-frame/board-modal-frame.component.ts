@@ -74,8 +74,6 @@ export class BoardModalFrameComponent implements OnInit {
       return
     }
     const newBoard = {
-      //TODO: Remove the columns prop from the board interface
-      columns: [],
       tasks: [],
       statuses: this.formStatuses.value.filter(Boolean).map((status => {
         return {name: status, id: Math.random().toString(36).substring(7) }
