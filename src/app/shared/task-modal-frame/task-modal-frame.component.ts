@@ -20,8 +20,7 @@ type SubtaskControl = {
     imports: [ReactiveFormsModule]
 })
 export class TaskModalFrameComponent implements OnInit {
-
-  constructor(public modalShowService:ModalShowService){}
+  modalShowService = inject(ModalShowService);
 
   @Input() modalName:string = "";
   @Input() taskName:string = "";

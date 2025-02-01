@@ -23,24 +23,17 @@ import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-fr
     standalone: true
 })
 export class AppComponent implements OnInit {
+  sidebarService = inject(SidebarToggleService);
+  modalShowService = inject(ModalShowService);
+  colorThemeService = inject(ColorThemeService);
+  boardsStore = inject(BoardsStore);
+  tasksStore = inject(TasksStore);
 
-  constructor (
-    public sidebarService: SidebarToggleService,
-    public modalShowService: ModalShowService,
-    public colorThemeService:ColorThemeService
-    ) {
-      /*if (localStorage.getItem("boards") === null){
-        boardsService.setBoards(data)
-      }*/
-      if (localStorage.getItem("lightMode") === null){
-        colorThemeService.setTheme("false");
-      }
-      colorThemeService.getTheme();
-    }
-    boardsStore = inject(BoardsStore);
-    tasksStore = inject(TasksStore);
-    
   ngOnInit(){
+    if (localStorage.getItem("lightMode") === null){
+      this.colorThemeService.setTheme("false");
+    }
+    this.colorThemeService.getTheme();
     if (window.innerWidth <= 575){
       this.sidebarService.sidebarOpened = false;
     }

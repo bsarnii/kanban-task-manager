@@ -13,12 +13,8 @@ import { Status } from 'src/app/types/status.interface';
     imports: [ReactiveFormsModule]
 })
 export class BoardModalFrameComponent implements OnInit {
-
-  constructor(
-    public modalShowService:ModalShowService,
-    public sidebarService:SidebarToggleService
-    ){}
-  
+  modalShowService = inject(ModalShowService);
+  sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   fb = inject(FormBuilder);
 

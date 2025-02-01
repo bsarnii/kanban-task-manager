@@ -11,10 +11,8 @@ import { TasksStore } from '../task-management/+store/tasks.store';
 })
 export class ConfirmDeleteTaskComponent {
   tasksStore = inject(TasksStore);
-  constructor(
-    public modalShowService:ModalShowService,
-    public sidebarService: SidebarToggleService
-    ) {}
+  modalShowService = inject(ModalShowService);
+  sidebarService = inject(SidebarToggleService);
 
   deleteTask(){
     this.tasksStore.deleteTask(this.tasksStore.activeTaskId()!);

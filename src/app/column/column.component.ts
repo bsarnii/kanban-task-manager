@@ -12,13 +12,7 @@ import { Subtask, Task } from '../types/task.interface';
     imports: [CommonModule]
 })
 export class ColumnComponent{
-
-  constructor(
-    public modalShowService: ModalShowService
-    ) {
-
-    }
-
+  modalShowService = inject(ModalShowService);
   tasksStore = inject(TasksStore);
 
   @Input() color:string = "#49C4E5";
@@ -29,8 +23,6 @@ export class ColumnComponent{
   @Input() statusId = "";
   
   draggedTask = model<Task | null>();
-  @ViewChildren('taskEl') taskElements!: QueryList<ElementRef>;
-  
 
   onTaskClick(id:string){
     this.tasksStore.setActiveTaskId(id);

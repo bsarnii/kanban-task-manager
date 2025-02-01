@@ -12,12 +12,10 @@ import { BoardsStore } from '../task-management/+store/boards.store';
     imports: [CommonModule]
 })
 export class HeaderComponent {
-  constructor(
-    public colorTheme: ColorThemeService, 
-    public sidebarService:SidebarToggleService,
-    public modalShowService: ModalShowService 
-    ) {}
     boardsStore = inject(BoardsStore);
+    colorTheme = inject(ColorThemeService);
+    sidebarService = inject(SidebarToggleService);
+    modalShowService = inject(ModalShowService);
 
     openEditBoardModal(){
       this.modalShowService.openEditBoardModal();

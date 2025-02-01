@@ -12,9 +12,9 @@ import { Task } from '../types/task.interface';
     imports: [ColumnComponent]
 })
 export class MainComponent {
-  constructor(public modalShowService:ModalShowService){}
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
+  modalShowService = inject(ModalShowService);
 
   columnsVM = computed(() => {
     const statuses = this.boardsStore.activeBoard()?.statuses || [];

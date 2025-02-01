@@ -5,7 +5,6 @@
 <div (dragover)="onDragOver($event)" class="column-body" (drop)="onDrop($event)">
   @for (task of tasks; let i = $index; track i) {
     <div class="task" 
-      #taskEl
       [id]="task.id" 
       (click)="onTaskClick(task.id)"
       (dragstart)="onDragStart(task)" 

@@ -11,25 +11,22 @@ import { BoardsStore } from '../task-management/+store/boards.store';
     imports: []
 })
 export class SidebarComponent {
-  constructor (
-    public colorTheme:ColorThemeService, 
-    public sidebarService: SidebarToggleService,
-    public modalShowService: ModalShowService,
-    ) {}
+  colorTheme = inject(ColorThemeService);
+  sidebarService = inject(SidebarToggleService);
+  modalShowService = inject(ModalShowService);
+  boardsStore = inject(BoardsStore);
 
-    boardsStore = inject(BoardsStore);
-  
-    handleOnBoardClick(boardId: string){
-      if (window.innerWidth <= 575) {
-        this.sidebarService.sidebarOpened = false
-      }
-      this.boardsStore.setActiveBoardId(boardId);
+  handleOnBoardClick(boardId: string){
+    if (window.innerWidth <= 575) {
+      this.sidebarService.sidebarOpened = false
     }
-    onCreateBoardClick(){
-      if (window.innerWidth <= 575) {
-        this.sidebarService.sidebarOpened = false
-      }
-      this.modalShowService.openCreateBoardModal();
+    this.boardsStore.setActiveBoardId(boardId);
+  }
+  onCreateBoardClick(){
+    if (window.innerWidth <= 575) {
+      this.sidebarService.sidebarOpened = false
     }
+    this.modalShowService.openCreateBoardModal();
+  }
 
 }
