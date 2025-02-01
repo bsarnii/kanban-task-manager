@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { BoardsService } from '../services/boards.service';
-import { Subtask } from '../types/boards.interface';
+import { Component, computed, inject, input } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
+import { TasksStore } from '../task-management/+store/tasks.store';
+import { Task, Subtask } from '../types/task.interface';
+import { Status } from '../types/status.interface';
 
-
+//TODO: Make this component dumb, rename it to TaskDetailsModalComponent
 @Component({
     selector: 'app-task-modal',
     templateUrl: './task-modal.component.html',
@@ -11,40 +12,42 @@ import { ModalShowService } from '../services/modal-show.service';
     imports: []
 })
 export class TaskModalComponent {
+  tasksStore = inject(TasksStore);
+  modalShowService = inject(ModalShowService);
 
-
-  constructor(
-    public boardsService: BoardsService,
-    public modalShowService: ModalShowService
-    ) {}
-
-  indexes = this.boardsService.indexes;
+  task = input.required<Task>();
+  statuses = input.required<Status[]>();
+  
+  completedSubtasks = computed(() => this.task().subtasks.filter(subtask => subtask.isCompleted));
   showEditDeleteContainer = false;
 
   openEditDeleteContainer(){
     this.showEditDeleteContainer = !this.showEditDeleteContainer;
   }
 
-  handleCheckboxClick(i:number){
-    this.boardsService.currentTask.subtasks[i].isCompleted = !this.boardsService.currentTask.subtasks[i].isCompleted
-    this.boardsService.setBoards(this.boardsService.boards)
+  handleCheckboxClick(subtask:Subtask){
+    const isCompleted = !subtask.isCompleted;
+    this.tasksStore.editTask({
+      ...this.task(),
+      subtasks: this.task().subtasks.map(item => {
+        if(item.id === subtask.id){
+          return {...item, isCompleted};
+        }
+        return item;
+      })
+    })
   }
 
-  changeStatus(value:string){
-    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex].status = value;
-    this.boardsService.currentBoard.columns.find(column => column.name === value)?.tasks.unshift(this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks[this.indexes.taskIndex]);
-    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
-    this.boardsService.setBoards(this.boardsService.boards);
+  changeStatus(statusId:string){
+    this.tasksStore.editTask({
+      ...this.task(),
+      statusId
+    })
     this.modalShowService.closeModal();
   }
 
   openDeleteTaskModal(){
     this.modalShowService.openDeleteTaskModal()
-  }
-
-
-  filterCompletedTasks(subtasks: Array<Subtask>):number{
-    return subtasks.filter(subtask => subtask.isCompleted === true).length
   }
 }
 

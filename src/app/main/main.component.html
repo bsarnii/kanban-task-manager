@@ -1,28 +1,27 @@
-@if (!this.boardsService.currentBoard) {
+@if (!this.boardsStore.activeBoard()) {
   <div class="empty-board">
     <h1 class="heading-l">There are no boards. Create a new board to get started.</h1>
     <button (click)="onNewBoardClick()" class="btn button-primary-l">+ Add New Board</button>
   </div>
-}
-@if (this.boardsService.currentBoard) {
-  @if (this.boardsService.currentBoard.columns.length === 0) {
+} 
+@if (this.boardsStore.activeBoard(); as activeBoard) {
+  @if (activeBoard.statuses.length === 0) {
     <div class="empty-board">
       <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
       <button (click)="onNewColumnClick()" class="btn button-primary-l">+ Add New Column</button>
     </div>
   }
-  @for (column of this.boardsService.currentBoard.columns; let i = $index; track i) {
+  @for (column of columnsVM(); let i = $index; track i) {
     <app-column
-      [columnName]="column.name"
+      [(draggedTask)]="draggedTask"
+      [statusId]="column.statusId"
+      [columnName]="column.columnName"
       [taskNumber]="column.tasks.length"
       [tasks]="column.tasks"
-      [color]="colors[i]"
-      [columnIndex]="i"
+      [color]="column.color"
     ></app-column>
   }
-  @if (this.boardsService.currentBoard.columns.length > 0) {
-    <div (click)="onNewColumnClick()" class="new-column">
-      <h2 class="heading-xl">+ New Column</h2>
-    </div>
-  }
+  <div (click)="onNewColumnClick()" class="new-column">
+    <h2 class="heading-xl">+ New Column</h2>
+  </div>
 }

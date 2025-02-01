@@ -1,26 +1,7 @@
-
-export interface Boards{
-    boards: Array<Board>
-}
+import { Status } from "./status.interface"
 
 export interface Board{
-    columns: Array<Column>
+    id: string
     name: string
-}
-
-export interface Column{
-    name: string
-    tasks: Array<Task>
-}
-
-export interface Task{
-    description: string
-    status: string
-    subtasks: Array<Subtask>
-    title: string
-}
-
-export interface Subtask{
-    isCompleted: boolean
-    title: string
+    statuses: Status[]
 }

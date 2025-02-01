@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
-import { BoardsService } from '../services/boards.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
+import { BoardsStore } from '../task-management/+store/boards.store';
 
 @Component({
     selector: 'app-confirm-delete-board',
@@ -9,20 +9,17 @@ import { SidebarToggleService } from '../services/sidebar-toggle.service';
     styleUrls: ['./confirm-delete-board.component.scss']
 })
 export class ConfirmDeleteBoardComponent {
-  constructor(
-    public modalShowService:ModalShowService,
-    public boardsService:BoardsService,
-    public sidebarService: SidebarToggleService
-    ) {}
-
-  indexes = this.boardsService.indexes;
+  modalShowService = inject(ModalShowService);
+  sideBarService = inject(SidebarToggleService);
+  boardsStore = inject(BoardsStore);
 
   deleteBoard(){
-    this.boardsService.boards.boards.splice(this.indexes.boardIndex,1)
-    this.boardsService.currentBoard = this.boardsService.boards.boards[0]
-    this.boardsService.indexes.boardIndex = 0;
-    this.sidebarService.selectedIndex = 0;
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.boardsStore.deleteBoard(this.boardsStore.activeBoard()!.id);
+    if(this.boardsStore.boards().length){
+      this.boardsStore.setActiveBoardId(this.boardsStore.boards()[0].id);
+    } else {
+      this.boardsStore.setActiveBoardId(null);
+    }
     this.modalShowService.closeModal();
   }
   cancelDelete(){

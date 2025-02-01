@@ -2,12 +2,18 @@
   <span [style.background-color]="color"></span>
   <h2 class="heading-s">{{columnName | uppercase}} ({{taskNumber}})</h2>
 </div>
-<div (dragover)="onParentDragOver($event)" (drop)="onDrop($event)" class="column-body">
+<div (dragover)="onDragOver($event)" class="column-body" (drop)="onDrop($event)">
   @for (task of tasks; let i = $index; track i) {
-    <div (dragover)="getDragOverTaskIndex(i)"  draggable="true" (dragstart)="onDragStart($event, task, i)" (dragend)="dragDropService.dragEnd($event,task)" class="task" (click)="onTaskClick(i)">
-      <h3 class="heading-m">{{task.title}}</h3>
-      <p class="body-m">{{filterCompletedTasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
+    <div class="task" 
+      [id]="task.id" 
+      (click)="onTaskClick(task.id)"
+      (dragstart)="onDragStart(task)" 
+      (dragend)="onDragEnd()"
+      draggable="true">
+      <div class="task-inner-wrapper" [style.pointer-events]="draggedTask() ? 'none' : 'auto'">
+        <h3 class="heading-m">{{task.name}}</h3>
+        <p class="body-m">{{filterCompletedSubtasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
+      </div>
     </div>
   }
 </div>
-

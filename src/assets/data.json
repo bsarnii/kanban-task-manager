@@ -1,6 +1,7 @@
 {
   "boards": [
     {
+      "id": "98a6c98e-8dc9-4098-aac8-f40e574eef9d",
       "name": "Platform Launch",
       "columns": [
         {
@@ -284,6 +285,7 @@
       ]
     },
     {
+      "id": "c7415cb4-c840-417e-9349-83b126e626f1",
       "name": "Marketing Plan",
       "columns": [
         {
@@ -375,6 +377,7 @@
       ]
     },
     {
+      "id": "e0e748a3-a6d2-47c3-ad6f-3b60f452b2e5",
       "name": "Roadmap",
       "columns": [
         {

@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColorThemeService } from '../services/color-theme.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
-import { BoardsService } from '../services/boards.service';
 import { ModalShowService } from '../services/modal-show.service';
-
+import { BoardsStore } from '../task-management/+store/boards.store';
 
 @Component({
     selector: 'app-sidebar',
@@ -12,27 +11,22 @@ import { ModalShowService } from '../services/modal-show.service';
     imports: []
 })
 export class SidebarComponent {
-  constructor (
-    public colorTheme:ColorThemeService, 
-    public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
-    public modalShowService: ModalShowService
-    ) {}
-  
-    handleOnBoardClick(index:number){
-      if (window.innerWidth <= 575) {
-        this.sidebarService.sidebarOpened = false
-      }
-      this.sidebarService.selectedIndex = index;
-      this.boardsService.setCurrentBoard(this.boardsService.boards.boards[index])
-      this.boardsService.indexes.boardIndex = index;
- 
+  colorTheme = inject(ColorThemeService);
+  sidebarService = inject(SidebarToggleService);
+  modalShowService = inject(ModalShowService);
+  boardsStore = inject(BoardsStore);
+
+  handleOnBoardClick(boardId: string){
+    if (window.innerWidth <= 575) {
+      this.sidebarService.sidebarOpened = false
     }
-    onCreateBoardClick(){
-      if (window.innerWidth <= 575) {
-        this.sidebarService.sidebarOpened = false
-      }
-      this.modalShowService.openCreateBoardModal();
+    this.boardsStore.setActiveBoardId(boardId);
+  }
+  onCreateBoardClick(){
+    if (window.innerWidth <= 575) {
+      this.sidebarService.sidebarOpened = false
     }
+    this.modalShowService.openCreateBoardModal();
+  }
 
 }

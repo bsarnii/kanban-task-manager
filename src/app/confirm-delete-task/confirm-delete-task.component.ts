@@ -1,27 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ModalShowService } from '../services/modal-show.service';
-import { BoardsService } from '../services/boards.service';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
+import { TasksStore } from '../task-management/+store/tasks.store';
 
+//TODO: Make this component dumb
 @Component({
     selector: 'app-confirm-delete-task',
     templateUrl: './confirm-delete-task.component.html',
     styleUrls: ['./confirm-delete-task.component.scss']
 })
 export class ConfirmDeleteTaskComponent {
-  constructor(
-    public modalShowService:ModalShowService,
-    public boardsService:BoardsService,
-    public sidebarService: SidebarToggleService
-    ) {}
-
-  indexes = this.boardsService.indexes;
+  tasksStore = inject(TasksStore);
+  modalShowService = inject(ModalShowService);
+  sidebarService = inject(SidebarToggleService);
 
   deleteTask(){
-    this.boardsService.currentBoard.columns[this.indexes.columnIndex].tasks.splice(this.indexes.taskIndex,1);
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.tasksStore.deleteTask(this.tasksStore.activeTaskId()!);
     this.modalShowService.closeModal();
   }
+
   cancelDelete(){
     this.modalShowService.closeModal()
   }

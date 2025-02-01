@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { BoardsService } from 'src/app/services/boards.service';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ModalShowService } from 'src/app/services/modal-show.service';
-import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Column } from 'src/app/types/boards.interface';
+import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
+import { BoardsStore } from 'src/app/task-management/+store/boards.store';
+import { Status } from 'src/app/types/status.interface';
 
 
 @Component({
@@ -13,100 +13,84 @@ import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
     imports: [ReactiveFormsModule]
 })
 export class BoardModalFrameComponent implements OnInit {
-
-  constructor(
-    public boardsService:BoardsService,
-    public modalShowService:ModalShowService,
-    public sidebarService:SidebarToggleService
-    ){}
+  modalShowService = inject(ModalShowService);
+  sidebarService = inject(SidebarToggleService);
+  boardsStore = inject(BoardsStore);
+  fb = inject(FormBuilder);
 
   @Input() modalName:string = "";
-  @Input() titleValue:string = "";
-  @Input() descriptionValue:string = "";
-  @Input() columns:Array<Column> = [
-    {
-    name: "",
-    tasks: []
-    },
-    {
-    name: "",
-    tasks: []
-    }
-  ];
-  @Input() statusValues:string[] = [];
-  @Input() buttonName:string = "";
+  @Input() boardName:string = "";
+  @Input() initialStatuses:Status[] = [{name: "", id: Math.random().toString(36).substring(7)}];
 
-  @ViewChildren('templateColumn') columnChildren!: QueryList<ElementRef<HTMLInputElement>>;
+  form = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(21)]],
+    statuses: new FormArray([] as FormControl[])
+  })
+  columnPlaceholders = ["e.g Todo", "e.g Doing", "e.g Done", "e.g Now", "e.g Next", "e.g Later"];
 
-  name = new FormControl('', [Validators.required, Validators.maxLength(21)]);
-  indexes = this.boardsService.indexes;
-  columnsCopy!: Array<Column>;
-  columnPlaceholders = ["e.g Todo", "e.g Doing", "e.g Done", "e.g Now", "e.g Next", "e.g Later"]
+  get formStatuses(){
+    return this.form.get('statuses') as FormArray<FormControl>;
+  }
 
-  removeColumn(columnIndex:number,event:Event){
-    event.preventDefault()
-    this.columnsCopy.splice(columnIndex,1)
+  get formName(){
+    return this.form.get('name') as FormControl;
+  }
+
+  removeColumn(index:number,event:Event){
+    event.preventDefault();
+    this.formStatuses.removeAt(index);
   }
   addNewColumn(event:Event){
-    event.preventDefault()
-    this.columnsCopy.push({
-      name:"",
-      tasks:[]
-    })
+    event.preventDefault();
+    this.formStatuses.push(new FormControl(""));
   }
   
   saveBoard(event:Event){
     event.preventDefault()
-    const columnArray = this.columnChildren.toArray();
-    if (this.name.status === "INVALID"){
-      this.name.markAsDirty();
+    if (this.form.status === "INVALID"){
+      this.formName.markAsDirty();
       return
     }
     //Change title
-    this.boardsService.currentBoard.name = this.name.value || "";
-    this.boardsService.currentBoard.columns = this.columnsCopy;
-    for ( let i = 0; i < columnArray.length; i++){
-      if (!this.boardsService.currentBoard.columns[i] && columnArray[i].nativeElement.value ){
-        this.boardsService.currentBoard.columns.push({
-          name: columnArray[i].nativeElement.value,
-          tasks: []
-        })
-      }
-      this.boardsService.currentBoard.columns[i].name = columnArray[i].nativeElement.value
+    const editedBoard = {
+      ...this.boardsStore.activeBoard()!,
+      name: this.formName.value || "",
+      columns: [],
+      statuses: this.formStatuses.value.map(((status, i) => {
+        return {
+          name: status,
+          id: this.initialStatuses[i]?.id || Math.random().toString(36).substring(7)
+         }
+      })).filter(status => !!status.name),
     }
-    this.boardsService.currentBoard.columns = this.boardsService.currentBoard.columns.filter(column => !!column.name)
-    this.boardsService.setBoards(this.boardsService.boards);
+    this.boardsStore.editBoard(editedBoard);
     this.modalShowService.closeModal();
   }
 
   createBoard(event:Event){
     event.preventDefault()
-    const columnArray = this.columnChildren.toArray();
-    if (this.name.status === "INVALID"){
-      this.name.markAsDirty();
+    if (this.form.status === "INVALID"){
+      this.formName.markAsDirty();
       return
     }
-    this.boardsService.boards.boards.unshift({
-      columns: [],
-      name: this.name.value || ""
-    })
-    this.boardsService.currentBoard = this.boardsService.boards.boards[0];
-    for ( let i = 0; i < columnArray.length; i++){
-      if (!columnArray[i].nativeElement.value){
-        continue
-      }
-      this.boardsService.currentBoard.columns.push({
-        name: columnArray[i].nativeElement.value,
-        tasks: []
-      })
+    const newBoard = {
+      tasks: [],
+      statuses: this.formStatuses.value.filter(Boolean).map((status => {
+        return {name: status, id: Math.random().toString(36).substring(7) }
+      })),
+      name: this.formName.value || "",
+      id: Math.random().toString(36).substring(7),
     }
     this.sidebarService.selectedIndex = 0;
-    this.boardsService.setBoards(this.boardsService.boards)
+    this.boardsStore.addBoard(newBoard);
+    this.boardsStore.setActiveBoardId(newBoard.id);
     this.modalShowService.closeModal();
   }
   
   ngOnInit(){
-    this.name.setValue(this.titleValue)
-    this.columnsCopy = this.columns.map((column: Column) => column)
+    this.formName.setValue(this.boardName);
+    this.initialStatuses.map(status => {
+      this.formStatuses.push(new FormControl(status.name))
+    });
   }
 }
