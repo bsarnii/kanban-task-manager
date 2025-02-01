@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SidebarToggleService } from './services/sidebar-toggle.service';
-import data from '../assets/data.json';
 import { ModalShowService } from './services/modal-show.service';
 import { ColorThemeService } from './services/color-theme.service';
 
