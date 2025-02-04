@@ -11,12 +11,13 @@ import { ConfirmDeleteTaskComponent } from "./task-management/ui/confirm-delete-
 import { BoardsStore } from './task-management/+store/boards.store';
 import { TasksStore } from './task-management/+store/tasks.store';
 import { TaskAddEditModalComponent } from './task-management/feature/task-add-edit-modal/task-add-edit-modal.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    imports: [BoardAddEditModalComponent, SidebarComponent, HeaderComponent, BoardComponent, TaskDetailsModalComponent, TaskAddEditModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
+    imports: [RouterOutlet,BoardAddEditModalComponent, SidebarComponent, HeaderComponent, BoardComponent, TaskDetailsModalComponent, TaskAddEditModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
     standalone: true
 })
 export class AppComponent implements OnInit {
