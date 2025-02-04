@@ -11,7 +11,7 @@ import { BoardsStore } from '../task-management/+store/boards.store';
     imports: []
 })
 export class SidebarComponent {
-  colorTheme = inject(ColorThemeService);
+  colorThemeService = inject(ColorThemeService);
   sidebarService = inject(SidebarToggleService);
   modalShowService = inject(ModalShowService);
   boardsStore = inject(BoardsStore);

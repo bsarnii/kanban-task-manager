@@ -13,7 +13,7 @@ import { BoardsStore } from '../task-management/+store/boards.store';
 })
 export class HeaderComponent {
     boardsStore = inject(BoardsStore);
-    colorTheme = inject(ColorThemeService);
+    colorThemeService = inject(ColorThemeService);
     sidebarService = inject(SidebarToggleService);
     modalShowService = inject(ModalShowService);
 
