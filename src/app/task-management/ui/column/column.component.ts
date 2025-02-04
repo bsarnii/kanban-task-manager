@@ -1,9 +1,9 @@
 import { Component, ElementRef, inject, Input, model, QueryList, ViewChildren } from '@angular/core';
 
-import { ModalShowService } from '../services/modal-show.service';
+import { ModalShowService } from '../../../core/services/modal-show.service';
 import { CommonModule } from '@angular/common';
-import { TasksStore } from '../task-management/+store/tasks.store';
-import { Subtask, Task } from '../types/task.interface';
+import { TasksStore } from '../../+store/tasks.store';
+import { Subtask, Task } from '../../types/task.interface';
 
 @Component({
     selector: 'app-column',

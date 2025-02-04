@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ColorThemeService } from '../services/color-theme.service';
-import { SidebarToggleService } from '../services/sidebar-toggle.service';
-import { ModalShowService } from '../services/modal-show.service';
+import { ColorThemeService } from '../../../core/services/color-theme.service';
+import { SidebarToggleService } from '../sidebar/sidebar-toggle.service';
+import { ModalShowService } from '../../../core/services/modal-show.service';
 import { CommonModule } from '@angular/common';
-import { BoardsStore } from '../task-management/+store/boards.store';
+import { BoardsStore } from '../../+store/boards.store';
 
 @Component({
     selector: 'app-header',

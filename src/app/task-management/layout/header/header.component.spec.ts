@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoardsService } from '../services/boards.service';
-import { ModalShowService } from '../services/modal-show.service';
+import { ModalShowService } from '../../../core/services/modal-show.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {

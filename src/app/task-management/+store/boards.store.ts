@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { Board } from '../../types/boards.interface';
+import { Board } from '../types/boards.interface';
 import { computed } from '@angular/core';
 
 type BoardsState = { 

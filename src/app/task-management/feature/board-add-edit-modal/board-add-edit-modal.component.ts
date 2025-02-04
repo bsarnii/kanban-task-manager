@@ -1,18 +1,18 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { ModalShowService } from 'src/app/services/modal-show.service';
+import { ModalShowService } from 'src/app/core/services/modal-show.service';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
-import { SidebarToggleService } from 'src/app/services/sidebar-toggle.service';
+import { SidebarToggleService } from 'src/app/task-management/layout/sidebar/sidebar-toggle.service';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
-import { Status } from 'src/app/types/status.interface';
+import { Status } from 'src/app/task-management/types/status.interface';
 
 
 @Component({
-    selector: 'app-board-modal-frame',
-    templateUrl: './board-modal-frame.component.html',
-    styleUrls: ['./board-modal-frame.component.scss'],
+    selector: 'app-board-add-edit-modal',
+    templateUrl: './board-add-edit-modal.component.html',
+    styleUrls: ['./board-add-edit-modal.component.scss'],
     imports: [ReactiveFormsModule]
 })
-export class BoardModalFrameComponent implements OnInit {
+export class BoardAddEditModalComponent implements OnInit {
   modalShowService = inject(ModalShowService);
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);

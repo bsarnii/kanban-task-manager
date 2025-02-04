@@ -1,22 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { SidebarToggleService } from './services/sidebar-toggle.service';
-import { ModalShowService } from './services/modal-show.service';
-import { BoardModalFrameComponent } from './shared/board-modal-frame/board-modal-frame.component';
-import { SidebarComponent } from "./sidebar/sidebar.component";
-import { HeaderComponent } from "./header/header.component";
-import { MainComponent } from "./main/main.component";
-import { TaskModalComponent } from "./task-modal/task-modal.component";
-import { ConfirmDeleteBoardComponent } from "./confirm-delete-board/confirm-delete-board.component";
-import { ConfirmDeleteTaskComponent } from "./confirm-delete-task/confirm-delete-task.component";
+import { SidebarToggleService } from './task-management/layout/sidebar/sidebar-toggle.service';
+import { ModalShowService } from './core/services/modal-show.service';
+import { BoardAddEditModalComponent } from './task-management/feature/board-add-edit-modal/board-add-edit-modal.component';
+import { SidebarComponent } from "./task-management/layout/sidebar/sidebar.component";
+import { HeaderComponent } from "./task-management/layout/header/header.component";
+import { BoardComponent } from "./task-management/feature/board/board.component";
+import { TaskDetailsModalComponent } from "./task-management/feature/task-details-modal/task-details-modal.component";
+import { ConfirmDeleteBoardComponent } from "./task-management/ui/confirm-delete-board/confirm-delete-board.component";
+import { ConfirmDeleteTaskComponent } from "./task-management/ui/confirm-delete-task/confirm-delete-task.component";
 import { BoardsStore } from './task-management/+store/boards.store';
 import { TasksStore } from './task-management/+store/tasks.store';
-import { TaskModalFrameComponent } from './shared/task-modal-frame/task-modal-frame.component';
+import { TaskAddEditModalComponent } from './task-management/feature/task-add-edit-modal/task-add-edit-modal.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    imports: [BoardModalFrameComponent, SidebarComponent, HeaderComponent, MainComponent, TaskModalComponent, TaskModalFrameComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
+    imports: [BoardAddEditModalComponent, SidebarComponent, HeaderComponent, BoardComponent, TaskDetailsModalComponent, TaskAddEditModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent],
     standalone: true
 })
 export class AppComponent implements OnInit {

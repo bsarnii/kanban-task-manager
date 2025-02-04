@@ -1,17 +1,17 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { ModalShowService } from '../services/modal-show.service';
-import { TasksStore } from '../task-management/+store/tasks.store';
-import { Task, Subtask } from '../types/task.interface';
-import { Status } from '../types/status.interface';
+import { ModalShowService } from '../../../core/services/modal-show.service';
+import { TasksStore } from '../../+store/tasks.store';
+import { Task, Subtask } from '../../types/task.interface';
+import { Status } from '../../types/status.interface';
 
-//TODO: Make this component dumb, rename it to TaskDetailsModalComponent
+//TODO: Make this component dumb
 @Component({
-    selector: 'app-task-modal',
-    templateUrl: './task-modal.component.html',
-    styleUrls: ['./task-modal.component.scss'],
+    selector: 'app-task-details-modal',
+    templateUrl: './task-details-modal.component.html',
+    styleUrls: ['./task-details-modal.component.scss'],
     imports: []
 })
-export class TaskModalComponent {
+export class TaskDetailsModalComponent {
   tasksStore = inject(TasksStore);
   modalShowService = inject(ModalShowService);
 

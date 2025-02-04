@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ModalShowService } from '../services/modal-show.service';
-import { SidebarToggleService } from '../services/sidebar-toggle.service';
-import { TasksStore } from '../task-management/+store/tasks.store';
+import { ModalShowService } from '../../../core/services/modal-show.service';
+import { SidebarToggleService } from '../../layout/sidebar/sidebar-toggle.service';
+import { TasksStore } from '../../+store/tasks.store';
 
 //TODO: Make this component dumb
 @Component({

@@ -1,8 +1,8 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { ModalShowService } from 'src/app/services/modal-show.service';
+import { ModalShowService } from 'src/app/core/services/modal-show.service';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Subtask } from 'src/app/types/task.interface';
-import { Status } from 'src/app/types/status.interface';
+import { Subtask } from 'src/app/task-management/types/task.interface';
+import { Status } from 'src/app/task-management/types/status.interface';
 import { TasksStore } from 'src/app/task-management/+store/tasks.store';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 
@@ -14,12 +14,12 @@ type SubtaskControl = {
 
 //TODO: Make component dumb!
 @Component({
-    selector: 'app-task-modal-frame',
-    templateUrl: './task-modal-frame.component.html',
-    styleUrls: ['./task-modal-frame.component.scss'],
+    selector: 'app-task-add-edit-modal',
+    templateUrl: './task-add-edit-modal.component.html',
+    styleUrls: ['./task-add-edit-modal.component.scss'],
     imports: [ReactiveFormsModule]
 })
-export class TaskModalFrameComponent implements OnInit {
+export class TaskAddEditModalComponent implements OnInit {
   modalShowService = inject(ModalShowService);
 
   @Input() modalName:string = "";

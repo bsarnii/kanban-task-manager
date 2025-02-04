@@ -1,17 +1,17 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ModalShowService } from '../services/modal-show.service';
-import { ColumnComponent } from "../column/column.component";
-import { BoardsStore } from '../task-management/+store/boards.store';
-import { TasksStore } from '../task-management/+store/tasks.store';
-import { Task } from '../types/task.interface';
+import { ModalShowService } from '../../../core/services/modal-show.service';
+import { ColumnComponent } from "../../ui/column/column.component";
+import { BoardsStore } from '../../+store/boards.store';
+import { TasksStore } from '../../+store/tasks.store';
+import { Task } from '../../types/task.interface';
 
 @Component({
-    selector: 'app-main',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss'],
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
     imports: [ColumnComponent]
 })
-export class MainComponent {
+export class BoardComponent {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
   modalShowService = inject(ModalShowService);
