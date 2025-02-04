@@ -1,10 +1,10 @@
 <div class="modal-head">
   <h4 class="heading-l">{{task().name}}</h4>
-  <button (click)="openEditDeleteContainer()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
-  @if (showEditDeleteContainer) {
-    <div class="edit-delete-container">
+  <button (click)="toggleEditDeleteOverlay()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+  @if (showEditDeleteOverlay) {
+    <div class="edit-delete-overlay">
       <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
-      <button (click)="openDeleteTaskModal()" class="delete-task">Delete Task</button>
+      <button (click)="modalShowService.openDeleteTaskModal()" class="delete-task">Delete Task</button>
     </div>
   }
 </div>

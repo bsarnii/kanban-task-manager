@@ -4,7 +4,6 @@ import { TasksStore } from '../../+store/tasks.store';
 import { Task, Subtask } from '../../types/task.interface';
 import { Status } from '../../types/status.interface';
 
-//TODO: Make this component dumb
 @Component({
     selector: 'app-task-details-modal',
     templateUrl: './task-details-modal.component.html',
@@ -19,10 +18,10 @@ export class TaskDetailsModalComponent {
   statuses = input.required<Status[]>();
   
   completedSubtasks = computed(() => this.task().subtasks.filter(subtask => subtask.isCompleted));
-  showEditDeleteContainer = false;
+  showEditDeleteOverlay = false;
 
-  openEditDeleteContainer(){
-    this.showEditDeleteContainer = !this.showEditDeleteContainer;
+  toggleEditDeleteOverlay(){
+    this.showEditDeleteOverlay = !this.showEditDeleteOverlay;
   }
 
   handleCheckboxClick(subtask:Subtask){
@@ -44,10 +43,6 @@ export class TaskDetailsModalComponent {
       statusId
     })
     this.modalShowService.closeModal();
-  }
-
-  openDeleteTaskModal(){
-    this.modalShowService.openDeleteTaskModal()
   }
 }
 

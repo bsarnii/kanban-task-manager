@@ -29,7 +29,7 @@
     &:has(.checkbox-container:nth-child(7)){
         overflow: auto;
         .modal-head{
-            .edit-delete-container{
+            .edit-delete-overlay{
                 transform: translate(0, 75%);
             }
         }
@@ -43,7 +43,7 @@
                 padding: 0;
             }
         }
-        .edit-delete-container{
+        .edit-delete-overlay{
             position:absolute;
             display: flex;
             flex-direction: column;
@@ -103,7 +103,7 @@
     :host{
         width: 90%;
         .modal-head{
-            .edit-delete-container{
+            .edit-delete-overlay{
                 transform: translate(0, 75%);
             }
         }
