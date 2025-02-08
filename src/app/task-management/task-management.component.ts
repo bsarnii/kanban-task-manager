@@ -10,11 +10,11 @@ import { TaskAddEditModalComponent } from "./feature/task-add-edit-modal/task-ad
 import { ConfirmDeleteBoardComponent } from "./ui/confirm-delete-board/confirm-delete-board.component";
 import { ConfirmDeleteTaskComponent } from "./ui/confirm-delete-task/confirm-delete-task.component";
 import { BoardAddEditModalComponent } from "./feature/board-add-edit-modal/board-add-edit-modal.component";
-import { BoardComponent } from "./feature/board/board.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-task-management',
-  imports: [TaskDetailsModalComponent, HeaderComponent, SidebarComponent, TaskAddEditModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent, BoardAddEditModalComponent, BoardComponent],
+  imports: [RouterOutlet,TaskDetailsModalComponent, HeaderComponent, SidebarComponent, TaskAddEditModalComponent, ConfirmDeleteBoardComponent, ConfirmDeleteTaskComponent, BoardAddEditModalComponent],
   templateUrl: './task-management.component.html',
   styleUrl: './task-management.component.scss'
 })

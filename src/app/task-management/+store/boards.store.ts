@@ -1,6 +1,7 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { Board } from '../types/boards.interface';
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 type BoardsState = { 
     boards: Board[],
@@ -19,7 +20,7 @@ const initialState: BoardsState = {
  export const BoardsStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store) => {
+    withMethods((store, router = inject(Router)) => {
         const saveToLocalStorage = () => {
             localStorage.setItem('boards', JSON.stringify({ boards: store.boards() }));
         };
@@ -35,6 +36,7 @@ const initialState: BoardsState = {
             addBoard: (board: Board) => {
                 patchState(store, (state) => ({ boards: [board, ...state.boards] }));
                 saveToLocalStorage();
+                router.navigate(['/board', board.id]);
             },
             editBoard: (editedBoard: Board) => {
                 patchState(store, (state) => ({ boards: state.boards.map(board => {
@@ -48,10 +50,12 @@ const initialState: BoardsState = {
             deleteBoard: (id: string) => {
                 patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
                 saveToLocalStorage();
+                router.navigate(['/board']);
             },
             setActiveBoardId: (id: string | null) => {
                 patchState(store, () => ({ activeBoardId: id }) );
             },
+            
         }
     }),
     withComputed(({boards, activeBoardId}) => ({
@@ -64,9 +68,6 @@ const initialState: BoardsState = {
     withHooks({
         onInit(store) {
             store.loadBoards();
-            if(!store.activeBoard() && store.boards().length) {
-                store.setActiveBoardId(store.boards()[0].id);
-            }
         },
     })
   );

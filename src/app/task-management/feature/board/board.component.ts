@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, Input, signal } from '@angular/core';
 import { ModalShowService } from '../../../core/services/modal-show.service';
 import { ColumnComponent } from "../../ui/column/column.component";
 import { BoardsStore } from '../../+store/boards.store';
@@ -16,6 +16,8 @@ export class BoardComponent {
   tasksStore = inject(TasksStore);
   modalShowService = inject(ModalShowService);
 
+  boardId = input.required<string>();
+
   columnsVM = computed(() => {
     const statuses = this.boardsStore.activeBoard()?.statuses || [];
     return statuses.map((status, index) => ({
@@ -31,8 +33,6 @@ export class BoardComponent {
     this.modalShowService.openEditBoardModal()
   }
 
-  onNewBoardClick(){
-    this.modalShowService.openCreateBoardModal()
-  }
+
   colors=["#49C4E5","#8471F2","#67E2AE","#d6d45a","#e09660","#e0635e","#de5fc7","#5d64de"]
 }

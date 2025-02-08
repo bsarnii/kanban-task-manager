@@ -1,17 +1,15 @@
 import { Routes } from "@angular/router";
-import { BoardComponent } from "./task-management/feature/board/board.component";
 import { TaskManagementComponent } from "./task-management/task-management.component";
+import { taskMangagementRoutes } from "./task-management/routes/routes";
 
 const appRoutes: Routes = [
     {
       path: '',
       component: TaskManagementComponent,
-      title: 'Board overview',
+      title: 'Task management',
+      children: [
+        ...taskMangagementRoutes
+      ]
     },
-    /*{
-      path: 'details/:id',
-      component: DetailsComponent,
-      title: 'Home details',
-    },*/
   ];
   export default appRoutes;
