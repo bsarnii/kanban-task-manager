@@ -1,39 +1,4 @@
 :host{
-    display: block;
-    position: fixed;
-    z-index: 10;
-    width: 480px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    background: var(--color-sec-bg);
-    padding: 2rem;
-    border-radius: 6px;
-    max-height: 90%;
-    scrollbar-color: #635FC7 transparent;
-    scrollbar-width: thin;
-    &::-webkit-scrollbar{
-        width: 6px;
-        height: 6px;
-    }
-    &::-webkit-scrollbar-track{
-        background: transparent;
-    }
-    &::-webkit-scrollbar-thumb{
-        background-color: #635FC7;
-        border-radius: 20px;
-    }
-    &::-webkit-scrollbar-corner{
-        background: transparent;
-    }
-    &:has(.checkbox-container:nth-child(7)){
-        overflow: auto;
-        .modal-head{
-            .edit-delete-overlay{
-                transform: translate(0, 75%);
-            }
-        }
-    }
     .modal-head{
         display: flex;
         justify-content: space-between;
@@ -52,6 +17,9 @@
             right: 0;
             transform: translate(50%,75%);
             z-index: 10;
+            @media screen and (max-width: 575px) {
+                transform: translate(0, 75%);
+            }
             button{
                 background: transparent;
                 text-align: start;
@@ -99,13 +67,3 @@
     }
 }
 
-@media screen and (max-width: 575px) {
-    :host{
-        width: 90%;
-        .modal-head{
-            .edit-delete-overlay{
-                transform: translate(0, 75%);
-            }
-        }
-    }
-}

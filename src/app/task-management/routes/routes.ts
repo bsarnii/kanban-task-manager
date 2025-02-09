@@ -3,6 +3,8 @@ import { doesBoardExistsGuard } from "./guards/does-board-exists.guard";
 import { activeBoardGuard } from "./guards/active-board.guard";
 import { BoardComponent } from "../feature/board/board.component";
 import { BoardNotExistsComponent } from "../feature/board-not-exists/board-not-exists.component";
+import { TaskDetailsModalComponent } from "../feature/task-details-modal/task-details-modal.component";
+import { activeTaskGuard } from "./guards/active-task.guard";
 
 export const taskMangagementRoutes:Routes = [
     {
@@ -23,7 +25,14 @@ export const taskMangagementRoutes:Routes = [
     {
         path: 'board/:boardId',
         component: BoardComponent,
-        canActivate: [activeBoardGuard]
+        canActivate: [activeBoardGuard],
+        children: [
+            {
+                path: 'task/:taskId',
+                component: TaskDetailsModalComponent,
+                canActivate: [activeTaskGuard]
+            }
+        ]
     },
 
 ];

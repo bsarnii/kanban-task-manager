@@ -13,9 +13,11 @@
       [taskNumber]="column.tasks.length"
       [tasks]="column.tasks"
       [color]="column.color"
+      (taskClick)="onTaskClick($event)"
     ></app-column>
   }
   <div (click)="onNewColumnClick()" class="new-column">
     <h2 class="heading-xl">+ New Column</h2>
   </div>
 }
+<router-outlet/>

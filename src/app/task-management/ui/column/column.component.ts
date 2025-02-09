@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, model, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, Input, model, output, QueryList, ViewChildren } from '@angular/core';
 
 import { ModalShowService } from '../../../core/services/modal-show.service';
 import { CommonModule } from '@angular/common';
@@ -22,12 +22,9 @@ export class ColumnComponent{
   @Input() columnIndex:number = 0;
   @Input() statusId = "";
   
+  taskClick = output<string>();
   draggedTask = model<Task | null>();
 
-  onTaskClick(id:string){
-    this.tasksStore.setActiveTaskId(id);
-    this.modalShowService.openTaskModal()
-    }
 
   filterCompletedSubtasks(subtasks: Subtask[]):number{
     return subtasks.filter(subtask => subtask.isCompleted === true).length

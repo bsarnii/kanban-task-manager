@@ -6,7 +6,7 @@
   @for (task of tasks; let i = $index; track i) {
     <div class="task" 
       [id]="task.id" 
-      (click)="onTaskClick(task.id)"
+      (click)="taskClick.emit(task.id)"
       (dragstart)="onDragStart(task)" 
       (dragend)="onDragEnd()"
       draggable="true">

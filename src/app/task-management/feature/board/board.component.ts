@@ -4,17 +4,20 @@ import { ColumnComponent } from "../../ui/column/column.component";
 import { BoardsStore } from '../../+store/boards.store';
 import { TasksStore } from '../../+store/tasks.store';
 import { Task } from '../../types/task.interface';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
-    imports: [ColumnComponent]
+    imports: [ColumnComponent, RouterOutlet]
 })
 export class BoardComponent {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
   modalShowService = inject(ModalShowService);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
 
   boardId = input.required<string>();
 
@@ -32,6 +35,11 @@ export class BoardComponent {
   onNewColumnClick(){
     this.modalShowService.openEditBoardModal()
   }
+
+  onTaskClick(id:string){
+    this.tasksStore.setActiveTaskId(id);
+    this.router.navigate(['task', id], {relativeTo: this.route});
+    }
 
 
   colors=["#49C4E5","#8471F2","#67E2AE","#d6d45a","#e09660","#e0635e","#de5fc7","#5d64de"]
