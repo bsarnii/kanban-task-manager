@@ -13,5 +13,4 @@ export class ConfirmDeleteTaskComponent {
 
   confirm = output();
   cancel = output();
-
 }

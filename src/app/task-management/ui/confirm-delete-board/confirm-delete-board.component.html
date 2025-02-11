@@ -1,6 +1,8 @@
-<h3 class="heading-l">Delete this board?</h3>
-<p class="body-l">Are you sure you want to delete the '{{boardsStore.activeBoard()?.name}}' board? This action will remove all columns and tasks and cannot be reversed.</p>
-<div class="button-container">
-    <button (click)="deleteBoard()" class="btn button-destructive">Delete</button>
-    <button (click)="cancelDelete()" class="btn button-secondary">Cancel</button>
-</div>
+<app-modal (backdropClick)="cancel.emit()">
+    <h3 class="heading-l" modalHeader>Delete this board?</h3>
+    <p class="body-l" modalBody>Are you sure you want to delete the '{{board().name}}' board? This action will remove all columns and tasks and cannot be reversed.</p>
+    <div class="button-container" modalFooter>
+        <button (click)="confirm.emit()" class="btn button-destructive">Delete</button>
+        <button (click)="cancel.emit()" class="btn button-secondary">Cancel</button>
+    </div>
+</app-modal>

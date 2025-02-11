@@ -11,10 +11,7 @@ export class ModalShowService {
   showCreateTaskModal = false;
 
   showEditBoardModal = false;
-  showDeleteBoardModal = false;
   showCreatedBoardModal = false;
-
-  showEditDeleteContainer = false;
 
   openTaskModal(){
     this.darkBackground = true;
@@ -33,21 +30,9 @@ export class ModalShowService {
     this.darkBackground = true;
     this.showEditBoardModal = true;
   }
-  openDeleteBoardModal(){
-    this.darkBackground = true;
-    this.showDeleteBoardModal = true;
-  }
   openCreateBoardModal(){
     this.darkBackground = true;
     this.showCreatedBoardModal = true;
-  }
-
-  onEditDeleteContainerClick(){
-    this.showEditDeleteContainer = !this.showEditDeleteContainer
-  }
-
-  closeEditDeleteContainer(){
-    this.showEditDeleteContainer = false;
   }
 
   closeModal(){
@@ -55,7 +40,6 @@ export class ModalShowService {
     this.showTaskModal = false;
     this.showEditTaskModal = false;
     this.showCreateTaskModal = false;
-    this.showDeleteBoardModal = false;
     this.showCreatedBoardModal = false;
     this.showEditBoardModal = false;
   }

@@ -1,6 +1,5 @@
 :host{
     background-color: var(--color-sec-bg);
-    display: block;
     width: 100%;
     height: 5rem;
     display: flex;
@@ -49,7 +48,7 @@
 .header-right{
     display: flex;
     align-items: center;
-    .edit-delete-container{
+    .edit-delete-overlay{
         position:absolute;
         display: flex;
         flex-direction: column;

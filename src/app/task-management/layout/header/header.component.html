@@ -1,5 +1,5 @@
 @let activeBoard = boardsStore.activeBoard();
-<div class="header-left" (click)="this.modalShowService.closeEditDeleteContainer()">
+<div class="header-left">
     <img 
         class="logo" 
         [ngClass]="sidebarService.sidebarOpened ? 'sidebarOpened' : 'sidebarClosed'" 
@@ -16,12 +16,20 @@
 </div>
 <div *ngIf="boardsStore.boards().length > 0" class="header-right">
     <button [disabled]="activeBoard?.statuses?.length === 0" (click)="handleAddNewTask()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
-    <button (click)="modalShowService.onEditDeleteContainerClick()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
-    <div *ngIf="modalShowService.showEditDeleteContainer" class="edit-delete-container">
-        <button (click)="openEditBoardModal()" class="edit-board">Edit Board</button>
-        <button (click)="openDeleteBoardModal()" class="delete-board">Delete Board</button>
+    <button (click)="toggleEditDeleteOverlay($event)" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+    <div *ngIf="showEditDeleteOverlay" class="edit-delete-overlay">
+        <button (click)="onEditBoardBtnClick($event)" class="edit-board">Edit Board</button>
+        <button (click)="onDeleteBoardBtnClick($event)" class="delete-board">Delete Board</button>
     </div>
 </div>
+
+@if(boardBeingDeleted() && activeBoard){
+    <app-confirm-delete-board 
+        [board]="activeBoard"
+        (confirm)="deleteBoard()" 
+        (cancel)="boardBeingDeleted.set(false)" 
+    />
+}
 
 
 

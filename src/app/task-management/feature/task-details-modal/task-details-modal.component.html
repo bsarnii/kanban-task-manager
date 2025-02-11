@@ -1,6 +1,6 @@
 <app-modal (backdropClick)="close()">
 
-  <div class="modal-head" modalHead>
+  <div class="modal-head" modalHeader>
     <h4 class="heading-l">{{task().name}}</h4>
     <button (click)="toggleEditDeleteOverlay()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     @if (showEditDeleteOverlay) {
