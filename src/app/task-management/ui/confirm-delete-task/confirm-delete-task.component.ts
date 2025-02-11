@@ -1,25 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { ModalShowService } from '../../../core/services/modal-show.service';
-import { SidebarToggleService } from '../../layout/sidebar/sidebar-toggle.service';
-import { TasksStore } from '../../+store/tasks.store';
+import { Component, input, output } from '@angular/core';
+import { ModalComponent } from "../../../shared/ui/modal/modal.component";
+import { Task } from '../../types/task.interface';
 
-//TODO: Make this component dumb
 @Component({
     selector: 'app-confirm-delete-task',
     templateUrl: './confirm-delete-task.component.html',
-    styleUrls: ['./confirm-delete-task.component.scss']
+    styleUrls: ['./confirm-delete-task.component.scss'],
+    imports: [ModalComponent]
 })
 export class ConfirmDeleteTaskComponent {
-  tasksStore = inject(TasksStore);
-  modalShowService = inject(ModalShowService);
-  sidebarService = inject(SidebarToggleService);
+  task = input.required<Task>();
 
-  deleteTask(){
-    this.tasksStore.deleteTask(this.tasksStore.activeTaskId()!);
-    this.modalShowService.closeModal();
-  }
+  confirm = output();
+  cancel = output();
 
-  cancelDelete(){
-    this.modalShowService.closeModal()
-  }
 }

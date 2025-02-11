@@ -9,7 +9,6 @@ export class ModalShowService {
   showTaskModal = false;
   showEditTaskModal = false;
   showCreateTaskModal = false;
-  showDeleteTaskModal = false;
 
   showEditBoardModal = false;
   showDeleteBoardModal = false;
@@ -29,11 +28,6 @@ export class ModalShowService {
     this.showTaskModal = false;
     this.darkBackground = true;
     this.showCreateTaskModal = true;
-  }
-  openDeleteTaskModal() {
-    this.showTaskModal = false;
-    this.darkBackground = true;
-    this.showDeleteTaskModal = true;
   }
   openEditBoardModal(){
     this.darkBackground = true;
@@ -62,7 +56,6 @@ export class ModalShowService {
     this.showEditTaskModal = false;
     this.showCreateTaskModal = false;
     this.showDeleteBoardModal = false;
-    this.showDeleteTaskModal = false;
     this.showCreatedBoardModal = false;
     this.showEditBoardModal = false;
   }

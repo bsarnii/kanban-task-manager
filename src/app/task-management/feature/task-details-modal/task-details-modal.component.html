@@ -6,7 +6,7 @@
     @if (showEditDeleteOverlay) {
       <div class="edit-delete-overlay">
         <button (click)="modalShowService.openEditTaskModal()" class="edit-task">Edit Task</button>
-        <button (click)="modalShowService.openDeleteTaskModal()" class="delete-task">Delete Task</button>
+        <button (click)="taskBeingDeleted.set(true)" class="delete-task">Delete Task</button>
       </div>
     }
   </div>
@@ -42,3 +42,11 @@
     </div>
   </ng-container>
 </app-modal>
+
+@if(taskBeingDeleted()){
+  <app-confirm-delete-task 
+  [task]="task()"
+  (confirm)="deleteTask()" 
+  (cancel)="taskBeingDeleted.set(false)" 
+  />
+}
