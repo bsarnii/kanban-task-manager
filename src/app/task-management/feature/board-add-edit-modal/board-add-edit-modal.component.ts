@@ -1,26 +1,42 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { ModalShowService } from 'src/app/core/services/modal-show.service';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { SidebarToggleService } from 'src/app/task-management/layout/sidebar/sidebar-toggle.service';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
-import { Status } from 'src/app/task-management/types/status.interface';
+import { ModalComponent } from "../../../shared/ui/modal/modal.component";
+import { ActivatedRoute, Router } from '@angular/router';
 
+export enum BoardAddEditModalContextEnum {
+  add = 'add',
+  edit = 'edit'
+}
 
 @Component({
     selector: 'app-board-add-edit-modal',
     templateUrl: './board-add-edit-modal.component.html',
     styleUrls: ['./board-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule, ModalComponent]
 })
 export class BoardAddEditModalComponent implements OnInit {
-  modalShowService = inject(ModalShowService);
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   fb = inject(FormBuilder);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
 
-  @Input() modalName:string = "";
-  @Input() boardName:string = "";
-  @Input() initialStatuses:Status[] = [{name: "", id: Math.random().toString(36).substring(7)}];
+  addEditContext = input<BoardAddEditModalContextEnum>(BoardAddEditModalContextEnum.add);
+  modalName = computed(() => this.addEditContext() === BoardAddEditModalContextEnum.add ? "Add New Board" : "Edit Board");
+  boardName = computed(() => {
+    if(this.addEditContext() === BoardAddEditModalContextEnum.add){
+      return "";
+    }
+    return this.boardsStore.activeBoard()?.name || "";
+  });
+  initialStatuses = computed(() => {
+    if(this.addEditContext() === BoardAddEditModalContextEnum.add){
+      return [{name: "", id: Math.random().toString(36).substring(7)}];
+    }
+    return this.boardsStore.activeBoardStatuses();
+  })
 
   form = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(21)]],
@@ -59,12 +75,12 @@ export class BoardAddEditModalComponent implements OnInit {
       statuses: this.formStatuses.value.map(((status, i) => {
         return {
           name: status,
-          id: this.initialStatuses[i]?.id || Math.random().toString(36).substring(7)
+          id: this.initialStatuses()[i]?.id || Math.random().toString(36).substring(7)
          }
       })).filter(status => !!status.name),
     }
     this.boardsStore.editBoard(editedBoard);
-    this.modalShowService.closeModal();
+    this.close();
   }
 
   createBoard(event:Event){
@@ -84,13 +100,18 @@ export class BoardAddEditModalComponent implements OnInit {
     this.sidebarService.selectedIndex = 0;
     this.boardsStore.addBoard(newBoard);
     this.boardsStore.setActiveBoardId(newBoard.id);
-    this.modalShowService.closeModal();
   }
   
   ngOnInit(){
-    this.formName.setValue(this.boardName);
-    this.initialStatuses.map(status => {
+    this.formName.setValue(this.boardName());
+    this.initialStatuses().map(status => {
       this.formStatuses.push(new FormControl(status.name))
     });
   }
+
+  close(){
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+  BoardAddEditModalContextEnum = BoardAddEditModalContextEnum;
 }

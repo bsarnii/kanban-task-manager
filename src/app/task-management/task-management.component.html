@@ -13,7 +13,6 @@
 @if (modalShowService.darkBackground) {
   <div (click)="modalShowService.closeModal()" class="modal-dark-background"></div>
 }
-@let activeBoard = boardsStore.activeBoard();
 @if (modalShowService.showEditTaskModal) {
   <app-task-add-edit-modal
     modalName="Edit Task"
@@ -30,14 +29,4 @@
   modalName="Add New Task"
   [statuses]="boardsStore.activeBoard()?.statuses || []"
   buttonName="Create Task"/>
-}
-@if (modalShowService.showCreatedBoardModal) {
-  <app-board-add-edit-modal modalName="Add New Board"/>
-}
-@if (modalShowService.showEditBoardModal && activeBoard) {
-  <app-board-add-edit-modal
-    modalName="Edit Board"
-    [boardName]="activeBoard.name"
-    [initialStatuses]="activeBoard.statuses"
-  />
 }

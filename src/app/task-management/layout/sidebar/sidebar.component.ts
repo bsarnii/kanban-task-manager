@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ColorThemeService } from '../../../core/services/color-theme.service';
 import { SidebarToggleService } from './sidebar-toggle.service';
 import { ModalShowService } from '../../../core/services/modal-show.service';
@@ -26,7 +26,15 @@ export class SidebarComponent {
     if (window.innerWidth <= 575) {
       this.sidebarService.sidebarOpened = false
     }
-    this.modalShowService.openCreateBoardModal();
   }
+
+  createNewBoardPath = computed(() => {
+    const boardId = this.boardsStore.activeBoardId();
+    if(boardId){
+      return ['/board', boardId, 'add-board'];
+    } else {
+      return ['/board-not-exists', 'add-board'];
+    }
+  })
 
 }

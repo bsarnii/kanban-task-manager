@@ -1,16 +1,17 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { ColorThemeService } from '../../../core/services/color-theme.service';
 import { SidebarToggleService } from '../sidebar/sidebar-toggle.service';
 import { ModalShowService } from '../../../core/services/modal-show.service';
 import { CommonModule } from '@angular/common';
 import { BoardsStore } from '../../+store/boards.store';
 import { ConfirmDeleteBoardComponent } from "../../ui/confirm-delete-board/confirm-delete-board.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    imports: [CommonModule, ConfirmDeleteBoardComponent]
+    imports: [CommonModule, ConfirmDeleteBoardComponent, RouterLink]
 })
 export class HeaderComponent {
     boardsStore = inject(BoardsStore);
@@ -20,6 +21,7 @@ export class HeaderComponent {
 
     boardBeingDeleted = signal(false);
     showEditDeleteOverlay = false;
+    editBoardPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'edit-board']);
 
     @HostListener('document:click')
     clickOutside() {

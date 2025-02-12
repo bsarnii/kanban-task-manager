@@ -18,7 +18,7 @@
     <button [disabled]="activeBoard?.statuses?.length === 0" (click)="handleAddNewTask()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
     <button (click)="toggleEditDeleteOverlay($event)" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteOverlay" class="edit-delete-overlay">
-        <button (click)="onEditBoardBtnClick($event)" class="edit-board">Edit Board</button>
+        <button [routerLink]="editBoardPath()" class="edit-board">Edit Board</button>
         <button (click)="onDeleteBoardBtnClick($event)" class="delete-board">Delete Board</button>
     </div>
 </div>
