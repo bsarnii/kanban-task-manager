@@ -1,8 +1,8 @@
 @if (this.boardsStore.activeBoard(); as activeBoard) {
-  @if (activeBoard.statuses.length === 0) {
+  @if (!activeBoard.statuses.length) {
     <div class="empty-board">
       <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
-      <button (click)="onNewColumnClick()" class="btn button-primary-l">+ Add New Column</button>
+      <button routerLink="./edit-board" class="btn button-primary-l">+ Add New Column</button>
     </div>
   }
   @for (column of columnsVM(); let i = $index; track i) {
@@ -16,8 +16,10 @@
       (taskClick)="onTaskClick($event)"
     ></app-column>
   }
-  <div (click)="onNewColumnClick()" class="new-column">
-    <h2 class="heading-xl">+ New Column</h2>
-  </div>
+  @if (activeBoard.statuses.length) {
+    <div routerLink="./edit-board" class="new-column">
+      <h2 class="heading-xl">+ New Column</h2>
+    </div>
+  }
 }
 <router-outlet/>

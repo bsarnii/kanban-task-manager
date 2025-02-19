@@ -1,10 +1,9 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { ModalShowService } from 'src/app/core/services/modal-show.service';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Subtask } from 'src/app/task-management/types/task.interface';
-import { Status } from 'src/app/task-management/types/status.interface';
 import { TasksStore } from 'src/app/task-management/+store/tasks.store';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 
 type SubtaskControl = {
   id: FormControl<string>;
@@ -12,32 +11,37 @@ type SubtaskControl = {
   isCompleted: FormControl<boolean>;
 }
 
-//TODO: Make component dumb!
+export enum TaskAddEditModalContextEnum {
+  add = 'add',
+  edit = 'edit'
+}
+
 @Component({
     selector: 'app-task-add-edit-modal',
     templateUrl: './task-add-edit-modal.component.html',
     styleUrls: ['./task-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule, ModalComponent]
 })
 export class TaskAddEditModalComponent implements OnInit {
-  modalShowService = inject(ModalShowService);
-
-  @Input() modalName:string = "";
-  @Input() taskName:string = "";
-  @Input() description:string = "";
-  @Input() subtasks:Subtask[] = [
-    {id: 'test', name: "", isCompleted: false},
-  ];
-  @Input() statuses:Status[] = [];
-  @Input() initialStatusId = "";
-  @Input() buttonName:string = "";
-  @Input() taskId:string | null = null;
-  @Input() position = 0;
-  @Input() latestPosition = 0;
-
+  router = inject(Router);
+  route = inject(ActivatedRoute);
   fb = inject(NonNullableFormBuilder);
   tasksStore = inject(TasksStore);
   boardsStore = inject(BoardsStore);
+
+  addEditContext = input<TaskAddEditModalContextEnum>(TaskAddEditModalContextEnum.add);
+
+  modalName = computed(() => this.addEditContext() === TaskAddEditModalContextEnum.add ? "Add New Task" : "Edit Task");
+  taskName = computed(() => this.tasksStore.activeTask()?.name || "");
+  initialSubtasks = computed(() => {
+    const activeTask = this.tasksStore.activeTask();
+    if(activeTask && activeTask.subtasks.length){
+      return activeTask.subtasks;
+    }
+    return [{id: Math.random().toString(36).substring(7), name: "", isCompleted: false}]
+  })
+
+
   form = this.fb.group({
     name: ['', Validators.required],
     description: [''],
@@ -68,7 +72,7 @@ export class TaskAddEditModalComponent implements OnInit {
       return;
     }
     this.tasksStore.editTask({
-      id: this.taskId || Math.random().toString(36).substring(7),
+      id: this.tasksStore.activeTaskId() || Math.random().toString(36).substring(7),
       boardId: this.boardsStore.activeBoardId() || "",
       name: this.formName.value,
       description: this.formDescription.value,
@@ -79,7 +83,7 @@ export class TaskAddEditModalComponent implements OnInit {
         isCompleted: subtask.isCompleted
       })).filter(subtask => subtask.name !== "")
     })
-    this.modalShowService.closeModal();
+    this.close();
   }
 
   createTask(event:Event){
@@ -100,7 +104,7 @@ export class TaskAddEditModalComponent implements OnInit {
         isCompleted: false
       })).filter(subtask => subtask.name !== "")
     })
-    this.modalShowService.closeModal();
+    this.close();
   }
 
   get formName() {
@@ -117,15 +121,23 @@ export class TaskAddEditModalComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.formName.setValue(this.taskName);
-    this.formDescription.setValue(this.description);
-    this.formStatus.setValue(this.initialStatusId || this.statuses[0].id);
-    this.subtasks.map(subtask => {
+    this.formName.setValue(this.taskName());
+    this.formDescription.setValue(this.tasksStore.activeTask()?.description || "");
+    this.formStatus.setValue(this.tasksStore.activeTask()?.statusId || this.boardsStore.activeBoardStatuses()[0].id);
+    this.initialSubtasks().map(subtask => {
       this.formSubtasks.push(this.fb.group({
         id: subtask.id,
         name: subtask.name,
         isCompleted: subtask.isCompleted
       }))
     });
+  }
+
+  TaskAddEditModalContextEnum = TaskAddEditModalContextEnum;
+
+  close(){
+    this.router.navigate(
+      [this.addEditContext() === TaskAddEditModalContextEnum.add ? '..' : '../../..'], { relativeTo: this.route }
+    );
   }
 }

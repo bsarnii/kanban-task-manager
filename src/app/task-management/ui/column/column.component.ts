@@ -1,6 +1,4 @@
-import { Component, ElementRef, inject, Input, model, output, QueryList, ViewChildren } from '@angular/core';
-
-import { ModalShowService } from '../../../core/services/modal-show.service';
+import { Component, inject, Input, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksStore } from '../../+store/tasks.store';
 import { Subtask, Task } from '../../types/task.interface';
@@ -12,7 +10,6 @@ import { Subtask, Task } from '../../types/task.interface';
     imports: [CommonModule]
 })
 export class ColumnComponent{
-  modalShowService = inject(ModalShowService);
   tasksStore = inject(TasksStore);
 
   @Input() color:string = "#49C4E5";

@@ -10,23 +10,3 @@
 @if (sidebarService.sidebarOpened) {
   <div (click)="sidebarService.toggleSidebar()" class="dark-background"></div>
 }
-@if (modalShowService.darkBackground) {
-  <div (click)="modalShowService.closeModal()" class="modal-dark-background"></div>
-}
-@if (modalShowService.showEditTaskModal) {
-  <app-task-add-edit-modal
-    modalName="Edit Task"
-    [taskName]="tasksStore.activeTask()?.name || ''"
-    [description]="tasksStore.activeTask()?.description || ''"
-    [subtasks]="tasksStore.activeTask()?.subtasks || []"
-    [statuses]="boardsStore.activeBoard()?.statuses || []"
-    [initialStatusId]="tasksStore.activeTask()?.statusId || ''"
-    [taskId]="tasksStore.activeTask()?.id || null"
-    buttonName="Save Changes"/>
-}
-@if (modalShowService.showCreateTaskModal) {
-  <app-task-add-edit-modal
-  modalName="Add New Task"
-  [statuses]="boardsStore.activeBoard()?.statuses || []"
-  buttonName="Create Task"/>
-}

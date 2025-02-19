@@ -1,25 +1,24 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
-import { ModalShowService } from '../../../core/services/modal-show.service';
 import { TasksStore } from '../../+store/tasks.store';
 import { Task, Subtask } from '../../types/task.interface';
 import { BoardsStore } from '../../+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ConfirmDeleteTaskComponent } from "../../ui/confirm-delete-task/confirm-delete-task.component";
 
 @Component({
     selector: 'app-task-details-modal',
     templateUrl: './task-details-modal.component.html',
     styleUrls: ['./task-details-modal.component.scss'],
-    imports: [ModalComponent, ConfirmDeleteTaskComponent]
+    imports: [ModalComponent, ConfirmDeleteTaskComponent, RouterOutlet, RouterLink]
 })
 export class TaskDetailsModalComponent {
   tasksStore = inject(TasksStore);
   boardsStore = inject(BoardsStore);
   router = inject(Router);
   route = inject(ActivatedRoute);
-  modalShowService = inject(ModalShowService);
 
+  taskBeingEdited = signal(false);
   task = this.tasksStore.activeTask as Signal<Task>;
   statuses = this.boardsStore.activeBoardStatuses;
   taskBeingDeleted = signal(false);

@@ -15,7 +15,7 @@
     </button>
 </div>
 <div *ngIf="boardsStore.boards().length > 0" class="header-right">
-    <button [disabled]="activeBoard?.statuses?.length === 0" (click)="handleAddNewTask()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
+    <button [disabled]="activeBoard?.statuses?.length === 0" [routerLink]="addTaskPath()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
     <button (click)="toggleEditDeleteOverlay($event)" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
     <div *ngIf="showEditDeleteOverlay" class="edit-delete-overlay">
         <button [routerLink]="editBoardPath()" class="edit-board">Edit Board</button>

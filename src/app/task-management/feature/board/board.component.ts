@@ -1,21 +1,19 @@
 import { Component, computed, inject, input, Input, signal } from '@angular/core';
-import { ModalShowService } from '../../../core/services/modal-show.service';
 import { ColumnComponent } from "../../ui/column/column.component";
 import { BoardsStore } from '../../+store/boards.store';
 import { TasksStore } from '../../+store/tasks.store';
 import { Task } from '../../types/task.interface';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
-    imports: [ColumnComponent, RouterOutlet]
+    imports: [ColumnComponent, RouterOutlet, RouterLink]
 })
 export class BoardComponent {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
-  modalShowService = inject(ModalShowService);
   router = inject(Router);
   route = inject(ActivatedRoute);
 
@@ -31,10 +29,6 @@ export class BoardComponent {
     }))
   })
   draggedTask = signal<Task|null>(null);
-
-  onNewColumnClick(){
-    this.modalShowService.openEditBoardModal()
-  }
 
   onTaskClick(id:string){
     this.tasksStore.setActiveTaskId(id);

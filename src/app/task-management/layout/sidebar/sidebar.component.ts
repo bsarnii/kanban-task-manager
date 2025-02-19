@@ -1,7 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { ColorThemeService } from '../../../core/services/color-theme.service';
 import { SidebarToggleService } from './sidebar-toggle.service';
-import { ModalShowService } from '../../../core/services/modal-show.service';
 import { BoardsStore } from '../../+store/boards.store';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -14,7 +13,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class SidebarComponent {
   colorThemeService = inject(ColorThemeService);
   sidebarService = inject(SidebarToggleService);
-  modalShowService = inject(ModalShowService);
   boardsStore = inject(BoardsStore);
 
   handleOnBoardClick(){
