@@ -7,8 +7,7 @@
     <div class="task" 
       [id]="task.id" 
       (click)="taskClick.emit(task.id)"
-      (dragstart)="onDragStart(task)" 
-      (dragend)="onDragEnd()"
+      (dragstart)="onDragStart(task)"
       draggable="true">
       <div class="task-inner-wrapper" [style.pointer-events]="draggedTask() ? 'none' : 'auto'">
         <h3 class="heading-m">{{task.name}}</h3>

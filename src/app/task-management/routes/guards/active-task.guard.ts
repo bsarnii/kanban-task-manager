@@ -1,11 +1,18 @@
 import { inject } from "@angular/core";
 import { TasksStore } from "../../+store/tasks.store";
-import { CanActivateFn } from "@angular/router";
+import { CanActivateFn, CanDeactivateFn } from "@angular/router";
 
-export const activeTaskGuard: CanActivateFn = (route, state) => {
+export const activeTaskOnActivate: CanActivateFn = (route, state) => {
     const tasksStore = inject(TasksStore);
     const taskId = route.params['taskId'] as string;
     tasksStore.setActiveTaskId(taskId);
 
     return true ;
-  };
+};
+
+export const activeTaskOnDeactivate: CanDeactivateFn<unknown> = () => {
+  const tasksStore = inject(TasksStore);
+  tasksStore.setActiveTaskId(null);
+
+  return true;
+}

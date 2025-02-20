@@ -82,7 +82,7 @@ const initialState: TasksState = {
                 }));
 
             },
-            setActiveTaskId: (taskId: string) => {
+            setActiveTaskId: (taskId: string | null) => {
                 patchState(store, () => ({ activeTaskId: taskId }));
             }
         }

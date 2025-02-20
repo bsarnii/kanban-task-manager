@@ -36,10 +36,6 @@ export class ColumnComponent{
     this.draggedTask.set(task);
   }
 
-  onDragEnd(){
-   this.draggedTask.set(null);
-  }
-
   onDrop(e:DragEvent){
     const task = this.draggedTask();
     if(task) {
@@ -52,7 +48,7 @@ export class ColumnComponent{
       });
 
       this.tasksStore.updateTaskPositions(task.id, targetId, isSameStatus);
-
+      this.draggedTask.set(null);
     }
   }
       
