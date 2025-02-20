@@ -1,37 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarToggleService } from './services/sidebar-toggle.service';
-import data from '../assets/data.json';
-import { BoardsService } from './services/boards.service';
-import { ModalShowService } from './services/modal-show.service';
-import { ColorThemeService } from './services/color-theme.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [RouterOutlet],
+    standalone: true
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor (
-    public sidebarService: SidebarToggleService,
-    public boardsService: BoardsService,
-    public modalShowService: ModalShowService,
-    public colorThemeService:ColorThemeService
-    ) {
-      if (localStorage.getItem("boards") === null){
-        boardsService.setBoards(data)
-      }
-      boardsService.getBoards();
-      boardsService.setCurrentBoard(boardsService.boards.boards[0])
-      if (localStorage.getItem("lightMode") === null){
-        colorThemeService.setTheme("false");
-      }
-      colorThemeService.getTheme();
-    }
-    
-  ngOnInit(){
-    if (window.innerWidth <= 575){
-      this.sidebarService.sidebarOpened = false;
-    }
-  }
 }

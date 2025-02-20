@@ -1,0 +1,38 @@
+:host{
+    min-height: calc(100vh - 5rem);
+    height: calc(100vh - 5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    scrollbar-color: #635FC7 transparent;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track{
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #635FC7;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
+    .empty-board{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+        text-align: center;
+        h1{
+            color: #828FA3;
+        }
+        button{
+            margin: 2rem;
+        }
+    }
+}
