@@ -1,6 +1,6 @@
 import { computed, inject } from "@angular/core";
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { Task } from "src/app/types/task.interface";
+import { Task } from "src/app/task-management/types/task.interface";
 import { BoardsStore } from "./boards.store";
 
 type TasksState = { 
@@ -82,7 +82,7 @@ const initialState: TasksState = {
                 }));
 
             },
-            setActiveTaskId: (taskId: string) => {
+            setActiveTaskId: (taskId: string | null) => {
                 patchState(store, () => ({ activeTaskId: taskId }));
             }
         }

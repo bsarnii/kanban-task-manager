@@ -1,0 +1,135 @@
+:host{
+    background-color: var(--color-sec-bg);
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--lines);
+    position: relative;
+}
+.header-left{
+    display: flex;
+    align-items: center;
+    .logo{
+        padding: 0 1.5rem;
+        height: 25px;
+        transition: margin-left .3s;
+    }
+    .logo.sidebarOpened{
+        margin-left: -196px;
+    }
+    .mobile-logo{
+        display: none;
+    }
+    .line{
+        width: 1px;
+        height: 5rem;
+        background-color: var(--lines);
+    }
+    button{
+        background-color: transparent;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        h1{
+            padding: 0 1.5rem;
+            position: relative;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-weight: 700;
+        }
+        img{
+            display: none;
+        }
+    }
+}
+.header-right{
+    display: flex;
+    align-items: center;
+    .edit-delete-overlay{
+        position:absolute;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-bg);
+        border-radius: 8px;
+        right: 2.5rem;
+        bottom: 0;
+        transform: translateY(90%);
+        z-index: 10;
+        button{
+            background: transparent;
+            text-align: start;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color .3s;
+            &:hover{
+                background-color: rgba(99,95,199,.25);
+            }
+            &:first-child{
+                border-radius: 8px 8px 0 0;
+            }
+            &:last-child{
+                border-radius: 0 0 8px 8px;
+            }
+        }
+        .edit-board{
+            color: #828FA3;
+        }
+        .delete-board{
+            color: #EA5555;
+        }
+    }
+
+}
+
+@media screen and (max-width: 575px) {
+    :host{
+        height: 3rem;
+    }
+
+    .header-left{
+        .logo{
+            display: none!important;
+        }
+        .mobile-logo{
+            display: block;
+            padding: 0 1rem;
+        }
+        .line{
+            height: 3rem;
+            display: none;
+        }
+        button{
+            h1{
+                padding: 0;
+            }
+            img{
+                display:block;
+            }
+        }
+    }
+
+    .header-right{
+        button:first-child{
+            padding:  0 1em .5em 1em;
+            span{
+                display: none;
+            }
+        }
+        .btn-vertical-dots{
+            img{
+                height: 1rem;
+                padding: 0 1rem;
+            }
+        }
+        .edit-delete-container{
+            right: 1.5rem;
+        }
+    }
+
+}

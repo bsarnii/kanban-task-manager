@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { HeaderComponent } from './header/header.component';
-import { MainComponent } from './main/main.component';
+import { SidebarComponent } from './task-management/layout/sidebar/sidebar.component';
+import { HeaderComponent } from './task-management/layout/header/header.component';
+import { BoardComponent } from './task-management/feature/board/board.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -15,7 +15,7 @@ describe('AppComponent', () => {
         AppComponent,
         SidebarComponent,
         HeaderComponent,
-        MainComponent
+        BoardComponent
       ],
     }).compileComponents();
   });
