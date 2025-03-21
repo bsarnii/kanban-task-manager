@@ -5,3 +5,5 @@ export interface Board{
     name: string
     statuses: Status[]
 }
+
+export type BoardInputDto = Omit<Board, 'id'>;
