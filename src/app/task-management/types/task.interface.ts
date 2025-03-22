@@ -12,3 +12,5 @@ export interface Subtask{
     name: string
     isCompleted: boolean
 }
+
+export type TaskInputDto = Omit<Task, 'id'>;
