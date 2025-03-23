@@ -1,7 +1,10 @@
 import { computed, inject } from "@angular/core";
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { Task } from "src/app/task-management/types/task.interface";
+import { Task, TaskInputDto } from "src/app/task-management/types/task.interface";
 import { BoardsStore } from "./boards.store";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { filter, map, pipe, switchMap, tap } from "rxjs";
+import { TasksDataService } from "./tasks-data.service";
 
 type TasksState = { 
     tasks: Task[],
@@ -20,40 +23,41 @@ const initialState: TasksState = {
  export const TasksStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store) => {
-        const saveToLocalStorage = () => {
-            localStorage.setItem('tasks', JSON.stringify({ tasks: store.tasks() }));
-        };
+    withMethods((store, tasksDataService = inject(TasksDataService)) => {
         return {
-            loadTasks: () => {
-                const localStorageTasks = localStorage['tasks'];
-                if(localStorageTasks) {
-                    patchState(store, () => ({ loading: true }));
-                    patchState(store, (state) => ({ tasks: [...state.tasks, ...JSON.parse(localStorage['tasks']).tasks ] }));
-                    patchState(store, () => ({ loading: false, loaded: true }));
-                }
-            },
-            addTask: (task: Task) => {
-                patchState(store, (state) => ({tasks: [task, ...state.tasks] }));
-                saveToLocalStorage();
-            },
-            editTask: (taskToBeEdited: Task ) => {
-                patchState(store, (state) => ({ 
-                    tasks: state.tasks.map(task => {
-                        if(task.id === taskToBeEdited.id) {
-                            return taskToBeEdited;
-                        }
-                        return task;
-                    })
-                }));
-                saveToLocalStorage();
-            },
-            deleteTask: (taskId: string) => {
-                patchState(store, (state) => ({ 
-                    tasks: state.tasks.filter(task => task.id !== taskId)
-                 }));
-                saveToLocalStorage();
-            },
+            loadTasks: rxMethod<string | null>(pipe(
+                filter(Boolean),
+                tap(() => patchState(store, () => ({ loading: true }) )),
+                switchMap((boardId) => tasksDataService.getAll(boardId).pipe(
+                    tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) ))
+                ))
+            )),
+            addTask: rxMethod<TaskInputDto>(pipe(
+                tap(() => patchState(store, () => ({ loading: true }) )),
+                switchMap((task) => tasksDataService.create(task).pipe(
+                    tap((task) => patchState(store, (state) => ({ tasks: [task, ...state.tasks], loading: false, loaded: true }))
+                )))
+            )),
+            editTask: rxMethod<Partial<TaskInputDto>>(pipe(
+                map((taskInput) => ({id: store.activeTaskId()!, taskInput})),
+                tap(() => patchState(store, () => ({ loading: true }) )),
+                switchMap(({id, taskInput}) => tasksDataService.update(id, taskInput).pipe(
+                    tap((editedTask) => patchState(store, (state) => ({ 
+                        tasks: state.tasks.map(task => task.id === editedTask.id ? editedTask : task), 
+                        loading: false, 
+                        loaded: true
+                    })))
+                ))
+            )),
+            deleteTask: rxMethod<string>(pipe(
+                tap(() => patchState(store, () => ({ loading: true }) )),
+                switchMap((taskId) => tasksDataService.delete(taskId).pipe(
+                    tap(() => patchState(store, (state) => ({ 
+                        tasks: state.tasks.filter(task => task.id !== taskId), 
+                        loading: false
+                    })))
+                ))
+            )),
             
             updateTaskPositions: (taskIdToBeMoved:string, taskIdToBePlaced:string | null, isSameStatus:boolean) => {
                 let tasksToUpdate = [...store.tasks()];
@@ -96,8 +100,8 @@ const initialState: TasksState = {
         activeTask: computed(() => tasks().find(task => task.id === activeTaskId()) || null)
     })),
     withHooks({
-        onInit(store) {
-            store.loadTasks();
+        onInit(store, boardsStore = inject(BoardsStore)) {
+            store.loadTasks(boardsStore.activeBoardId);
         },
     })
  );

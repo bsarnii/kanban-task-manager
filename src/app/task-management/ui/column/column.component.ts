@@ -24,7 +24,7 @@ export class ColumnComponent{
 
 
   filterCompletedSubtasks(subtasks: Subtask[]):number{
-    return subtasks.filter(subtask => subtask.isCompleted === true).length
+    return subtasks.filter(subtask => subtask.completed === true).length
   }
 
   // Drag and drop

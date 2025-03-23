@@ -10,7 +10,9 @@ export interface Task{
 export interface Subtask{
     id: string
     name: string
-    isCompleted: boolean
+    completed: boolean
 }
 
-export type TaskInputDto = Omit<Task, 'id'>;
+export type SubtaskInput = Omit<Subtask, 'id'> & { id?: string };
+
+export type TaskInputDto = Omit<Task, 'id'|'subtasks'> & { subtasks: SubtaskInput[] };

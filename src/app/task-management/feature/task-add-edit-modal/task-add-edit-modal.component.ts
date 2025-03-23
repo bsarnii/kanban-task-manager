@@ -6,9 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 
 type SubtaskControl = {
-  id: FormControl<string>;
+  id: FormControl<string | null>;
   name: FormControl<string>;
-  isCompleted: FormControl<boolean>;
+  completed: FormControl<boolean>;
 }
 
 export enum TaskAddEditModalContextEnum {
@@ -38,7 +38,7 @@ export class TaskAddEditModalComponent implements OnInit {
     if(activeTask && activeTask.subtasks.length){
       return activeTask.subtasks;
     }
-    return [{id: Math.random().toString(36).substring(7), name: "", isCompleted: false}]
+    return [{id: null, name: "", completed: false}]
   })
 
 
@@ -59,9 +59,9 @@ export class TaskAddEditModalComponent implements OnInit {
   addNewSubtask(event:Event){
     event.preventDefault();
     this.formSubtasks.push(this.fb.group({
-      id: new FormControl(Math.random().toString(36).substring(7), { nonNullable: true }),
+      id: new FormControl(),
       name: new FormControl('', { nonNullable: true }),
-      isCompleted: new FormControl(false, { nonNullable: true })
+      completed: new FormControl(false, { nonNullable: true })
     }));
   }
   
@@ -72,15 +72,14 @@ export class TaskAddEditModalComponent implements OnInit {
       return;
     }
     this.tasksStore.editTask({
-      id: this.tasksStore.activeTaskId() || Math.random().toString(36).substring(7),
       boardId: this.boardsStore.activeBoardId() || "",
       name: this.formName.value,
       description: this.formDescription.value,
       statusId: this.formStatus.value,
       subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
-        id: subtask.id, 
+        id: subtask.id || undefined, 
         name: subtask.name, 
-        isCompleted: subtask.isCompleted
+        completed: subtask.completed
       })).filter(subtask => subtask.name !== "")
     })
     this.close();
@@ -93,15 +92,13 @@ export class TaskAddEditModalComponent implements OnInit {
       return;
     }
     this.tasksStore.addTask({
-      id: Math.random().toString(36).substring(7),
       boardId: this.boardsStore.activeBoardId() || "",
       name: this.formName.value,
       description: this.formDescription.value,
       statusId: this.formStatus.value,
       subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
-        id: Math.random().toString(36).substring(7), 
         name: subtask.name, 
-        isCompleted: false
+        completed: false
       })).filter(subtask => subtask.name !== "")
     })
     this.close();
@@ -126,9 +123,9 @@ export class TaskAddEditModalComponent implements OnInit {
     this.formStatus.setValue(this.tasksStore.activeTask()?.statusId || this.boardsStore.activeBoardStatuses()[0].id);
     this.initialSubtasks().map(subtask => {
       this.formSubtasks.push(this.fb.group({
-        id: subtask.id,
+        id: subtask.id ,
         name: subtask.name,
-        isCompleted: subtask.isCompleted
+        completed: subtask.completed
       }))
     });
   }
