@@ -72,15 +72,18 @@ export class TaskAddEditModalComponent implements OnInit {
       return;
     }
     this.tasksStore.editTask({
-      boardId: this.boardsStore.activeBoardId() || "",
-      name: this.formName.value,
-      description: this.formDescription.value,
-      statusId: this.formStatus.value,
-      subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
-        id: subtask.id || undefined, 
-        name: subtask.name, 
-        completed: subtask.completed
-      })).filter(subtask => subtask.name !== "")
+      id: this.tasksStore.activeTaskId()!,
+      taskInput: {
+        boardId: this.boardsStore.activeBoardId() || "",
+        name: this.formName.value,
+        description: this.formDescription.value,
+        statusId: this.formStatus.value,
+        subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
+          id: subtask.id || undefined, 
+          name: subtask.name, 
+          completed: subtask.completed
+        })).filter(subtask => subtask.name !== "")
+      }
     })
     this.close();
   }

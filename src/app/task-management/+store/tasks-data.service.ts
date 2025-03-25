@@ -24,4 +24,8 @@ export class TasksDataService {
     delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/tasks/${id}`);
     }
+
+    sortTasks(taskIds: string[]): Observable<Task[]> {
+        return this.http.post<Task[]>(`${this.apiUrl}/tasks/sort`, taskIds);
+    }
 }

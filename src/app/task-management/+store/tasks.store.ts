@@ -24,72 +24,85 @@ const initialState: TasksState = {
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store, tasksDataService = inject(TasksDataService)) => {
-        return {
-            loadTasks: rxMethod<string | null>(pipe(
-                filter(Boolean),
-                tap(() => patchState(store, () => ({ loading: true }) )),
-                switchMap((boardId) => tasksDataService.getAll(boardId).pipe(
-                    tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) ))
-                ))
-            )),
-            addTask: rxMethod<TaskInputDto>(pipe(
-                tap(() => patchState(store, () => ({ loading: true }) )),
-                switchMap((task) => tasksDataService.create(task).pipe(
-                    tap((task) => patchState(store, (state) => ({ tasks: [task, ...state.tasks], loading: false, loaded: true }))
-                )))
-            )),
-            editTask: rxMethod<Partial<TaskInputDto>>(pipe(
-                map((taskInput) => ({id: store.activeTaskId()!, taskInput})),
-                tap(() => patchState(store, () => ({ loading: true }) )),
-                switchMap(({id, taskInput}) => tasksDataService.update(id, taskInput).pipe(
-                    tap((editedTask) => patchState(store, (state) => ({ 
+        const loadTasks = rxMethod<string | null>(pipe(
+            filter(Boolean),
+            tap(() => patchState(store, () => ({ loading: true }) )),
+            switchMap((boardId) => tasksDataService.getAll(boardId).pipe(
+                tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) ))
+            ))
+        ));
+
+        const addTask = rxMethod<TaskInputDto>(pipe(
+            tap(() => patchState(store, () => ({ loading: true }) )),
+            switchMap((task) => tasksDataService.create(task).pipe(
+                tap((task) => patchState(store, (state) => ({ tasks: [...state.tasks, task], loading: false, loaded: true }))
+            )))
+        ));
+
+        const editTask = rxMethod<{id: string, taskInput: Partial<TaskInputDto>, callback?: VoidFunction}>(pipe(
+            tap(() => patchState(store, () => ({ loading: true }) )),
+            switchMap(({id, taskInput, callback}) => tasksDataService.update(id, taskInput).pipe(
+                tap((editedTask) => {
+                    patchState(store, (state) => ({ 
                         tasks: state.tasks.map(task => task.id === editedTask.id ? editedTask : task), 
-                        loading: false, 
-                        loaded: true
-                    })))
-                ))
-            )),
-            deleteTask: rxMethod<string>(pipe(
-                tap(() => patchState(store, () => ({ loading: true }) )),
-                switchMap((taskId) => tasksDataService.delete(taskId).pipe(
-                    tap(() => patchState(store, (state) => ({ 
-                        tasks: state.tasks.filter(task => task.id !== taskId), 
                         loading: false
-                    })))
-                ))
-            )),
-            
-            updateTaskPositions: (taskIdToBeMoved:string, taskIdToBePlaced:string | null, isSameStatus:boolean) => {
-                let tasksToUpdate = [...store.tasks()];
-                const indexToMove = tasksToUpdate.findIndex(item => item.id === taskIdToBeMoved);
-                let indexToBePlaced = tasksToUpdate.findIndex(item => item.id === taskIdToBePlaced);
-                if(indexToBePlaced < 0){
-                    indexToBePlaced = tasksToUpdate.length;
-                }
-                
-                if(indexToMove < indexToBePlaced && isSameStatus){
-                    indexToBePlaced++;
-                }
+                    }));
+                    if(callback) {  
+                        callback(); 
+                    }
+                })
+            ))
+        ));
 
-                let placeholder = {};
-                // remove the object from its initial position and
-                // plant the placeholder object in its place to
-                // keep the array length constant
-                const taskToMove = tasksToUpdate.splice(indexToMove, 1, placeholder as Task)[0];
-                // place the object in the desired position
-                tasksToUpdate.splice(indexToBePlaced, 0, taskToMove);
-                // take out the temporary object
-                tasksToUpdate.splice(tasksToUpdate.indexOf(placeholder as Task), 1);
+        const deleteTask = rxMethod<string>(pipe(
+            tap(() => patchState(store, () => ({ loading: true }) )),
+            switchMap((taskId) => tasksDataService.delete(taskId).pipe(
+                tap(() => patchState(store, (state) => ({ 
+                    tasks: state.tasks.filter(task => task.id !== taskId), 
+                    loading: false
+                })))
+            ))
+        ));
 
-                patchState(store, (state) => ({
-                    tasks: tasksToUpdate
-                }));
-
-            },
-            setActiveTaskId: (taskId: string | null) => {
-                patchState(store, () => ({ activeTaskId: taskId }));
-            }
+        const setActiveTaskId = (taskId: string | null) => {
+            patchState(store, () => ({ activeTaskId: taskId }));
         }
+
+        const sortTasks = rxMethod<string[]>(pipe(
+            tap(() => patchState(store, () => ({ loading: true }) )),
+            switchMap((taskIds) => tasksDataService.sortTasks(taskIds).pipe(
+                tap((tasks) => patchState(store, () => ({ tasks, loading: false }) ))
+            ))
+        ));
+
+        const updateTaskPositions = (taskIdToBeMoved:string, taskIdToBePlaced:string | null, isSameStatus:boolean) => {
+            let tasksToUpdate = [...store.tasks()];
+            const indexToMove = tasksToUpdate.findIndex(item => item.id === taskIdToBeMoved);
+            let indexToBePlaced = tasksToUpdate.findIndex(item => item.id === taskIdToBePlaced);
+            if(indexToBePlaced < 0){
+                indexToBePlaced = tasksToUpdate.length;
+            }
+            
+            if(indexToMove < indexToBePlaced && isSameStatus){
+                indexToBePlaced++;
+            }
+
+            let placeholder = {};
+            // remove the object from its initial position and
+            // plant the placeholder object in its place to
+            // keep the array length constant
+            const taskToMove = tasksToUpdate.splice(indexToMove, 1, placeholder as Task)[0];
+            // place the object in the desired position
+            tasksToUpdate.splice(indexToBePlaced, 0, taskToMove);
+            // take out the temporary object
+            tasksToUpdate.splice(tasksToUpdate.indexOf(placeholder as Task), 1);
+
+            sortTasks(tasksToUpdate.map(task => task.id));
+        }
+
+
+        return { loadTasks, addTask, editTask, deleteTask, updateTaskPositions, setActiveTaskId };
+
     }),
     withComputed(({tasks, activeTaskId}, boardsStore = inject(BoardsStore)) => ({
         activeBoardTasks: computed(() => {

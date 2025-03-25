@@ -42,12 +42,21 @@ export class ColumnComponent{
       const targetId = (e.target as HTMLDivElement)?.id || null;
       const isSameStatus = this.statusId === task.statusId;
 
-      this.tasksStore.editTask({
-        ...task,
-        statusId: this.statusId
-      });
+      if(!isSameStatus){
+        this.tasksStore.editTask({
+          id: task.id,
+          taskInput: {
+            ...task,
+            statusId: this.statusId
+          },
+          callback: () => {
+            this.tasksStore.updateTaskPositions(task.id, targetId, isSameStatus);
+          }
+        });
+      } else {
+        this.tasksStore.updateTaskPositions(task.id, targetId, isSameStatus);
+      }
 
-      this.tasksStore.updateTaskPositions(task.id, targetId, isSameStatus);
       this.draggedTask.set(null);
     }
   }

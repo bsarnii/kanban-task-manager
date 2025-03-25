@@ -33,6 +33,8 @@ export class TaskDetailsModalComponent {
   handleCheckboxClick(subtask:Subtask){
     const completed = !subtask.completed;
     this.tasksStore.editTask({
+      id: this.task().id,
+      taskInput: {
       ...this.task(),
       subtasks: this.task().subtasks.map(item => {
         if(item.id === subtask.id){
@@ -40,13 +42,17 @@ export class TaskDetailsModalComponent {
         }
         return item;
       })
+    }
     })
   }
 
   changeStatus(statusId:string){
     this.tasksStore.editTask({
+      id: this.task().id,
+      taskInput: {
       ...this.task(),
       statusId
+      }
     })
     this.close();
   }
