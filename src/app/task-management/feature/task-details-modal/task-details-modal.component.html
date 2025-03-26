@@ -23,7 +23,7 @@
             class="checkbox-container"
             (click)="handleCheckboxClick(subtask)"
             >
-            <input [checked]="subtask.isCompleted" type="checkbox" aria-label="Subtask completed">
+            <input [checked]="subtask.completed" type="checkbox" aria-label="Subtask completed">
             <span class="checkbox-replace"></span>
             {{subtask.name}}
           </div>

@@ -1,9 +1,9 @@
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
-import { SidebarToggleService } from 'src/app/task-management/layout/sidebar/sidebar-toggle.service';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { BoardInputDto } from '../../types/boards.interface';
 
 export enum BoardAddEditModalContextEnum {
   add = 'add',
@@ -17,7 +17,6 @@ export enum BoardAddEditModalContextEnum {
     imports: [ReactiveFormsModule, ModalComponent]
 })
 export class BoardAddEditModalComponent implements OnInit {
-  sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   fb = inject(FormBuilder);
   router = inject(Router);
@@ -71,11 +70,10 @@ export class BoardAddEditModalComponent implements OnInit {
     const editedBoard = {
       ...this.boardsStore.activeBoard()!,
       name: this.formName.value || "",
-      columns: [],
       statuses: this.formStatuses.value.map(((status, i) => {
         return {
           name: status,
-          id: this.initialStatuses()[i]?.id || Math.random().toString(36).substring(7)
+          id: this.initialStatuses()[i]?.id
          }
       })).filter(status => !!status.name),
     }
@@ -89,17 +87,13 @@ export class BoardAddEditModalComponent implements OnInit {
       this.formName.markAsDirty();
       return
     }
-    const newBoard = {
-      tasks: [],
+    const newBoard:BoardInputDto = {
       statuses: this.formStatuses.value.filter(Boolean).map((status => {
-        return {name: status, id: Math.random().toString(36).substring(7) }
+        return {name: status }
       })),
       name: this.formName.value || "",
-      id: Math.random().toString(36).substring(7),
     }
-    this.sidebarService.selectedIndex = 0;
     this.boardsStore.addBoard(newBoard);
-    this.boardsStore.setActiveBoardId(newBoard.id);
   }
   
   ngOnInit(){
