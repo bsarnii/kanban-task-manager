@@ -35,7 +35,6 @@ export class TaskDetailsModalComponent {
     this.tasksStore.editTask({
       id: this.task().id,
       taskInput: {
-      ...this.task(),
       subtasks: this.task().subtasks.map(item => {
         if(item.id === subtask.id){
           return {...item, completed};
@@ -50,8 +49,7 @@ export class TaskDetailsModalComponent {
     this.tasksStore.editTask({
       id: this.task().id,
       taskInput: {
-      ...this.task(),
-      statusId
+        statusId
       }
     })
     this.close();

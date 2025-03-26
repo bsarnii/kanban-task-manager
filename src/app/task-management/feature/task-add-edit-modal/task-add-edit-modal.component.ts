@@ -74,7 +74,6 @@ export class TaskAddEditModalComponent implements OnInit {
     this.tasksStore.editTask({
       id: this.tasksStore.activeTaskId()!,
       taskInput: {
-        boardId: this.boardsStore.activeBoardId() || "",
         name: this.formName.value,
         description: this.formDescription.value,
         statusId: this.formStatus.value,

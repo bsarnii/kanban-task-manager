@@ -46,7 +46,6 @@ export class ColumnComponent{
         this.tasksStore.editTask({
           id: task.id,
           taskInput: {
-            ...task,
             statusId: this.statusId
           },
           callback: () => {

@@ -73,7 +73,7 @@ export class BoardAddEditModalComponent implements OnInit {
       statuses: this.formStatuses.value.map(((status, i) => {
         return {
           name: status,
-          id: this.initialStatuses()[i]?.id || Math.random().toString(36).substring(7)
+          id: this.initialStatuses()[i]?.id
          }
       })).filter(status => !!status.name),
     }
@@ -89,7 +89,7 @@ export class BoardAddEditModalComponent implements OnInit {
     }
     const newBoard:BoardInputDto = {
       statuses: this.formStatuses.value.filter(Boolean).map((status => {
-        return {name: status, id: Math.random().toString(36).substring(7) }
+        return {name: status }
       })),
       name: this.formName.value || "",
     }
