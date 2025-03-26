@@ -23,7 +23,7 @@ export class TaskDetailsModalComponent {
   statuses = this.boardsStore.activeBoardStatuses;
   taskBeingDeleted = signal(false);
   
-  completedSubtasks = computed(() => this.task().subtasks.filter(subtask => subtask.isCompleted));
+  completedSubtasks = computed(() => this.task().subtasks.filter(subtask => subtask.completed));
   showEditDeleteOverlay = false;
 
   toggleEditDeleteOverlay(){
@@ -31,22 +31,26 @@ export class TaskDetailsModalComponent {
   }
 
   handleCheckboxClick(subtask:Subtask){
-    const isCompleted = !subtask.isCompleted;
+    const completed = !subtask.completed;
     this.tasksStore.editTask({
-      ...this.task(),
+      id: this.task().id,
+      taskInput: {
       subtasks: this.task().subtasks.map(item => {
         if(item.id === subtask.id){
-          return {...item, isCompleted};
+          return {...item, completed};
         }
         return item;
       })
+    }
     })
   }
 
   changeStatus(statusId:string){
     this.tasksStore.editTask({
-      ...this.task(),
-      statusId
+      id: this.task().id,
+      taskInput: {
+        statusId
+      }
     })
     this.close();
   }

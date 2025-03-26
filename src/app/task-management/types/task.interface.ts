@@ -5,10 +5,16 @@ export interface Task{
     description: string
     statusId: string
     subtasks: Subtask[]
+    createdAt: string
 }
 
 export interface Subtask{
     id: string
     name: string
-    isCompleted: boolean
+    completed: boolean
+    createdAt: string
 }
+
+export type SubtaskInput = Omit<Subtask, 'id' | 'createdAt'> & { id?: string };
+
+export type TaskInputDto = Omit<Task, 'id'| 'createdAt' | 'subtasks'> & { subtasks: SubtaskInput[] };
