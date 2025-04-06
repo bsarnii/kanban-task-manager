@@ -1,0 +1,24 @@
+<section role="main">
+    <img 
+        class="logo" 
+        [src]="colorThemeService.colorTheme === 'light' ? 'assets/logo-dark.svg' : 'assets/logo-light.svg'" 
+        alt="logo"
+    >
+    <form #loginForm="ngForm" (ngSubmit)="logIn()">
+        <label for="email" class="heading-s">
+            Email:
+        </label>
+        <span>
+            <input type="email" id="email" name="email" required class="text-input" [(ngModel)]="email" autocomplete="email">
+        </span>
+        <label for="password" class="heading-s">
+            Password:
+        </label>
+        <span>
+            <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="password" autocomplete="current-password">
+        </span>
+        <button type="submit" class="btn button-primary-s" [disabled]="!loginForm.form.valid">
+            Log In
+        </button>
+    </form>
+</section>

@@ -3,6 +3,8 @@ import { ColorThemeService } from '../../../core/services/color-theme.service';
 import { SidebarToggleService } from './sidebar-toggle.service';
 import { BoardsStore } from '../../+store/boards.store';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { UsersStore } from 'src/app/users/+store/users.store';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -14,6 +16,8 @@ export class SidebarComponent {
   colorThemeService = inject(ColorThemeService);
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
+  usersStore = inject(UsersStore);
+  authService = inject(AuthService);
 
   handleOnBoardClick(){
     if (window.innerWidth <= 575) {
