@@ -1,0 +1,28 @@
+<app-auth-layout [colorTheme]="colorThemeService.colorTheme">
+    @if(!signUpSuccess()) {
+        <form #registerForm="ngForm" (ngSubmit)="signUp(registerForm)">
+            <label for="fullName" class="heading-s">Full name*</label>
+            <span><input type="text" id="fullName" name="fullName" required [(ngModel)]="model().name" class="text-input"></span>
+    
+            <label for="email" class="heading-s">Email*</label>
+            <span>
+                <input type="email" id="email" name="email" required class="text-input" [(ngModel)]="model().email" autocomplete="email" email>
+            </span>
+    
+            <label for="password" class="heading-s">Password*</label>
+            <span>
+                <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="model().password" autocomplete="new-password" minlength="8">
+                <p class="body-l" style="margin-bottom: 1rem;">Password must have at least 8 characters</p>
+            </span>
+    
+            <button type="submit" class="btn button-primary-s" [disabled]="!registerForm.form.valid">
+                Sign Up
+            </button>
+        </form>
+        <a routerLink="../login">Already have an account? Log in</a>
+    }@else{
+        <h1 class="heading-l">Registration successful</h1>
+        <a routerLink="../login">Click here to log in</a>
+    }
+
+</app-auth-layout>

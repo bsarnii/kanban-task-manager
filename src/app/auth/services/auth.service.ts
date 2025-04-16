@@ -18,6 +18,12 @@ export class AuthService {
         }));
     }
 
+    signUp(signUpInputDTO: {name: string, email: string, password: string}, callback: VoidFunction) {
+        return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO).subscribe((() => {
+            callback();
+        }));
+    }
+
     setAuthToken(token:string){
         localStorage.setItem('access_token', token);
     }

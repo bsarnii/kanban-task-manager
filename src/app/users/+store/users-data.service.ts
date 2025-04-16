@@ -22,4 +22,5 @@ export class UsersDataService {
             email: res.email
         })))
     }
+
 }

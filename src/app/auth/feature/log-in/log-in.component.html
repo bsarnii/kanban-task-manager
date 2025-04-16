@@ -1,9 +1,4 @@
-<section role="main">
-    <img 
-        class="logo" 
-        [src]="colorThemeService.colorTheme === 'light' ? 'assets/logo-dark.svg' : 'assets/logo-light.svg'" 
-        alt="logo"
-    >
+<app-auth-layout [colorTheme]="colorThemeService.colorTheme">
     <form #loginForm="ngForm" (ngSubmit)="logIn()">
         <label for="email" class="heading-s">
             Email:
@@ -21,4 +16,6 @@
             Log In
         </button>
     </form>
-</section>
+
+    <a routerLink="../signup">Create an account</a>
+</app-auth-layout>
