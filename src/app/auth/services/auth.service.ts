@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { catchError, EMPTY } from "rxjs";
 import { UsersStore } from "src/app/users/+store/users.store";
 import { environment } from "src/environments/environment";
+import { MessageService } from "primeng/api";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -11,12 +12,16 @@ export class AuthService {
     apiUrl = environment.apiUrl;
     usersStore = inject(UsersStore);
     router = inject(Router);
+    messageService = inject(MessageService);
 
     logIn(email: string, password: string, callback: VoidFunction) {
         return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password}).pipe(
             catchError((err:HttpErrorResponse) => {
-                //TODO: handle error properly
-                window.alert(err.error.message);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'HTTP Error',
+                    detail: err.error.message || 'Something went wrong',
+                  });
                 return EMPTY;
             })
         ).subscribe((res => {
@@ -28,8 +33,11 @@ export class AuthService {
     signUp(signUpInputDTO: {name: string, email: string, password: string}, callback: VoidFunction) {
         return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO).pipe(
             catchError((err:HttpErrorResponse) => {
-                //TODO: handle error properly
-                window.alert(err.error.message);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'HTTP Error',
+                    detail: err.error.message || 'Something went wrong',
+                  });
                 return EMPTY;
             })
         ).subscribe((() => {
