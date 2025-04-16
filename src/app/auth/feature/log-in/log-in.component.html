@@ -1,13 +1,13 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
     <form #loginForm="ngForm" (ngSubmit)="logIn()">
         <label for="email" class="heading-s">
-            Email:
+            Email
         </label>
         <span>
             <input type="email" id="email" name="email" required class="text-input" [(ngModel)]="email" autocomplete="email">
         </span>
         <label for="password" class="heading-s">
-            Password:
+            Password
         </label>
         <span>
             <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="password" autocomplete="current-password">
