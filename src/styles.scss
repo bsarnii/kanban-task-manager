@@ -27,6 +27,7 @@ $redHover: #FF9898;
     --lines: #3E3F4E;
     --sidebar-btn-hover: #FFFFFF;
     --new-column-bg: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
+    --color-link: #3ea6ff;
 }
 [data-theme = 'light'] {
     --color-bg: #F4F7FD;
@@ -40,6 +41,7 @@ $redHover: #FF9898;
     --lines: #E4EBFA;
     --sidebar-btn-hover: #F4F7FD;
     --new-column-bg: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
+    --color-link: #0052cc;
 }
 
 body{
@@ -282,6 +284,15 @@ span{
     }
     &:hover{
         opacity: .8;
+    }
+}
+
+a{
+    color: var(--color-link);
+    text-decoration: none;
+    font-size: 13px;
+    &:hover{
+        text-decoration: underline;
     }
 }
 

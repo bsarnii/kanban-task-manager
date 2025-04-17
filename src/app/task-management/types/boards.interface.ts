@@ -5,6 +5,7 @@ export interface Board{
     name: string
     statuses: Status[]
     createdAt: string
+    createdBy: string
 }
 
-export type BoardInputDto = Omit<Board, 'id' | 'createdAt' | 'statuses'> & { statuses: StatusInputDto[] };
+export type BoardInputDto = Omit<Board, 'id' | 'createdAt' | 'statuses' | 'createdBy'> & { statuses: StatusInputDto[] };

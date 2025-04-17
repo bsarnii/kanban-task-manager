@@ -104,6 +104,17 @@
 }
 .sidebar-bottom{
     padding-bottom: 3rem;
+    .email-logout-wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        gap: 1rem;
+        p{
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+    }
     .theme-switcher-container{
         margin-bottom: 1rem;
         padding: 1rem;
@@ -203,8 +214,12 @@
         }
         .sidebar-bottom{
             padding-bottom: 1rem;
-            .theme-switcher-container{
-                margin-bottom: 0;
+            .email-logout-wrapper{
+                flex-direction: column;
+                align-items: flex-start;
+                button{
+                    width: 100%;
+                }
             }
             .display-sidebar{
                 display: none;
