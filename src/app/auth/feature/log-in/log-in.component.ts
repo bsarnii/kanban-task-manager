@@ -19,10 +19,15 @@ export default class LogInComponent {
   email = signal('');
   password = signal('');
 
+  callback = () => {
+    this.router.navigate(['board']);
+  }
+
   logIn() {
-    const callback = () => {
-      this.router.navigate(['board']);
-    }
-    this.authService.logIn(this.email(), this.password(), callback);
+    this.authService.logIn(this.email(), this.password(), this.callback);
+  }
+
+  logInWithTestUser(){
+    this.authService.logIn('test@mykanbanapp.com', 'testmykanbanapp', this.callback);
   }
 }
