@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { BoardsStore } from './+store/boards.store';
 import { TasksStore } from './+store/tasks.store';
 import { SidebarToggleService } from './layout/sidebar/sidebar-toggle.service';
@@ -12,7 +12,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './task-management.component.html',
   styleUrl: './task-management.component.scss'
 })
-export class TaskManagementComponent {
+export class TaskManagementComponent implements OnInit, OnDestroy {
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
@@ -21,5 +21,10 @@ export class TaskManagementComponent {
     if (window.innerWidth <= 575){
       this.sidebarService.sidebarOpened = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.boardsStore.reset();
+    this.tasksStore.reset();
   }
 }

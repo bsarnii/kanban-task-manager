@@ -1,4 +1,4 @@
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { Board, BoardInputDto } from '../types/boards.interface';
 import { computed, inject } from '@angular/core';
@@ -67,7 +67,7 @@ const initialState: BoardsState = {
             setActiveBoardId: (id: string | null) => {
                 patchState(store, () => ({ activeBoardId: id }) );
             },
-            
+            reset: () => patchState(store, () => initialState),
         }
     }),
     withComputed(({boards, activeBoardId}) => ({
@@ -77,9 +77,4 @@ const initialState: BoardsState = {
         activeBoardStatuses: computed(() => boards().find(board => board.id === activeBoardId())?.statuses || [])
 
     })),
-    withHooks({
-        onInit(store) {
-            store.loadBoards();
-        },
-    })
   );
