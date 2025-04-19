@@ -23,7 +23,7 @@ const initialState: UsersState = {
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store, usersDataService = inject(UsersDataService), router = inject(Router)) => {
-        const clearCurrentUser = () => patchState(store, () => ({ currentUser: null, loading: false, loaded: false }));
+        const clearCurrentUser = () => patchState(store, () => initialState);
         const loadCurrentUser = rxMethod<void>(pipe(
             tap(() => patchState(store, () => ({ loading: true }))),
             switchMap(() => usersDataService.getUser().pipe(

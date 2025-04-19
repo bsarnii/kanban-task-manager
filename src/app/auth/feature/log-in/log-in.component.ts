@@ -2,12 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { ColorThemeService } from 'src/app/core/services/color-theme.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LayoutComponent } from "../../ui/layout/layout.component";
 
 @Component({
   selector: 'app-log-in',
-  imports: [FormsModule, RouterLink, LayoutComponent],
+  imports: [FormsModule, LayoutComponent],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })

@@ -100,8 +100,9 @@ const initialState: TasksState = {
             sortTasks(tasksToUpdate.map(task => task.id));
         }
 
+        const reset = () => patchState(store, () => initialState);
 
-        return { loadTasks, addTask, editTask, deleteTask, updateTaskPositions, setActiveTaskId };
+        return { loadTasks, addTask, editTask, deleteTask, updateTaskPositions, setActiveTaskId, reset };
 
     }),
     withComputed(({tasks, activeTaskId}, boardsStore = inject(BoardsStore)) => ({
