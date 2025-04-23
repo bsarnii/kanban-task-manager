@@ -14,7 +14,7 @@ export class AuthService {
     router = inject(Router);
     messageService = inject(MessageService);
 
-    logIn(email: string, password: string, callback: VoidFunction) {
+    logIn(email: string, password: string, callback: (success:boolean) => void) {
         return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password}).pipe(
             catchError((err:HttpErrorResponse) => {
                 this.messageService.add({
@@ -22,15 +22,16 @@ export class AuthService {
                     summary: 'HTTP Error',
                     detail: err.error.message || 'Something went wrong',
                   });
+                callback(false);
                 return EMPTY;
             })
         ).subscribe((res => {
             this.setAuthToken(res.access_token);
-            callback();
+            callback(true);
         }));
     }
 
-    signUp(signUpInputDTO: {name: string, email: string, password: string}, callback: VoidFunction) {
+    signUp(signUpInputDTO: {name: string, email: string, password: string}, callback: (success:boolean) => void) {
         return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO).pipe(
             catchError((err:HttpErrorResponse) => {
                 this.messageService.add({
@@ -38,10 +39,11 @@ export class AuthService {
                     summary: 'HTTP Error',
                     detail: err.error.message || 'Something went wrong',
                   });
+                callback(false);
                 return EMPTY;
             })
         ).subscribe((() => {
-            callback();
+            callback(true);
         }));
     }
 

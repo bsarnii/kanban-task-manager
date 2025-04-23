@@ -15,8 +15,12 @@
                 <p class="body-l" style="margin-bottom: 1rem;">Password must have at least 8 characters</p>
             </span>
     
-            <button type="submit" class="btn button-primary-s" [disabled]="!registerForm.form.valid">
-                Sign Up
+            <button type="submit" class="btn button-primary-s" [disabled]="!registerForm.form.valid || loading()">
+                @if(loading()){
+                    <i class="pi pi-spin pi-spinner"></i>
+                }@else{
+                    Sign Up
+                }
             </button>
         </form>
         <a routerLink="../login">Already have an account? Log in</a>

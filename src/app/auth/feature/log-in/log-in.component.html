@@ -12,11 +12,15 @@
         <span>
             <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="password" autocomplete="current-password">
         </span>
-        <button type="submit" class="btn button-primary-s" [disabled]="!loginForm.form.valid">
-            Log In
+        <button type="submit" class="btn button-primary-s" [disabled]="!loginForm.form.valid || loading()">
+            @if(loading()){
+                <i class="pi pi-spin pi-spinner"></i>
+            }@else{
+                Log In
+            }
         </button>
     </form>
 
     <!--<a routerLink="../signup">Create an account</a>-->
-    <p class="body-l">Want to try the app? &nbsp; <a role="button" (click)="logInWithTestUser()">Log in as a test user</a></p>
+    <p class="body-l">Want to try the app? &nbsp; <a role="button" (click)="!loading() && logInWithTestUser()">Log in as a test user</a></p>
 </app-auth-layout>

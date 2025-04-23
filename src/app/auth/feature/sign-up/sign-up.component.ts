@@ -28,14 +28,19 @@ export default class SignUpComponent {
   })
 
   signUpSuccess = signal(false);
+  loading = signal(false);
 
 
     signUp(form:NgForm) {
       if(form.invalid) {
         return;
       }
-      this.authService.signUp(this.model(), () => {
-        this.signUpSuccess.set(true);
+      this.loading.set(true);
+      this.authService.signUp(this.model(), (success:boolean) => {
+        if(success){
+          this.signUpSuccess.set(true);
+        }
+        this.loading.set(false);
       })
 
     }
