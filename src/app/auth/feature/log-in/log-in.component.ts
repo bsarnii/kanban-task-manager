@@ -24,6 +24,8 @@ export default class LogInComponent {
   callback = (success:boolean) => {
     if(success){
       this.router.navigate(['board']).then(() => this.loading.set(false));
+    }else{
+      this.loading.set(false);
     }
   }
 
