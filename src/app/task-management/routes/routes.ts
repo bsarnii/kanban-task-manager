@@ -7,6 +7,7 @@ import { TaskDetailsModalComponent } from "../feature/task-details-modal/task-de
 import { activeTaskOnActivate, activeTaskOnDeactivate } from "./guards/active-task.guard";
 import { BoardAddEditModalComponent, BoardAddEditModalContextEnum } from "../feature/board-add-edit-modal/board-add-edit-modal.component";
 import { TaskAddEditModalComponent, TaskAddEditModalContextEnum } from "../feature/task-add-edit-modal/task-add-edit-modal.component";
+import { loadBoardsGuard } from "./guards/load-boards.guard";
 
 export const taskMangagementRoutes:Routes = [
     {
@@ -21,7 +22,7 @@ export const taskMangagementRoutes:Routes = [
     },
     {
         path: 'board-not-exists',
-        canActivate: [doesBoardExistsGuard],
+        canActivate: [loadBoardsGuard, doesBoardExistsGuard],
         component: BoardNotExistsComponent,
         children: [
             {
@@ -34,7 +35,7 @@ export const taskMangagementRoutes:Routes = [
     {
         path: 'board/:boardId',
         component: BoardComponent,
-        canActivate: [activeBoardGuard],
+        canActivate: [loadBoardsGuard, activeBoardGuard],
         children: [
             {
                 path: 'task/:taskId',
