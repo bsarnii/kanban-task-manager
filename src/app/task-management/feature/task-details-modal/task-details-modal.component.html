@@ -1,4 +1,4 @@
-@if(!taskBeingEdited()){
+@if(!taskBeingEdited() && tasksStore.activeTaskExists()){
   <app-modal (backdropClick)="close()" >
 
     <div class="modal-head" modalHeader>
@@ -44,6 +44,10 @@
     </ng-container>
   </app-modal>
 }
+@if(!taskBeingEdited() && !tasksStore.activeTaskExists()){
+  <app-active-task-not-found (close)="close()"/>
+}
+
 @if(taskBeingDeleted()){
   <app-confirm-delete-task 
   [task]="task()"

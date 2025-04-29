@@ -5,12 +5,13 @@ import { BoardsStore } from '../../+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ConfirmDeleteTaskComponent } from "../../ui/confirm-delete-task/confirm-delete-task.component";
+import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
 
 @Component({
     selector: 'app-task-details-modal',
     templateUrl: './task-details-modal.component.html',
     styleUrls: ['./task-details-modal.component.scss'],
-    imports: [ModalComponent, ConfirmDeleteTaskComponent, RouterOutlet, RouterLink]
+    imports: [ModalComponent, ConfirmDeleteTaskComponent, RouterOutlet, RouterLink, ActiveTaskNotFoundComponent]
 })
 export class TaskDetailsModalComponent {
   tasksStore = inject(TasksStore);

@@ -74,7 +74,7 @@ const initialState: BoardsState = {
         activeBoard: computed(() => {
             return boards().find(board => board.id === activeBoardId()) || null;
         }),
-        activeBoardStatuses: computed(() => boards().find(board => board.id === activeBoardId())?.statuses || [])
-
+        activeBoardStatuses: computed(() => boards().find(board => board.id === activeBoardId())?.statuses || []),
+        activeBoardExists: computed(() => boards().some(board => board.id === activeBoardId())),
     })),
   );

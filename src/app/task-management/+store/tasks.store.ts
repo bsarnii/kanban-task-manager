@@ -3,7 +3,7 @@ import { patchState, signalStore, withComputed, withHooks, withMethods, withStat
 import { Task, TaskInputDto } from "src/app/task-management/types/task.interface";
 import { BoardsStore } from "./boards.store";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { filter, map, pipe, switchMap, tap } from "rxjs";
+import { catchError, EMPTY, filter, pipe, switchMap, tap } from "rxjs";
 import { TasksDataService } from "./tasks-data.service";
 
 type TasksState = { 
@@ -28,7 +28,8 @@ const initialState: TasksState = {
             filter(Boolean),
             tap(() => patchState(store, () => ({ loading: true }) )),
             switchMap((boardId) => tasksDataService.getAll(boardId).pipe(
-                tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) ))
+                tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) )),
+                catchError(() => EMPTY)
             ))
         ));
 
@@ -111,7 +112,8 @@ const initialState: TasksState = {
            if(!activeBoardId) return [];
               return tasks().filter(task => task.boardId === activeBoardId);
         }),
-        activeTask: computed(() => tasks().find(task => task.id === activeTaskId()) || null)
+        activeTask: computed(() => tasks().find(task => task.id === activeTaskId()) || null),
+        activeTaskExists: computed(() => tasks().some(task => task.id === activeTaskId())),
     })),
     withHooks({
         onInit(store, boardsStore = inject(BoardsStore)) {

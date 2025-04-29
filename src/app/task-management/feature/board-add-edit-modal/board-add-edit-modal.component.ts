@@ -97,10 +97,14 @@ export class BoardAddEditModalComponent implements OnInit {
   }
   
   ngOnInit(){
+    if(!this.boardsStore.activeBoardExists() && this.addEditContext() === BoardAddEditModalContextEnum.edit){
+      this.close();
+    }
     this.formName.setValue(this.boardName());
     this.initialStatuses().map(status => {
       this.formStatuses.push(new FormControl(status.name))
     });
+
   }
 
   close(){
