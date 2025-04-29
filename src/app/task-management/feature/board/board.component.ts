@@ -4,12 +4,13 @@ import { BoardsStore } from '../../+store/boards.store';
 import { TasksStore } from '../../+store/tasks.store';
 import { Task } from '../../types/task.interface';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActiveBoardNotFoundComponent } from "../../ui/active-board-not-found/active-board-not-found.component";
 
 @Component({
     selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
-    imports: [ColumnComponent, RouterOutlet, RouterLink]
+    imports: [ColumnComponent, RouterOutlet, RouterLink, ActiveBoardNotFoundComponent]
 })
 export class BoardComponent {
   boardsStore = inject(BoardsStore);

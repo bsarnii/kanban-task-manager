@@ -8,6 +8,7 @@ import { activeTaskOnActivate, activeTaskOnDeactivate } from "./guards/active-ta
 import { BoardAddEditModalComponent, BoardAddEditModalContextEnum } from "../feature/board-add-edit-modal/board-add-edit-modal.component";
 import { TaskAddEditModalComponent, TaskAddEditModalContextEnum } from "../feature/task-add-edit-modal/task-add-edit-modal.component";
 import { loadBoardsGuard } from "./guards/load-boards.guard";
+import { tasksLoaded } from "./guards/tasks-loaded.guard";
 
 export const taskMangagementRoutes:Routes = [
     {
@@ -40,7 +41,7 @@ export const taskMangagementRoutes:Routes = [
             {
                 path: 'task/:taskId',
                 component: TaskDetailsModalComponent,
-                canActivate: [activeTaskOnActivate],
+                canActivate: [activeTaskOnActivate, tasksLoaded],
                 canDeactivate: [activeTaskOnDeactivate],
                 children: [
                     {

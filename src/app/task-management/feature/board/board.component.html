@@ -1,4 +1,4 @@
-@if (this.boardsStore.activeBoard(); as activeBoard) {
+@if (boardsStore.activeBoard(); as activeBoard) {
   @if (!activeBoard.statuses.length) {
     <div class="empty-board">
       <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
@@ -21,5 +21,8 @@
       <h2 class="heading-xl">+ New Column</h2>
     </div>
   }
+}
+@if(!boardsStore.activeBoardExists()){
+  <app-active-board-not-found/>
 }
 <router-outlet/>
