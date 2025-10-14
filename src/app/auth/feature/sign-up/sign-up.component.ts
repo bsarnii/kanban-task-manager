@@ -4,6 +4,7 @@ import { LayoutComponent } from '../../ui/layout/layout.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 type SignUpFormModel = {
   name: string;
@@ -20,6 +21,7 @@ type SignUpFormModel = {
 export default class SignUpComponent {
   colorThemeService = inject(ColorThemeService);
   authService = inject(AuthService);
+  messageService = inject(MessageService);
 
   model = signal<SignUpFormModel>({
     name: '',
@@ -42,6 +44,18 @@ export default class SignUpComponent {
         }
         this.loading.set(false);
       })
+    }
 
+    resendVerificationEmail() {
+      const callback = (success:boolean) => {
+        if(success){
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Verification Email Resent',
+            detail: 'You should receive an email shortly',
+        });
+        }
+      }
+      this.authService.resendVerificationEmail(this.model().email, callback);
     }
 }

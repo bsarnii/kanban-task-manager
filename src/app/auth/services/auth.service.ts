@@ -47,6 +47,26 @@ export class AuthService {
         }));
     }
 
+    resendVerificationEmail(email: string, callback: (success:boolean) => void) {
+        return this.http.post<unknown>(`${this.apiUrl}/users/resend-verification`, { email }).pipe(
+            catchError((err:HttpErrorResponse) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'HTTP Error',
+                    detail: err.error.message || 'Something went wrong',
+                  });
+                callback(false);
+                return EMPTY;
+            })
+        ).subscribe((() => {
+            callback(true);
+        }));
+    }
+
+    sendVerificationToken(token: string){
+        return this.http.get<{message: string}>(`${this.apiUrl}/users/verify`, { params: { token } })
+    }
+
     setAuthToken(token:string){
         localStorage.setItem('access_token', token);
     }
