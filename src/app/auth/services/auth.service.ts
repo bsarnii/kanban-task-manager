@@ -31,36 +31,12 @@ export class AuthService {
         }));
     }
 
-    signUp(signUpInputDTO: {name: string, email: string, password: string}, callback: (success:boolean) => void) {
-        return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO).pipe(
-            catchError((err:HttpErrorResponse) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'HTTP Error',
-                    detail: err.error.message || 'Something went wrong',
-                  });
-                callback(false);
-                return EMPTY;
-            })
-        ).subscribe((() => {
-            callback(true);
-        }));
+    signUp(signUpInputDTO: {name: string, email: string, password: string}) {
+        return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO);
     }
 
-    resendVerificationEmail(email: string, callback: (success:boolean) => void) {
-        return this.http.post<unknown>(`${this.apiUrl}/users/resend-verification`, { email }).pipe(
-            catchError((err:HttpErrorResponse) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'HTTP Error',
-                    detail: err.error.message || 'Something went wrong',
-                  });
-                callback(false);
-                return EMPTY;
-            })
-        ).subscribe((() => {
-            callback(true);
-        }));
+    resendVerificationEmail(email: string) {
+        return this.http.post<unknown>(`${this.apiUrl}/users/resend-verification`, { email });
     }
 
     sendVerificationToken(token: string){
