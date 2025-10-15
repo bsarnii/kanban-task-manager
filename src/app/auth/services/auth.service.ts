@@ -1,7 +1,6 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { catchError, EMPTY } from "rxjs";
 import { UsersStore } from "src/app/users/+store/users.store";
 import { environment } from "src/environments/environment";
 import { MessageService } from "primeng/api";
@@ -14,21 +13,8 @@ export class AuthService {
     router = inject(Router);
     messageService = inject(MessageService);
 
-    logIn(email: string, password: string, callback: (success:boolean) => void) {
-        return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password}).pipe(
-            catchError((err:HttpErrorResponse) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'HTTP Error',
-                    detail: err.error.message || 'Something went wrong',
-                  });
-                callback(false);
-                return EMPTY;
-            })
-        ).subscribe((res => {
-            this.setAuthToken(res.access_token);
-            callback(true);
-        }));
+    logIn(email: string, password: string) {
+        return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password});
     }
 
     signUp(signUpInputDTO: {name: string, email: string, password: string}) {
