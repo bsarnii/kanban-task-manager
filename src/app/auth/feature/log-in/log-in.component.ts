@@ -6,11 +6,11 @@ import { Router, RouterLink } from '@angular/router';
 import { LayoutComponent } from "../../ui/layout/layout.component";
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from "primeng/message";
 
 @Component({
   selector: 'app-log-in',
-  imports: [FormsModule, LayoutComponent, RouterLink],
+  imports: [FormsModule, LayoutComponent, RouterLink, MessageModule],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })
@@ -18,11 +18,11 @@ export default class LogInComponent {
   colorThemeService = inject(ColorThemeService);
   authService = inject(AuthService);
   router = inject(Router);
-  messageService = inject(MessageService);
 
   email = signal('');
   password = signal('');
 
+  errorMessage = signal('');
   loading = signal(false);
 
   logIn() {
@@ -48,11 +48,7 @@ export default class LogInComponent {
 
   onLoginError(err:HttpErrorResponse){
     this.loading.set(false);
-    this.messageService.add({
-      severity: 'error',
-      summary: 'HTTP Error',
-      detail: err.error.message || 'Something went wrong',
-    });
+    this.errorMessage.set(err.error.message || 'Something went wrong');
     return EMPTY;
   }
 }
