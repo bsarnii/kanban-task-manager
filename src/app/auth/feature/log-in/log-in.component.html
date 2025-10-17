@@ -1,7 +1,7 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
     @if(errorMessage()){
         <p-message severity="error" icon="pi pi-times-circle" size="small">
-            <p class="body-l">{{ errorMessage() }}</p>
+            <p>{{ errorMessage() }}</p>
         </p-message>
     }
     <form #loginForm="ngForm" (ngSubmit)="logIn()">
