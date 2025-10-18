@@ -15,5 +15,10 @@ export const authRoutes:Routes = [
         path: 'signup',
         loadComponent: () => import('src/app/auth/feature/sign-up/sign-up.component'),
         title: 'Sign up',
+    },
+    {
+        path: 'verification/:token',
+        loadComponent: () => import('src/app/auth/feature/verification/verification.component'),
+        title: 'Email verification',
     }
 ]
