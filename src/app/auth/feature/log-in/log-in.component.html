@@ -1,4 +1,9 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
+    @if(errorMessage()){
+        <p-message severity="error" icon="pi pi-times-circle" size="small">
+            <p>{{ errorMessage() }}</p>
+        </p-message>
+    }
     <form #loginForm="ngForm" (ngSubmit)="logIn()">
         <label for="email" class="heading-s">
             Email
@@ -21,6 +26,6 @@
         </button>
     </form>
 
-    <!--<a routerLink="../signup">Create an account</a>-->
-    <p class="body-l">Want to try the app? &nbsp; <a role="button" (click)="!loading() && logInWithTestUser()">Log in as a test user</a></p>
+    <a routerLink="../signup">Create an account</a>
+    <p class="body-l">Want to try the app? &nbsp; <a role="button" tabindex="0" (click)="!loading() && logInWithTestUser()">Log in as a test user</a></p>
 </app-auth-layout>

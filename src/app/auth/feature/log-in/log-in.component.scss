@@ -9,3 +9,11 @@ button[type="submit"]{
 a[role='button']{
     cursor: pointer;
 }
+
+p-message{
+    width: 100%;;
+    p{
+        padding: 6px 0;
+        font-size: 13px;
+    }
+}

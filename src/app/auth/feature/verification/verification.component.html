@@ -1,0 +1,14 @@
+<app-auth-layout [colorTheme]="colorThemeService.colorTheme">
+    @if(loading()){
+        <h1 class="heading-l">Verification in progress...</h1>
+        <i class="pi pi-spin pi-spinner"></i>
+    }
+    @if(hasError()){
+        <h1 class="heading-l">Email verification failed</h1>
+        <p class="body-l">
+            We couldn’t verify your email address. The verification link may have expired or already been used.
+            <br/>
+            Please contact support.
+        </p>
+    }
+</app-auth-layout>

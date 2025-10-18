@@ -25,8 +25,19 @@
         </form>
         <a routerLink="../login">Already have an account? Log in</a>
     }@else{
-        <h1 class="heading-l">Registration successful</h1>
-        <a routerLink="../login">Click here to log in</a>
+        <h1 class="heading-l">Registration successful!</h1>
+        <p class="body-l">
+            Please check your inbox to verify your email address. If you didn't receive an email, click 
+            <a role="button" tabindex="0" (click)="resendVerificationEmail()" [style.pointerEvents]="resendLoading() ? 'none' : 'auto'">
+                @if(resendLoading()){
+                    <i class="pi pi-spin pi-spinner"></i>
+                }@else{
+                here
+                }
+            </a>.
+            <br/>
+            Be sure to check your spam folder.
+        </p>
     }
 
 </app-auth-layout>
