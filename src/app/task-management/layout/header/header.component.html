@@ -21,7 +21,10 @@
 </div>
 @if(boardsStore.activeBoardExists()){
     <div class="header-right">
-        <button [disabled]="activeBoard?.statuses?.length === 0" [routerLink]="addTaskPath()" class=" btn button-primary-l">+ <span>Add New Task</span></button>
+        <button [disabled]="activeBoard?.statuses?.length === 0" [routerLink]="addTaskPath()" class="btn button-primary-l" style="display: flex; gap: 0.5rem; align-items: center;">
+            <i class="pi pi-plus"></i>
+            <span>Add New Task</span>
+        </button>
         <button (click)="toggleEditDeleteOverlay($event)" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
         @if(showEditDeleteOverlay){
             <div class="edit-delete-overlay">

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
 import { TasksStore } from 'src/app/task-management/+store/tasks.store';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
@@ -37,6 +37,7 @@ export class TaskAddEditModalComponent implements OnInit {
   }
 
   addEditContext = input<TaskAddEditModalContextEnum>(TaskAddEditModalContextEnum.add);
+  subtaskInputs = viewChildren<ElementRef<HTMLInputElement>>('subtaskInput');
 
   modalName = computed(() => this.addEditContext() === TaskAddEditModalContextEnum.add ? "Add New Task" : "Edit Task");
   taskName = computed(() => this.tasksStore.activeTask()?.name || "");
@@ -70,6 +71,9 @@ export class TaskAddEditModalComponent implements OnInit {
       name: new FormControl('', { nonNullable: true }),
       completed: new FormControl(false, { nonNullable: true })
     }));
+    setTimeout(() => {
+      this.subtaskInputs()[this.subtaskInputs().length - 1].nativeElement.focus();
+    }, 100);
   }
   
   saveTask(event:Event){

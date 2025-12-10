@@ -35,6 +35,16 @@ span{
         }
     }
 }
+
+.add-new-column-btn{
+    margin-top: .5rem;
+    width: fit-content;
+    display: flex; 
+    gap: 0.5rem; 
+    align-items: center; 
+    justify-content: center;
+}
+
 .submit{
     margin-top: 1.5rem;
 }

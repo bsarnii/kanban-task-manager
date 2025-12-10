@@ -33,15 +33,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: .5rem;
         h1{
             padding: 0 1.5rem;
             position: relative;
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 700;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         img{
             display: none;
+            padding-inline: .5rem;
         }
     }
 }
@@ -116,7 +120,7 @@
 
     .header-right{
         button:first-child{
-            padding:  0 1em .5em 1em;
+            padding: .5rem;
             span{
                 display: none;
             }

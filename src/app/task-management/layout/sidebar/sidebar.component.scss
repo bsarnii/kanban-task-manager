@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 300px;
+    max-width: 300px;
     height: 100vh;
     background-color: var(--color-sec-bg);
     border-right: 1px solid var(--lines);
@@ -53,14 +54,22 @@
             li{
                 list-style: none;
                 button{
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
                     width: 130%;
                     margin-left: -30%;
                     padding-left: 30%;
                     background-color: transparent;
                     font-weight: bold;
                     text-align: left;
+                    svg{
+                        min-width: 16px;
+                    }
                     span{
-                        margin-left: 1rem;
+                        width: unset;
+                        white-space: wrap;
+                        display: block;
                     }
                 }
                 .btn-list{
@@ -189,6 +198,7 @@
 @media screen and (max-width: 800px) {
     :host{
         min-width: 260px;
+        max-width: 260px;
     }
     :host[data-opened=false]{
         margin-left: -260px;

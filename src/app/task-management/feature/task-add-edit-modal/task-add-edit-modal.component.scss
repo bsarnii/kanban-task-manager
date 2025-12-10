@@ -38,6 +38,11 @@ span{
 }
 .add-new-subtask{
     margin-top: .5rem;
+    width: fit-content;
+    display: flex; 
+    gap: 0.5rem; 
+    align-items: center; 
+    justify-content: center;
 }
 .status-label{
     margin: .5rem 0

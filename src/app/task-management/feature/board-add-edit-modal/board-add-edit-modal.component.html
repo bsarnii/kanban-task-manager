@@ -15,12 +15,15 @@
     <div class="statuses-container">
       @for(status of formStatuses.controls; let i = $index; track i) {
         <div class="status">
-          <span><input [formControl]="status" class="text-input" type="text" [placeholder]="columnPlaceholders[i] || 'e.g Todo'"></span>
+          <span><input #statusInput [formControl]="status" class="text-input" type="text" [placeholder]="columnPlaceholders[i] || 'e.g Todo'"></span>
           <button (click)="removeColumn(i,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
         </div>
       }
     </div>
-    <button (click)="addNewColumn($event)" class="btn button-secondary">+ Add new Column</button>
+    <button (click)="addNewColumn($event)" class="btn button-secondary add-new-column-btn">
+      <i class="pi pi-plus"></i>
+      <span style="width: unset;">Add New Column</span>
+    </button>
     @if (addEditContext() === BoardAddEditModalContextEnum.add) {
       <button (click)="createBoard($event)" class="btn button-primary-s submit">Create New Board</button>
     }

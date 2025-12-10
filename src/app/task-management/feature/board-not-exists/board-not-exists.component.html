@@ -1,5 +1,8 @@
 <div class="empty-board">
     <h1 class="heading-l">There are no boards. Create a new board to get started.</h1>
-    <button [routerLink]="['./add-board']" class="btn button-primary-l">+ Add New Board</button>
+    <button [routerLink]="['./add-board']" class="btn button-primary-l" style="display: flex; gap: 0.5rem; align-items: center; justify-content: center;">
+        <i class="pi pi-plus"></i>
+        <span style="width: unset;">Add New Board</span>
+    </button>
 </div>
 <router-outlet/>
