@@ -2,3 +2,4 @@
 @if(errorMessage() || signalFormErrorMessage()){
 <p-message severity="error" styleClass="p-size-extra-small" variant="simple">{{errorMessage() || signalFormErrorMessage()}}</p-message>
 }
+<ng-content select="[fieldDescription]"></ng-content>

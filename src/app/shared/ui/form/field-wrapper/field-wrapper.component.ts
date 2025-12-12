@@ -15,7 +15,8 @@ export class FieldWrapperComponent {
 
   defaultErrorMessages = {
     required: "Can't be empty",
-    maxlength: 'Max length exceeded',
+    maxLength: 'Max length exceeded',
+    minLength: (n:number) => `Must be at least ${n} characters`,
     email: 'Invalid email address'
   }
 
@@ -27,7 +28,7 @@ export class FieldWrapperComponent {
       return this.defaultErrorMessages.required;
     }
     if(this.fieldErrors()?.hasOwnProperty('maxlength')){
-      return this.defaultErrorMessages.maxlength;
+      return this.defaultErrorMessages.maxLength;
     }
     if(this.fieldErrors()?.hasOwnProperty('email')){
       return this.defaultErrorMessages.email;
@@ -44,8 +45,14 @@ export class FieldWrapperComponent {
       if(firstError.kind === 'required'){
         return firstError.message ?? this.defaultErrorMessages.required;
       }
-      if(firstError.kind === 'maxlength'){
-        return firstError.message ?? this.defaultErrorMessages.maxlength;
+      //'minLength' in camelCase for signal forms
+      if(firstError.kind === 'minLength'){
+        const n = (firstError as ValidationError & { minLength: number }).minLength;
+        return firstError.message ?? this.defaultErrorMessages.minLength(n);
+      }
+      //'maxLength' in camelCase for signal forms
+      if(firstError.kind === 'maxLength'){
+        return firstError.message ?? this.defaultErrorMessages.maxLength;
       }
       if(firstError.kind === 'email'){
         return firstError.message ?? this.defaultErrorMessages.email;
