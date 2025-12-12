@@ -206,38 +206,24 @@ button:disabled{
 }
 
 //INPUT TEXT
-span{
-    width: 100%;
+.text-input{
+    padding: .5rem;
+    border: 1px solid rgba(130, 143, 163,.25);
+    background: transparent;
+    color: var(--color-text);
+    outline: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: .25rem 0;
+    border-radius: 4px;
+    transition: border .3s;
     position: relative;
-    .text-input{
-        padding: .5rem;
-        border: 1px solid rgba(130, 143, 163,.25);
-        background: transparent;
-        color: var(--color-text);
-        outline: none;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        margin: .5rem 0 .5rem 0;
-        border-radius: 4px;
-        transition: border .3s;
-        position: relative;
-        width: 100%;
-        &:focus{
-            border: 1px solid #635FC7;
-        }
+    width: 100%;
+    &:focus{
+        border: 1px solid #635FC7;
     }
-    .text-input.ng-invalid.ng-touched, .text-input.ng-invalid.ng-dirty{
-        border: 1px solid $red;
-    }
-    .error-message{
-        position: absolute;
-        display: block;
-        color: $red;
-        position: absolute;
-        top: 1rem;
-        right: .5rem;
-        font-size: 13.3px;
-    }
-
+}
+.text-input.ng-invalid.ng-touched, .text-input.ng-invalid.ng-dirty{
+    border: 1px solid $red;
 }
 
 .description-input{
@@ -247,14 +233,21 @@ span{
     color: var(--color-text);
     outline: none;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: .5rem 0 1rem 0;
+    margin: .25rem 0;
     min-height: 115px;
     border-radius: 4px;
     resize: none;
     transition: border .3s;
+    width: 100%;
     &:focus{
         border: 1px solid #635FC7;
     }
+}
+
+fieldset{
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
 // FORM SELECT //
@@ -271,6 +264,7 @@ span{
     background-repeat: no-repeat;
     background-position: 97.5%;
     border-radius: 6px;
+    width: 100%;
     option{
         background-color: var(--color-bg);
         padding: .5rem;
@@ -327,4 +321,9 @@ a{
     .heading-xl{
         font-size: 18px;
     }
+}
+
+//PRIMENG OVERRIDES//
+.p-message.p-size-extra-small .p-message-text {
+  font-size: 12px !important;
 }
