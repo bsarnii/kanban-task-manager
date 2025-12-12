@@ -1,4 +1,4 @@
 <ng-content></ng-content>
-@if(errorMessage()){
-<p-message severity="error" styleClass="p-size-extra-small" variant="simple">{{errorMessage()}}</p-message>
+@if(errorMessage() || signalFormErrorMessage()){
+<p-message severity="error" styleClass="p-size-extra-small" variant="simple">{{errorMessage() || signalFormErrorMessage()}}</p-message>
 }

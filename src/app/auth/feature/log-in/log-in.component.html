@@ -4,26 +4,26 @@
             <p>{{ errorMessage() }}</p>
         </p-message>
     }
-    <form #loginForm="ngForm" (ngSubmit)="logIn()">
-        <label for="email" class="heading-s">
-            Email
-        </label>
-        <span>
-            <input type="email" id="email" name="email" required class="text-input" [(ngModel)]="email" autocomplete="email">
-        </span>
-        <label for="password" class="heading-s">
-            Password
-        </label>
-        <span>
-            <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="password" autocomplete="current-password">
-        </span>
-        <button type="submit" class="btn button-primary-s" [disabled]="!loginForm.form.valid || loading()">
+    <form (ngSubmit)="logIn()">
+        
+        <app-field-wrapper [signalFormErrors]="loginForm.email().errors()" [canShowError]="loginForm.email().touched() || loginForm.email().dirty()">
+            <label for="email" class="heading-s">Email</label>
+            <input [field]="loginForm.email" type="email" id="email" class="text-input" autocomplete="email">
+        </app-field-wrapper>
+
+        <app-field-wrapper [signalFormErrors]="loginForm.password().errors()" [canShowError]="loginForm.password().touched() || loginForm.password().dirty()">
+            <label for="password" class="heading-s">Password</label>
+            <input [field]="loginForm.password" type="password" id="password" class="text-input" autocomplete="current-password">
+        </app-field-wrapper>
+        
+        <button type="submit" class="btn button-primary-s">
             @if(loading()){
                 <i class="pi pi-spin pi-spinner"></i>
             }@else{
                 Log In
             }
         </button>
+        
     </form>
 
     <a routerLink="../signup">Create an account</a>

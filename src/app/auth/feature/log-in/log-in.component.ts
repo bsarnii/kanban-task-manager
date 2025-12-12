@@ -7,10 +7,17 @@ import { LayoutComponent } from "../../ui/layout/layout.component";
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageModule } from "primeng/message";
+import {form, Field, required, email, submit} from '@angular/forms/signals';
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+
+interface LoginData {
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-log-in',
-  imports: [FormsModule, LayoutComponent, RouterLink, MessageModule],
+  imports: [FormsModule, LayoutComponent, RouterLink, MessageModule, Field, FieldWrapperComponent],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })
@@ -19,18 +26,28 @@ export default class LogInComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  email = signal('');
-  password = signal('');
+  loginModel = signal<LoginData>({
+    email: '',
+    password: '',
+  });
+  loginForm = form(this.loginModel, (schemaPath) => {
+    required(schemaPath.email), {message: 'Email is required'};
+    email(schemaPath.email);
+
+    required(schemaPath.password, {message: 'Password is required'});
+  });
 
   errorMessage = signal('');
   loading = signal(false);
 
   logIn() {
-    this.loading.set(true);
-    this.authService.logIn(this.email(), this.password()).pipe(
-      tap(res => this.onLoginSuccess(res)),
-      catchError((err:HttpErrorResponse) => this.onLoginError(err))
-    ).subscribe();
+    submit(this.loginForm, async () => {
+      this.loading.set(true);
+      this.authService.logIn(this.loginModel().email, this.loginModel().password).pipe(
+        tap(res => this.onLoginSuccess(res)),
+        catchError((err:HttpErrorResponse) => this.onLoginError(err))
+      ).subscribe();
+    })
   }
 
   logInWithTestUser(){
@@ -52,3 +69,4 @@ export default class LogInComponent {
     return EMPTY;
   }
 }
+
