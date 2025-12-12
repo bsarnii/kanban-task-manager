@@ -52,7 +52,7 @@ export class TaskAddEditModalComponent implements OnInit {
 
 
   form = this.fb.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.maxLength(60)]],
     description: [''],
     subtasks: this.fb.array([] as FormGroup<SubtaskControl>[]),
     status: ['', Validators.required]

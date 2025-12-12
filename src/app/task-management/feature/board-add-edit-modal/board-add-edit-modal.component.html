@@ -3,7 +3,7 @@
   <form [formGroup]="form" modalBody>
 
     <app-field-wrapper [fieldErrors]="formName.errors" [canShowError]="formName.touched || formName.dirty">
-        <label class="heading-s" for="title">Board Name</label>
+        <label class="heading-s" for="title">Board Name*</label>
         <input [formControl]="formName" class="text-input title-input" name="title" id="title" type="text" placeholder="e.g. Web design">
     </app-field-wrapper>
 

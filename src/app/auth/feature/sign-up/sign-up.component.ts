@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ColorThemeService } from 'src/app/core/services/color-theme.service';
 import { LayoutComponent } from '../../ui/layout/layout.component';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -18,7 +18,7 @@ type SignUpFormModel = {
 
 @Component({
   selector: 'app-sign-up',
-  imports: [LayoutComponent, FormsModule, RouterLink, FieldWrapperComponent, Field],
+  imports: [FormsModule,LayoutComponent, RouterLink, FieldWrapperComponent, Field],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
