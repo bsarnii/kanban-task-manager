@@ -1,6 +1,7 @@
 form{
     display: flex;
     flex-direction: column;
+    gap: .5rem;
 }
 span{
     .title-input{
@@ -38,6 +39,11 @@ span{
 }
 .add-new-subtask{
     margin-top: .5rem;
+    width: fit-content;
+    display: flex; 
+    gap: 0.5rem; 
+    align-items: center; 
+    justify-content: center;
 }
 .status-label{
     margin: .5rem 0

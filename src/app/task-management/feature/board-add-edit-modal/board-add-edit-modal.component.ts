@@ -1,9 +1,11 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoardInputDto } from '../../types/boards.interface';
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+
 
 export enum BoardAddEditModalContextEnum {
   add = 'add',
@@ -14,7 +16,7 @@ export enum BoardAddEditModalContextEnum {
     selector: 'app-board-add-edit-modal',
     templateUrl: './board-add-edit-modal.component.html',
     styleUrls: ['./board-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule, ModalComponent]
+    imports: [ReactiveFormsModule, ModalComponent, FieldWrapperComponent]
 })
 export class BoardAddEditModalComponent implements OnInit {
   boardsStore = inject(BoardsStore);
@@ -23,6 +25,7 @@ export class BoardAddEditModalComponent implements OnInit {
   route = inject(ActivatedRoute);
 
   addEditContext = input<BoardAddEditModalContextEnum>(BoardAddEditModalContextEnum.add);
+  statusInputs = viewChildren<ElementRef<HTMLInputElement>>('statusInput');
   modalName = computed(() => this.addEditContext() === BoardAddEditModalContextEnum.add ? "Add New Board" : "Edit Board");
   boardName = computed(() => {
     if(this.addEditContext() === BoardAddEditModalContextEnum.add){
@@ -38,7 +41,7 @@ export class BoardAddEditModalComponent implements OnInit {
   })
 
   form = this.fb.group({
-    name: ['', [Validators.required, Validators.maxLength(21)]],
+    name: ['', [Validators.required, Validators.maxLength(60)]],
     statuses: new FormArray([] as FormControl[])
   })
   columnPlaceholders = ["e.g Todo", "e.g Doing", "e.g Done", "e.g Now", "e.g Next", "e.g Later"];
@@ -58,6 +61,9 @@ export class BoardAddEditModalComponent implements OnInit {
   addNewColumn(event:Event){
     event.preventDefault();
     this.formStatuses.push(new FormControl(""));
+    setTimeout(() => {
+      this.statusInputs()[this.statusInputs().length - 1].nativeElement.focus();
+    }, 100);
   }
   
   saveBoard(event:Event){

@@ -1,10 +1,11 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
 import { TasksStore } from 'src/app/task-management/+store/tasks.store';
 import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SubtaskControl = {
   id: FormControl<string | null>;
@@ -21,7 +22,7 @@ export enum TaskAddEditModalContextEnum {
     selector: 'app-task-add-edit-modal',
     templateUrl: './task-add-edit-modal.component.html',
     styleUrls: ['./task-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent]
+    imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent, FieldWrapperComponent]
 })
 export class TaskAddEditModalComponent implements OnInit {
   router = inject(Router);
@@ -37,6 +38,7 @@ export class TaskAddEditModalComponent implements OnInit {
   }
 
   addEditContext = input<TaskAddEditModalContextEnum>(TaskAddEditModalContextEnum.add);
+  subtaskInputs = viewChildren<ElementRef<HTMLInputElement>>('subtaskInput');
 
   modalName = computed(() => this.addEditContext() === TaskAddEditModalContextEnum.add ? "Add New Task" : "Edit Task");
   taskName = computed(() => this.tasksStore.activeTask()?.name || "");
@@ -50,7 +52,7 @@ export class TaskAddEditModalComponent implements OnInit {
 
 
   form = this.fb.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.maxLength(60)]],
     description: [''],
     subtasks: this.fb.array([] as FormGroup<SubtaskControl>[]),
     status: ['', Validators.required]
@@ -70,6 +72,9 @@ export class TaskAddEditModalComponent implements OnInit {
       name: new FormControl('', { nonNullable: true }),
       completed: new FormControl(false, { nonNullable: true })
     }));
+    setTimeout(() => {
+      this.subtaskInputs()[this.subtaskInputs().length - 1].nativeElement.focus();
+    }, 100);
   }
   
   saveTask(event:Event){

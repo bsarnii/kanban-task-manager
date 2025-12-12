@@ -1,12 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { ColorThemeService } from 'src/app/core/services/color-theme.service';
 import { LayoutComponent } from '../../ui/layout/layout.component';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { email, form, minLength, required, Field, submit } from '@angular/forms/signals';
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SignUpFormModel = {
   name: string;
@@ -16,7 +18,7 @@ type SignUpFormModel = {
 
 @Component({
   selector: 'app-sign-up',
-  imports: [LayoutComponent, FormsModule, RouterLink],
+  imports: [FormsModule,LayoutComponent, RouterLink, FieldWrapperComponent, Field],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
@@ -29,33 +31,41 @@ export default class SignUpComponent {
     name: '',
     email: '',
     password: ''
-  })
+  });
+  signUpForm = form(this.model, (schemaPath) => {
+    required(schemaPath.name);
+
+    required(schemaPath.email);
+    email(schemaPath.email);
+
+    required(schemaPath.password);
+    minLength(schemaPath.password, 8);
+  }) 
 
   signUpSuccess = signal(false);
   loading = signal(false);
   resendLoading = signal(false);
 
 
-  signUp(form:NgForm) {
-    if(form.invalid) {
-      return;
-    }
-    this.loading.set(true);
-    this.authService.signUp(this.model()).pipe(
-      tap(() => {
-        this.signUpSuccess.set(true);
-        this.loading.set(false);
-      }),
-      catchError((err:HttpErrorResponse) => {
+  signUp() {
+    submit(this.signUpForm, async () => {
+      this.loading.set(true);
+      this.authService.signUp(this.model()).pipe(
+        tap(() => {
+          this.signUpSuccess.set(true);
           this.loading.set(false);
-          this.messageService.add({
-              severity: 'error',
-              summary: 'HTTP Error',
-              detail: err.error.message || 'Something went wrong',
-          });
-          return EMPTY;
-      })
-    ).subscribe();
+        }),
+        catchError((err:HttpErrorResponse) => {
+            this.loading.set(false);
+            this.messageService.add({
+                severity: 'error',
+                summary: 'HTTP Error',
+                detail: err.error.message || 'Something went wrong',
+            });
+            return EMPTY;
+        })
+      ).subscribe();
+    });
   }
 
   resendVerificationEmail() {

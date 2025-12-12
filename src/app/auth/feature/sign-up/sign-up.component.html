@@ -1,21 +1,24 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
     @if(!signUpSuccess()) {
-        <form #registerForm="ngForm" (ngSubmit)="signUp(registerForm)">
-            <label for="fullName" class="heading-s">Full name*</label>
-            <span><input type="text" id="fullName" name="fullName" required [(ngModel)]="model().name" class="text-input"></span>
+        <form (ngSubmit)="signUp()">
+
+            <app-field-wrapper [signalFormErrors]="signUpForm.name().errors()" [canShowError]="signUpForm.name().dirty() || signUpForm.name().touched()">
+                <label for="fullName" class="heading-s">Full name*</label>
+                <input [field]="signUpForm.name" type="text" id="fullName" class="text-input">
+            </app-field-wrapper>
+
+            <app-field-wrapper [signalFormErrors]="signUpForm.email().errors()" [canShowError]="signUpForm.email().dirty() || signUpForm.email().touched()">
+                <label for="email" class="heading-s">Email*</label>
+                <input [field]="signUpForm.email" type="email" id="email" class="text-input" autocomplete="email">
+            </app-field-wrapper>
+
+            <app-field-wrapper [signalFormErrors]="signUpForm.password().errors()" [canShowError]="signUpForm.password().dirty() || signUpForm.password().touched()" style="margin-bottom: 1rem;">
+                <label for="password" class="heading-s">Password*</label>
+                <input [field]="signUpForm.password" type="password" id="password" class="text-input" autocomplete="new-password">
+                <p fieldDescription class="body-l">Password must have at least 8 characters</p>
+            </app-field-wrapper>
     
-            <label for="email" class="heading-s">Email*</label>
-            <span>
-                <input type="email" id="email" name="email" required class="text-input" [(ngModel)]="model().email" autocomplete="email" email>
-            </span>
-    
-            <label for="password" class="heading-s">Password*</label>
-            <span>
-                <input type="password" id="password" name="password" required class="text-input" [(ngModel)]="model().password" autocomplete="new-password" minlength="8">
-                <p class="body-l" style="margin-bottom: 1rem;">Password must have at least 8 characters</p>
-            </span>
-    
-            <button type="submit" class="btn button-primary-s" [disabled]="!registerForm.form.valid || loading()">
+            <button type="submit" class="btn button-primary-s" [disabled]="loading()">
                 @if(loading()){
                     <i class="pi pi-spin pi-spinner"></i>
                 }@else{
