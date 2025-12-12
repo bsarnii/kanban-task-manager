@@ -5,6 +5,7 @@ import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SubtaskControl = {
   id: FormControl<string | null>;
@@ -21,7 +22,7 @@ export enum TaskAddEditModalContextEnum {
     selector: 'app-task-add-edit-modal',
     templateUrl: './task-add-edit-modal.component.html',
     styleUrls: ['./task-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent]
+    imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent, FieldWrapperComponent]
 })
 export class TaskAddEditModalComponent implements OnInit {
   router = inject(Router);

@@ -6,38 +6,46 @@
       {{modalName()}}
     </h4>
     <form [formGroup]="form" modalBody>
-      <label class="heading-s" for="title">Title</label>
-      <span>
+
+      <app-field-wrapper [fieldErrors]="formName.errors" [canShowError]="formName.touched || formName.dirty">
+        <label class="heading-s" for="title">Title</label>
         <input [formControl]="formName" #title class="text-input title-input" name="title" id="title" type="text" placeholder="e.g. Take coffe break">
-        @if (formName.invalid && (formName.dirty || formName.touched) && formName.hasError('required')) {
-          <div class="error-message">Can't be empty</div>
-        }
-      </span>
-      <label class="heading-s" for="description">Description</label>
-      <textarea [formControl]="formDescription" class="description-input" name="description" id="description" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
-      <label class="heading-s" for="subtasks">Subtasks</label>
-      <div class="subtask-container">
-        @for (subtask of formSubtasks.controls; let i = $index; track i) {
-          <div class="subtask">
-            <span><input #subtaskInput [formControl]="subtask.controls.name" class="text-input" type="text" [placeholder]="subtaskPlaceholders[i] || 'e.g. Make coffee'"></span>
-            <button (click)="removeSubtask(i,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
-          </div>
-        }
+      </app-field-wrapper>
+
+      <app-field-wrapper [fieldErrors]="formDescription.errors" [canShowError]="formDescription.touched || formDescription.dirty">
+        <label class="heading-s" for="description">Description</label>
+        <textarea [formControl]="formDescription" class="description-input" name="description" id="description" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
+      </app-field-wrapper>
+      
+      <fieldset>
+        <legend class="heading-s" for="subtasks">Subtasks</legend>
+        <div class="subtask-container">
+          @for (subtask of formSubtasks.controls; let i = $index; track i) {
+            <div class="subtask">
+              <input #subtaskInput [formControl]="subtask.controls.name" class="text-input" type="text" [placeholder]="subtaskPlaceholders[i] || 'e.g. Make coffee'">
+              <button (click)="removeSubtask(i,$event)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg></button>
+            </div>
+          }
       </div>
       <button (click)="addNewSubtask($event)" class="btn button-secondary add-new-subtask" style="display: flex; gap: 0.5rem; align-items: center; justify-content: center;">
         <i class="pi pi-plus"></i>
         <span style="width: unset;">Add New Subtask</span>
       </button>
-      <label class="heading-s status-label">Status</label>
-      <select [formControl]="formStatus" class="select" name="status">
-        @for (status of boardsStore.activeBoard()?.statuses; track $index) {
-          <option
-            [value]="status.id"
-            [selected]="status.id === formStatus.value"
-            >
-          {{status.name}}</option>
-        }
-      </select>
+      </fieldset>
+
+      <app-field-wrapper [fieldErrors]="formStatus.errors" [canShowError]="formStatus.touched || formStatus.dirty">
+        <label class="heading-s status-label">Status</label>
+        <select [formControl]="formStatus" class="select" name="status">
+          @for (status of boardsStore.activeBoard()?.statuses; track $index) {
+            <option
+              [value]="status.id"
+              [selected]="status.id === formStatus.value"
+              >
+            {{status.name}}</option>
+          }
+        </select>
+      </app-field-wrapper>
+
       @if (addEditContext() === TaskAddEditModalContextEnum.edit) {
         <button (click)="saveTask($event)" class="btn button-primary-s submit">Save Changes</button>
       }
