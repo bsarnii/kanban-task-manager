@@ -1,12 +1,9 @@
 form{
     display: flex;
     flex-direction: column;
+    gap: .5rem;
 }
-span{
-    .title-input{
-        margin-bottom: 1rem;
-    }
-}
+
 .statuses-container{
     .status{
         display: flex;

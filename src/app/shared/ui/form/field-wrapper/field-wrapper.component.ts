@@ -9,10 +9,10 @@ import { Message } from "primeng/message";
 })
 export class FieldWrapperComponent {
   fieldErrors = input<Record<string, unknown> | null>(null);
-  fieldIsTouched = input<boolean>(false);
+  canShowError = input<boolean>(false);
 
     errorMessage = computed(() => {
-    if(!this.fieldIsTouched()){
+    if(!this.canShowError()){
       return '';
     }
     if(this.fieldErrors()?.hasOwnProperty('required')){

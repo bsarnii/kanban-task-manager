@@ -4,6 +4,8 @@ import { BoardsStore } from 'src/app/task-management/+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoardInputDto } from '../../types/boards.interface';
+import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+
 
 export enum BoardAddEditModalContextEnum {
   add = 'add',
@@ -14,7 +16,7 @@ export enum BoardAddEditModalContextEnum {
     selector: 'app-board-add-edit-modal',
     templateUrl: './board-add-edit-modal.component.html',
     styleUrls: ['./board-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule, ModalComponent]
+    imports: [ReactiveFormsModule, ModalComponent, FieldWrapperComponent]
 })
 export class BoardAddEditModalComponent implements OnInit {
   boardsStore = inject(BoardsStore);
