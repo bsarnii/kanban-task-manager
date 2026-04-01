@@ -1,6 +1,15 @@
 :host{
-    min-height: calc(100vh - 5rem);
-    height: calc(100vh - 5rem);
+    display: block;
+}
+
+p-toolbar{
+    border: none;
+    border-bottom: 1px solid var(--p-toolbar-border-color);
+    border-radius: 0;
+}
+.content{
+    min-height: calc(100vh - 5rem - 57px);
+    height: calc(100vh - 5rem - 57px);
     display: flex;
     overflow: auto;
     scrollbar-color: #635FC7 transparent;
@@ -23,7 +32,7 @@
     }
     &::-webkit-scrollbar-corner{
         background: transparent;
-    }
+}
 }
 .empty-board{
     display: flex;

@@ -15,6 +15,13 @@ export class ColorThemeService {
     this.colorTheme = this.colorTheme === 'light' ? 'dark' : 'light';
     this.setTheme(this.colorTheme);
     document.documentElement.setAttribute('data-theme',this.colorTheme);
+
+    //FOR PRIMENG
+    if (this.colorTheme === 'dark') {
+      document.documentElement.classList.add('my-app-dark');
+    } else {
+      document.documentElement.classList.remove('my-app-dark');
+    }
   }
 
   setTheme(theme:ColorTheme){
@@ -29,6 +36,14 @@ export class ColorThemeService {
       this.colorTheme = 'light';
     }
     document.documentElement.setAttribute('data-theme', this.colorTheme);
+
+
+    //FOR PRIMENG
+    if (this.colorTheme === 'dark') {
+      document.documentElement.classList.add('my-app-dark');
+    } else {
+      document.documentElement.classList.remove('my-app-dark');
+    }
   }
 
 }

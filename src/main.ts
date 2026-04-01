@@ -14,8 +14,8 @@ import { unauthorizedInterceptor } from './app/core/interceptors/unauthorized.in
 
 //PrimeNG
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
 import { MessageService } from 'primeng/api';
+import { themePreset } from './theme-preset';
 
 
 
@@ -33,11 +33,7 @@ bootstrapApplication(AppComponent, {
         ,),
       provideRouter(appRoutes, withComponentInputBinding()),
       provideAnimationsAsync(),
-      providePrimeNG({
-          theme: {
-              preset: Aura
-          }
-      }),
+      providePrimeNG(themePreset),
       MessageService
     ],
   }).catch((err) => console.error(err));
