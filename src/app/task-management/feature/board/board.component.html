@@ -14,7 +14,7 @@
         <button routerLink="./edit-board" class="btn button-primary-l">+ Add New Column</button>
       </div>
     }
-    @for (column of columnsVM(); let i = $index; track i) {
+    @for (column of columnsVM(); track column.statusId) {
       <app-column
         [(draggedTask)]="draggedTask"
         [statusId]="column.statusId"
