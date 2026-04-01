@@ -50,6 +50,23 @@ bootstrapApplication(AppComponent, {
                     800: '{indigo.800}',
                     900: '{indigo.900}',
                     950: '{indigo.950}'
+                },
+                colorScheme: {
+                  dark: {
+                    surface: {
+                      50: '{zinc.50}',
+                      100: '{zinc.100}',
+                      200: '{zinc.200}',
+                      300: '{zinc.300}',
+                      400: '{zinc.400}',
+                      500: '{zinc.500}',
+                      600: '{zinc.600}',
+                      700: '{zinc.700}',
+                      800: '{zinc.800}',
+                      900: '#2B2C37',
+                      950: '#20212C'
+                    }
+                  }
                 }
               }
             }),
