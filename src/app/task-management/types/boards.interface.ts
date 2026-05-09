@@ -1,3 +1,4 @@
+import { BoardMemberRole } from "./board-member.interface"
 import { Status, StatusInputDto } from "./status.interface"
 
 export interface Board{
@@ -6,6 +7,7 @@ export interface Board{
     statuses: Status[]
     createdAt: string
     createdBy: string
+    boardMemberRole: BoardMemberRole
 }
 
-export type BoardInputDto = Omit<Board, 'id' | 'createdAt' | 'statuses' | 'createdBy'> & { statuses: StatusInputDto[] };
+export type BoardInputDto = Omit<Board, 'id' | 'createdAt' | 'statuses' | 'createdBy' | 'boardMemberRole'> & { statuses: StatusInputDto[] };

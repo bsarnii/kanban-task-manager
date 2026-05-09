@@ -28,8 +28,9 @@
         <button (click)="toggleEditDeleteOverlay($event)" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
         @if(showEditDeleteOverlay){
             <div class="edit-delete-overlay">
-                <button [routerLink]="editBoardPath()" class="edit-board">Edit Board</button>
-                <button (click)="onDeleteBoardBtnClick($event)" class="delete-board">Delete Board</button>
+                <button [routerLink]="boardMembersPath()" class="board-members-btn">Board Members</button>
+                <button [routerLink]="editBoardPath()" class="edit-board-btn">Edit Board</button>
+                <button (click)="onDeleteBoardBtnClick($event)" class="delete-board-btn">Delete Board</button>
             </div>
         }
     </div>

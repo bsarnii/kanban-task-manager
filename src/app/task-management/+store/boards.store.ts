@@ -70,11 +70,17 @@ const initialState: BoardsState = {
             reset: () => patchState(store, () => initialState),
         }
     }),
-    withComputed(({boards, activeBoardId}) => ({
-        activeBoard: computed(() => {
+    withComputed(({boards, activeBoardId}) => {
+        const activeBoard = computed(() => {
             return boards().find(board => board.id === activeBoardId()) || null;
-        }),
-        activeBoardStatuses: computed(() => boards().find(board => board.id === activeBoardId())?.statuses || []),
-        activeBoardExists: computed(() => boards().some(board => board.id === activeBoardId())),
-    })),
+        });
+
+        const activeBoardStatuses = computed(() => boards().find(board => board.id === activeBoardId())?.statuses || []);
+
+        const activeBoardExists = computed(() => boards().some(board => board.id === activeBoardId()));
+
+        const activeBoardMemberRole = computed(() => activeBoard()?.boardMemberRole || null);
+
+        return { activeBoard, activeBoardStatuses, activeBoardExists, activeBoardMemberRole };
+    }),
   );

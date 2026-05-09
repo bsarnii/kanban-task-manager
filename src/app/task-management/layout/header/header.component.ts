@@ -21,6 +21,7 @@ export class HeaderComponent {
     showEditDeleteOverlay = false;
     editBoardPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'edit-board']);
     addTaskPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'add-task']);
+    boardMembersPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'board-members']);
 
     @HostListener('document:click')
     clickOutside() {
