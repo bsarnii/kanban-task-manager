@@ -17,6 +17,7 @@ div[modalBody]{
   .member-panel-info{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 4px;
   }
 
@@ -32,4 +33,21 @@ form{
   display: flex;
   flex-direction: column;
   gap: .75rem;
+
+  .add-member-form-field-container{
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 575px) {
+    flex-direction: column;
+    gap: .75rem;
+  }
+
+  .add-member-field-label{
+    display: block;
+    margin-bottom: .25rem;
+  }
 }
+}
+

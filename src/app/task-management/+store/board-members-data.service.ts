@@ -17,11 +17,11 @@ export class BoardMembersDataService {
         return this.http.post<BoardMember>(`${this.apiUrl}/boards/${boardId}/board-members`, { email, role });
     }
 
-    updateRole(id:string, role: BoardMemberRole): Observable<BoardMember> {
-        return this.http.patch<BoardMember>(`${this.apiUrl}/board-members/${id}`, { role });
+    updateRole(boardId: string, id:string, role: BoardMemberRole): Observable<BoardMember> {
+        return this.http.patch<BoardMember>(`${this.apiUrl}/boards/${boardId}/board-members/${id}`, { role });
     }
 
-    delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/board-members/${id}`);
+    delete(boardId: string, id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/boards/${boardId}/board-members/${id}`);
     }
 }

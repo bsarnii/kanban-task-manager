@@ -36,16 +36,20 @@ export const BoardMemberManagementStore = signalStore(
 			)),
 		));
 
-		const addMember = rxMethod<{ email: string; role: BoardMemberRole }>(pipe(
+		const addMember = rxMethod<{ email: string; role: BoardMemberRole, callback: (success: boolean) => void }>(pipe(
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap(({ email, role }) => boardMembersDataService.add(activeBoardId, email, role).pipe(
-				tap((boardMember) => patchState(store, (state) => ({
-					boardMembers: [...state.boardMembers, boardMember],
-					loading: false,
-					loaded: true,
-				}))),
+			switchMap(({ email, role, callback }) => boardMembersDataService.add(activeBoardId, email, role).pipe(
+				tap((boardMember) => {
+					patchState(store, (state) => ({
+						boardMembers: [...state.boardMembers, boardMember],
+						loading: false,
+						loaded: true,
+					}));
+					callback(true);
+				}),
 				catchError(() => {
 					patchState(store, () => ({ loading: false }));
+					callback(false);
 					return EMPTY;
 				}),
 			)),
@@ -53,7 +57,7 @@ export const BoardMemberManagementStore = signalStore(
 
 		const updateMemberRole = rxMethod<{ id: string; role: BoardMemberRole }>(pipe(
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap(({ id, role }) => boardMembersDataService.updateRole(id, role).pipe(
+			switchMap(({ id, role }) => boardMembersDataService.updateRole(activeBoardId, id, role).pipe(
 				tap((updatedBoardMember) => patchState(store, (state) => ({
 					boardMembers: state.boardMembers.map((member) =>
 						member.id === id ? updatedBoardMember : member,
@@ -70,7 +74,7 @@ export const BoardMemberManagementStore = signalStore(
 		const deleteMember = rxMethod<string>(pipe(
 			filter(Boolean),
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap((id) => boardMembersDataService.delete(id).pipe(
+			switchMap((id) => boardMembersDataService.delete(activeBoardId,id).pipe(
 				tap(() => patchState(store, (state) => ({
 					boardMembers: state.boardMembers.filter((member) => member.id !== id),
 					loading: false,
@@ -94,6 +98,19 @@ export const BoardMemberManagementStore = signalStore(
 	}),
 	withComputed(({ boardMembers }) => ({
 		owners: computed(() => boardMembers().filter((member) => member.role === 'owner')),
+		sortedBoardMembers: computed(() => {
+			const roleOrder: Record<BoardMemberRole, number> = {
+				owner: 0,
+				editor: 1,
+				viewer: 1,
+			};
+			return [...boardMembers()].sort((a, b) => {
+				const roleDiff = roleOrder[a.role] - roleOrder[b.role];
+				if (roleDiff !== 0) return roleDiff;
+				return a.email.localeCompare(b.email);
+			});
+		}),
+		boardMemberEmails: computed(() => boardMembers().map(member => member.email)),
 	})),
 	withHooks({
 		onInit(store, boardsStore = inject(BoardsStore)) {

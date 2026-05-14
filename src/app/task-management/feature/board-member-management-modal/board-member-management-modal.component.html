@@ -1,51 +1,66 @@
 <app-modal (backdropClick)="close()">
   <h4 class="heading-l" modalHeader>Board Members</h4>
   <div modalBody>
-    <p>Manage the members of the current board here.</p>
+    <p>Only the board owner can manage members.</p>
     <div style="display: flex; flex-direction: column; gap: 8px;">
-      @for(member of boardMembers; track $index){
+      @for(member of boardMemberStore.sortedBoardMembers(); track member.id){
+        @let editing = memberIdInEditMode() === member.id;
         <div class="member-panel">
           <div class="member-panel-info">
             <p>{{member.email}}</p>
-            @switch (member.role) {
-              @case ('owner') { 
-                <p-tag icon="pi pi-crown" severity="secondary" value="Owner"/> 
+            @if(!editing){
+              @switch (member.role) {
+                @case ('owner') { 
+                  <p-tag icon="pi pi-crown" severity="secondary" value="Owner"/> 
+                }
+                @case ('editor') {
+                  <p-tag icon="pi pi-pencil" severity="secondary" value="Editor"/>
+                }
+                @case ('viewer') {
+                  <p-tag icon="pi pi-eye" severity="secondary" value="Viewer"/>
+                }
+                @default { <p>{{member.role}}</p> }
               }
-              @case ('editor') {
-                <p-tag icon="pi pi-pencil" severity="secondary" value="Editor"/>
-              }
-              @case ('viewer') {
-                <p-tag icon="pi pi-eye" severity="secondary" value="Viewer"/>
-              }
-              @default { <p>{{member.role}}</p> }
+            }@else{
+            <p-select ariaLabelledBy="editRole" [options]="roleOptions()" optionLabel="label" optionValue="value" [(ngModel)]="selectedMemberRoleToEdit" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="editRoleForm.role().invalid() && editRoleForm.role().touched()"/>
             }
+
           </div>
           
             <div class="member-panel-actions">
               @if(member.role !== 'owner' && boardsStore.activeBoardMemberRole() === "owner"){
-                <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" ariaLabel="Edit"/>
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [text]="true" ariaLabel="Remove"/>
+                @if(editing){
+                  <p-button icon="pi pi-check" [rounded]="true" [text]="true" ariaLabel="Save" pTooltip="Save" tooltipPosition="top" (click)="onEditRoleSubmit()"/>
+                  <p-button icon="pi pi-times" severity="danger" [rounded]="true" [text]="true" ariaLabel="Cancel" pTooltip="Cancel" tooltipPosition="top" (click)="memberIdInEditMode.set(null)"/>
+                }@else{
+                  <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" ariaLabel="Edit" pTooltip="Edit" tooltipPosition="top" (click)="memberIdInEditMode.set(member.id)"/>
+                  <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [text]="true" ariaLabel="Remove" pTooltip="Remove" tooltipPosition="top" (click)="onDeleteMember(member)"/>
+                }
               }
             </div>
         </div>
       }
+      <p-confirmdialog />
     </div>
 
-    <p-fieldset legend="Add New Member" class="add-member-fieldset" [pt]="{ content: { style: 'display: flex; flex-direction: column; gap: 1rem;' } }">
-    <p>Add a new board member by entering the email address of a registered user. Only the board owner can add members.</p>      <form (ngSubmit)="onAddMemberSubmit()">
-        <div style="display: flex; gap: 4px">
-          <app-field-wrapper style="flex: 1" [signalFormErrors]="addMemberForm.email().errors()" [canShowError]="addMemberForm.email().touched() || addMemberForm.email().dirty()">
-            <label for="addEmail" class="heading-s" style="display:block">Email*</label>
-            <input id="addEmail" pInputText placeholder="johndoe@example.com" [field]="addMemberForm.email" [class.p-invalid]="addMemberForm.email().invalid() && addMemberForm.email().touched()" [fluid]="true"/>
-          </app-field-wrapper>
-          <app-field-wrapper style="flex: 1" [signalFormErrors]="addMemberForm.role().errors()" [canShowError]="addMemberForm.role().touched() || addMemberForm.role().touched()">
-            <span id="addRole" class="heading-s" style="display:block">Role*</span>
-            <p-select ariaLabelledBy="addRole" [options]="roleOptions" optionLabel="label" optionValue="value" [field]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/>
-          </app-field-wrapper>
-        </div>
-          <p-button type="submit" label="Add Member" icon="pi pi-plus" iconPos="left"/>
-      </form>
-    </p-fieldset>
+    @if(boardsStore.activeBoardMemberRole() === "owner"){
+      <p-fieldset legend="Add New Member" class="add-member-fieldset" [pt]="{ content: { style: 'display: flex; flex-direction: column; gap: 1rem;' } }">
+        <p>Add a new board member by entering the email address of a registered user.</p>
+        <form (ngSubmit)="onAddMemberSubmit()" id="addMemberForm">
+          <div class="add-member-form-field-container" style="display: flex; gap: 4px">
+            <app-field-wrapper style="flex: 1" [signalFormErrors]="addMemberForm.email().errors()" [canShowError]="addMemberForm.email().touched() || addMemberForm.email().dirty()">
+              <label for="addEmail" class="heading-s add-member-field-label">Email*</label>
+              <input id="addEmail" pInputText placeholder="johndoe@example.com" [field]="addMemberForm.email" [class.p-invalid]="addMemberForm.email().invalid() && addMemberForm.email().touched()" [fluid]="true"/>
+            </app-field-wrapper>
+            <app-field-wrapper style="flex: 1" [signalFormErrors]="addMemberForm.role().errors()" [canShowError]="addMemberForm.role().touched() || addMemberForm.role().touched()">
+              <span id="addRole" class="heading-s add-member-field-label">Role*</span>
+              <p-select ariaLabelledBy="addRole" [options]="roleOptions()" optionLabel="label" optionValue="value" [field]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/>
+            </app-field-wrapper>
+          </div>
+          <p-button form="addMemberForm" type="submit" label="Add Member" icon="pi pi-plus" iconPos="left"/>
+        </form>
+      </p-fieldset>
+    }
   </div>
 </app-modal>
 
