@@ -3,8 +3,9 @@ import { patchState, signalStore, withComputed, withHooks, withMethods, withStat
 import { Task, TaskInputDto } from "src/app/task-management/types/task.interface";
 import { BoardsStore } from "./boards.store";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { catchError, EMPTY, filter, pipe, switchMap, tap } from "rxjs";
+import { filter, pipe, switchMap, tap } from "rxjs";
 import { TasksDataService } from "./tasks-data.service";
+import { tapResponse } from "@ngrx/operators";
 
 type TasksState = { 
     tasks: Task[],
@@ -23,45 +24,58 @@ const initialState: TasksState = {
  export const TasksStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store, tasksDataService = inject(TasksDataService)) => {
+    withMethods((store, tasksDataService = inject(TasksDataService), boardsStore = inject(BoardsStore)) => {
         const loadTasks = rxMethod<string | null>(pipe(
             filter(Boolean),
             tap(() => patchState(store, () => ({ loading: true }) )),
             switchMap((boardId) => tasksDataService.getAll(boardId).pipe(
-                tap((tasks) => patchState(store, () => ({ tasks, loading: false, loaded: true }) )),
-                catchError(() => EMPTY)
+                tapResponse(({
+                    next: (tasks) => {
+                        patchState(store, () => ({ tasks, loading: false, loaded: true }) )
+                    },
+                    error: () => patchState(store, () => ({ loading: false }) )
+                }))
             ))
         ));
 
         const addTask = rxMethod<TaskInputDto>(pipe(
             tap(() => patchState(store, () => ({ loading: true }) )),
-            switchMap((task) => tasksDataService.create(task).pipe(
-                tap((task) => patchState(store, (state) => ({ tasks: [...state.tasks, task], loading: false, loaded: true }))
-            )))
+            switchMap((task) => tasksDataService.create(boardsStore.activeBoardId()!, task).pipe(
+                tapResponse(({
+                    next: (task) => patchState(store, (state) => ({ tasks: [...state.tasks, task], loading: false, loaded: true })),
+                    error: () => patchState(store, () => ({ loading: false }) )
+                }))
+            ))
         ));
 
         const editTask = rxMethod<{id: string, taskInput: Partial<TaskInputDto>, callback?: VoidFunction}>(pipe(
             tap(() => patchState(store, () => ({ loading: true }) )),
-            switchMap(({id, taskInput, callback}) => tasksDataService.update(id, taskInput).pipe(
-                tap((editedTask) => {
-                    patchState(store, (state) => ({ 
-                        tasks: state.tasks.map(task => task.id === editedTask.id ? editedTask : task), 
-                        loading: false
-                    }));
-                    if(callback) {  
-                        callback(); 
-                    }
-                })
+            switchMap(({id, taskInput, callback}) => tasksDataService.update(boardsStore.activeBoardId()!, id, taskInput).pipe(
+                tapResponse(({
+                    next: (editedTask) => {
+                        patchState(store, (state) => ({ 
+                            tasks: state.tasks.map(task => task.id === editedTask.id ? editedTask : task), 
+                            loading: false
+                        }));
+                        if(callback) {  
+                            callback(); 
+                        }
+                    },
+                    error: () => patchState(store, () => ({ loading: false }) )
+                }))
             ))
         ));
 
         const deleteTask = rxMethod<string>(pipe(
             tap(() => patchState(store, () => ({ loading: true }) )),
-            switchMap((taskId) => tasksDataService.delete(taskId).pipe(
-                tap(() => patchState(store, (state) => ({ 
-                    tasks: state.tasks.filter(task => task.id !== taskId), 
-                    loading: false
-                })))
+            switchMap((taskId) => tasksDataService.delete(boardsStore.activeBoardId()!, taskId).pipe(
+                tapResponse(({
+                    next: () => patchState(store, (state) => ({ 
+                        tasks: state.tasks.filter(task => task.id !== taskId), 
+                        loading: false
+                    })),
+                    error: () => patchState(store, () => ({ loading: false }) )
+                }))
             ))
         ));
 
@@ -71,8 +85,11 @@ const initialState: TasksState = {
 
         const sortTasks = rxMethod<string[]>(pipe(
             tap(() => patchState(store, () => ({ loading: true }) )),
-            switchMap((taskIds) => tasksDataService.sortTasks(taskIds).pipe(
-                tap((tasks) => patchState(store, () => ({ tasks, loading: false }) ))
+            switchMap((taskIds) => tasksDataService.sortTasks(boardsStore.activeBoardId()!, taskIds).pipe(
+                tapResponse(({
+                    next: (tasks) => patchState(store, () => ({ tasks, loading: false }) ),
+                    error: () => patchState(store, () => ({ loading: false }) )
+                }))
             ))
         ));
 

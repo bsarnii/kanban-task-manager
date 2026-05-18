@@ -5,6 +5,7 @@ import { computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map, pipe, switchMap, tap } from 'rxjs';
 import { BoardsDataService } from './boards-data.service';
+import { tapResponse } from '@ngrx/operators';
 
 type BoardsState = { 
     boards: Board[],
@@ -46,21 +47,25 @@ const initialState: BoardsState = {
                 map((boardInput) => ({id: store.activeBoardId()!, boardInput})),
                 tap(() => patchState(store, () => ({ loading: true }))),
                 switchMap(({id, boardInput}) => boardsDataService.update(id, boardInput).pipe(
-                    tap(responseBoard => {
-                        patchState(store, () => ({ 
+                    tapResponse(({
+                        next: (responseBoard) => patchState(store, () => ({ 
                             boards: store.boards().map(board => board.id === id ? responseBoard : board), loading: false 
-                        }));
-                    })
+                        })),
+                        error: () => patchState(store, () => ({ loading: false }))
+                    }))
                 ))
             )),
             deleteBoard: rxMethod<string>(pipe(
                 filter(Boolean),
                 tap(() => patchState(store, () => ({ loading: true }))),
                 switchMap(id => boardsDataService.delete(id).pipe(
-                    tap(() => {
-                        patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
-                         router.navigate(['/board']);
-                    })
+                    tapResponse(({
+                        next: () => {
+                            patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
+                            router.navigate(['/board']);
+                        },
+                        error: () => patchState(store, () => ({ loading: false }))
+                    }))
                 ))
 
             )),
