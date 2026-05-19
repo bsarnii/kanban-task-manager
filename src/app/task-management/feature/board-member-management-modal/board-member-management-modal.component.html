@@ -1,5 +1,8 @@
 <app-modal (backdropClick)="close()">
-  <h4 class="heading-l" modalHeader>Board Members</h4>
+  <div modalHeader style="display: flex; justify-content: space-between; align-items: center; gap: .5rem;">
+    <h4 class="heading-l" >Board Members</h4>
+    <app-board-member-role-info/>
+  </div>
   <div modalBody>
     <p>Only the board owner can manage members.</p>
     <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -9,22 +12,10 @@
           <div class="member-panel-info">
             <p>{{member.email}}</p>
             @if(!editing){
-              @switch (member.role) {
-                @case ('owner') { 
-                  <p-tag icon="pi pi-crown" severity="secondary" value="Owner"/> 
-                }
-                @case ('editor') {
-                  <p-tag icon="pi pi-pencil" severity="secondary" value="Editor"/>
-                }
-                @case ('viewer') {
-                  <p-tag icon="pi pi-eye" severity="secondary" value="Viewer"/>
-                }
-                @default { <p>{{member.role}}</p> }
-              }
+              <app-board-member-role-chip [role]="member.role" />
             }@else{
             <p-select ariaLabelledBy="editRole" [options]="roleOptions()" optionLabel="label" optionValue="value" [(ngModel)]="selectedMemberRoleToEdit" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="editRoleForm.role().invalid() && editRoleForm.role().touched()"/>
             }
-
           </div>
           
             <div class="member-panel-actions">

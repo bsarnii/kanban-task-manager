@@ -18,6 +18,7 @@
             <img src="assets/icon-chevron-down.svg" alt="extend menu">
         }
     </button>
+    <app-board-member-role-chip [role]="boardsStore.activeBoardMemberRole()!" />
 </div>
 @if(boardsStore.activeBoardExists()){
     <div class="header-right">

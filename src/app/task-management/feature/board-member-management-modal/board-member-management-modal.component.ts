@@ -17,14 +17,16 @@ import { BoardMemberManagementStore } from '../../+store/board-member-management
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { BoardMemberRoleChipComponent } from '../../ui/board-member-role-chip/board-member-role-chip.component';
+import { BoardMemberRoleInfoComponent } from '../../ui/board-member-role-info/board-member-role-info.component';
 
 
 @Component({
   selector: 'app-board-member-management-modal',
-  imports: [FormsModule, ConfirmDialogModule, TooltipModule, SelectModule, FieldsetModule, ModalComponent, ButtonModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TagModule, Field, FieldWrapperComponent],
+  imports: [FormsModule, BoardMemberRoleInfoComponent, BoardMemberRoleChipComponent, ConfirmDialogModule, TooltipModule, SelectModule, FieldsetModule, ModalComponent, ButtonModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TagModule, Field, FieldWrapperComponent],
   templateUrl: './board-member-management-modal.component.html',
   styleUrl: './board-member-management-modal.component.scss',
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, BoardMemberManagementStore]
 })
 export class BoardMemberManagementModalComponent {
   router = inject(Router);

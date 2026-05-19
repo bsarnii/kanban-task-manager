@@ -19,7 +19,6 @@ const initialState: BoardMemberManagementState = {
 };
 
 export const BoardMemberManagementStore = signalStore(
-	{ providedIn: 'root' },
 	withState(initialState),
 	withMethods((store, boardMembersDataService = inject(BoardMembersDataService), boardsStore = inject(BoardsStore)) => {
 		const activeBoardId = boardsStore.activeBoardId()!;
