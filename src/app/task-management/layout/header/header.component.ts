@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { BoardsStore } from '../../+store/boards.store';
 import { ConfirmDeleteBoardComponent } from "../../ui/confirm-delete-board/confirm-delete-board.component";
 import { RouterLink } from '@angular/router';
+import { BoardMemberRoleChipComponent } from "../../ui/board-member-role-chip/board-member-role-chip.component";
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    imports: [CommonModule, ConfirmDeleteBoardComponent, RouterLink]
+    imports: [CommonModule, ConfirmDeleteBoardComponent, RouterLink, BoardMemberRoleChipComponent]
 })
 export class HeaderComponent {
     boardsStore = inject(BoardsStore);
@@ -21,6 +22,7 @@ export class HeaderComponent {
     showEditDeleteOverlay = false;
     editBoardPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'edit-board']);
     addTaskPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'add-task']);
+    boardMembersPath = computed(() => ['board', this.boardsStore.activeBoardId(), 'board-members']);
 
     @HostListener('document:click')
     clickOutside() {

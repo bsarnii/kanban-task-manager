@@ -8,7 +8,7 @@
       [id]="task.id" 
       (click)="taskClick.emit(task.id)"
       (dragstart)="onDragStart(task)"
-      draggable="true">
+      [draggable]="canEdit()">
       <div class="task-inner-wrapper" [style.pointer-events]="draggedTask() ? 'none' : 'auto'">
         <h3 class="heading-m">{{task.name}}</h3>
         <p class="body-m">{{filterCompletedSubtasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>

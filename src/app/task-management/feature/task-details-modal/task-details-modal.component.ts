@@ -19,6 +19,7 @@ export class TaskDetailsModalComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
 
+  canEdit = computed(() => this.boardsStore.activeBoardMemberRole() !== 'viewer');
   taskBeingEdited = signal(false);
   task = this.tasksStore.activeTask as Signal<Task>;
   statuses = this.boardsStore.activeBoardStatuses;

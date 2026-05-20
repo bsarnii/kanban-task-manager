@@ -9,6 +9,7 @@ import { BoardAddEditModalComponent, BoardAddEditModalContextEnum } from "../fea
 import { TaskAddEditModalComponent, TaskAddEditModalContextEnum } from "../feature/task-add-edit-modal/task-add-edit-modal.component";
 import { loadBoardsGuard } from "./guards/load-boards.guard";
 import { tasksLoaded } from "./guards/tasks-loaded.guard";
+import { BoardMemberManagementModalComponent } from "../feature/board-member-management-modal/board-member-management-modal.component";
 
 export const taskMangagementRoutes:Routes = [
     {
@@ -50,6 +51,10 @@ export const taskMangagementRoutes:Routes = [
                         data: { addEditContext: TaskAddEditModalContextEnum.edit }
                     }
                 ]
+            },
+            {
+                path: 'board-members',
+                component: BoardMemberManagementModalComponent
             },
             {
                 path: 'add-board',

@@ -1,0 +1,56 @@
+div[modalBody]{
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.member-panel{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-bg);
+  padding: .25rem .5rem;
+  border-radius: .5rem;
+  flex-wrap: wrap;
+
+  .member-panel-info{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .member-panel-actions{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 35px;
+    &:empty{
+      display: none;
+    }
+  }
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+
+  .add-member-form-field-container{
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 575px) {
+    flex-direction: column;
+    gap: .75rem;
+  }
+
+  .add-member-field-label{
+    display: block;
+    margin-bottom: .25rem;
+  }
+}
+}
+

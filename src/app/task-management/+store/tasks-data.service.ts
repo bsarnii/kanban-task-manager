@@ -13,19 +13,19 @@ export class TasksDataService {
         return this.http.get<Task[]>(`${this.apiUrl}/boards/${boardId}/tasks`);
     }
 
-    create(task: TaskInputDto): Observable<Task> {
-        return this.http.post<Task>(`${this.apiUrl}/tasks`, task);
+    create(boardId: string, task: TaskInputDto): Observable<Task> {
+        return this.http.post<Task>(`${this.apiUrl}/boards/${boardId}/tasks`, task);
     }
 
-    update(id:string, task: Partial<TaskInputDto>): Observable<Task> {
-        return this.http.patch<Task>(`${this.apiUrl}/tasks/${id}`, task);
+    update(boardId: string, id:string, task: Partial<TaskInputDto>): Observable<Task> {
+        return this.http.patch<Task>(`${this.apiUrl}/boards/${boardId}/tasks/${id}`, task);
     }
 
-    delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/tasks/${id}`);
+    delete(boardId: string, id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/boards/${boardId}/tasks/${id}`);
     }
 
-    sortTasks(taskIds: string[]): Observable<Task[]> {
-        return this.http.post<Task[]>(`${this.apiUrl}/tasks/sort`, taskIds);
+    sortTasks(boardId: string, taskIds: string[]): Observable<Task[]> {
+        return this.http.post<Task[]>(`${this.apiUrl}/boards/${boardId}/tasks/sort`, taskIds);
     }
 }

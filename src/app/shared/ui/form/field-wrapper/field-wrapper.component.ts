@@ -57,6 +57,7 @@ export class FieldWrapperComponent {
       if(firstError.kind === 'email'){
         return firstError.message ?? this.defaultErrorMessages.email;
       }
+      return firstError.message ?? 'Invalid field';
     }
     return '';
   })

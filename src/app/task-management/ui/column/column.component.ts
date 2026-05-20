@@ -1,4 +1,4 @@
-import { Component, inject, Input, model, output } from '@angular/core';
+import { Component, inject, input, Input, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksStore } from '../../+store/tasks.store';
 import { Subtask, Task } from '../../types/task.interface';
@@ -12,6 +12,7 @@ import { Subtask, Task } from '../../types/task.interface';
 export class ColumnComponent{
   tasksStore = inject(TasksStore);
 
+  canEdit = input<boolean>(false);
   @Input() color:string = "#49C4E5";
   @Input() columnName:string = "TODO";
   @Input() taskNumber:number = 0;

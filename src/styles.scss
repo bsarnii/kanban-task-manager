@@ -160,7 +160,7 @@ button:disabled{
     position: relative;
     cursor: pointer;
     transition: background-color .3s;
-    &:hover{
+    &:hover:not(.disabled){
         background-color: rgba(99,95,199,.25);
     }
     input{
@@ -177,6 +177,10 @@ button:disabled{
     &:has(input:checked){
         text-decoration: line-through;
         color: $mediumGrey;
+    }
+    &.disabled{
+        cursor: default;
+        opacity: .5;
     }
 
     .checkbox-replace{
@@ -272,6 +276,10 @@ fieldset{
     option{
         background-color: var(--color-bg);
         padding: .5rem;
+    }
+    &:disabled{
+        opacity: .5;
+        cursor: default;
     }
 }
 .btn-vertical-dots{
