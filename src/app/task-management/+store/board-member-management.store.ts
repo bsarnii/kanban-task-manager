@@ -21,8 +21,6 @@ const initialState: BoardMemberManagementState = {
 export const BoardMemberManagementStore = signalStore(
 	withState(initialState),
 	withMethods((store, boardMembersDataService = inject(BoardMembersDataService), boardsStore = inject(BoardsStore)) => {
-		const activeBoardId = boardsStore.activeBoardId()!;
-
 		const loadBoardMembers = rxMethod<string | null>(pipe(
 			filter(Boolean),
 			tap(() => patchState(store, () => ({ loading: true }))),
@@ -37,7 +35,7 @@ export const BoardMemberManagementStore = signalStore(
 
 		const addMember = rxMethod<{ email: string; role: BoardMemberRole, callback: (success: boolean) => void }>(pipe(
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap(({ email, role, callback }) => boardMembersDataService.add(activeBoardId, email, role).pipe(
+			switchMap(({ email, role, callback }) => boardMembersDataService.add(boardsStore.activeBoardId()!, email, role).pipe(
 				tap((boardMember) => {
 					patchState(store, (state) => ({
 						boardMembers: [...state.boardMembers, boardMember],
@@ -56,7 +54,7 @@ export const BoardMemberManagementStore = signalStore(
 
 		const updateMemberRole = rxMethod<{ id: string; role: BoardMemberRole }>(pipe(
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap(({ id, role }) => boardMembersDataService.updateRole(activeBoardId, id, role).pipe(
+			switchMap(({ id, role }) => boardMembersDataService.updateRole(boardsStore.activeBoardId()!, id, role).pipe(
 				tap((updatedBoardMember) => patchState(store, (state) => ({
 					boardMembers: state.boardMembers.map((member) =>
 						member.id === id ? updatedBoardMember : member,
@@ -73,7 +71,7 @@ export const BoardMemberManagementStore = signalStore(
 		const deleteMember = rxMethod<string>(pipe(
 			filter(Boolean),
 			tap(() => patchState(store, () => ({ loading: true }))),
-			switchMap((id) => boardMembersDataService.delete(activeBoardId,id).pipe(
+			switchMap((id) => boardMembersDataService.delete(boardsStore.activeBoardId()!, id).pipe(
 				tap(() => patchState(store, (state) => ({
 					boardMembers: state.boardMembers.filter((member) => member.id !== id),
 					loading: false,

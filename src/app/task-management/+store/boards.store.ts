@@ -61,7 +61,7 @@ const initialState: BoardsState = {
                 switchMap(id => boardsDataService.delete(id).pipe(
                     tapResponse(({
                         next: () => {
-                            patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id) }))
+                            patchState(store, (state) => ({ boards: state.boards.filter(board => board.id !== id), loading: false }))
                             router.navigate(['/board']);
                         },
                         error: () => patchState(store, () => ({ loading: false }))

@@ -14,7 +14,7 @@
             @if(!editing){
               <app-board-member-role-chip [role]="member.role" />
             }@else{
-            <p-select ariaLabelledBy="editRole" [options]="roleOptions()" optionLabel="label" optionValue="value" [(ngModel)]="selectedMemberRoleToEdit" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="editRoleForm.role().invalid() && editRoleForm.role().touched()"/>
+            <p-select [options]="roleOptions()" optionLabel="label" optionValue="value" [(ngModel)]="selectedMemberRoleToEdit" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="editRoleForm.role().invalid() && editRoleForm.role().touched()"/>
             }
           </div>
           
@@ -44,8 +44,8 @@
               <input id="addEmail" pInputText placeholder="johndoe@example.com" [field]="addMemberForm.email" [class.p-invalid]="addMemberForm.email().invalid() && addMemberForm.email().touched()" [fluid]="true"/>
             </app-field-wrapper>
             <app-field-wrapper style="flex: 1" [signalFormErrors]="addMemberForm.role().errors()" [canShowError]="addMemberForm.role().touched() || addMemberForm.role().touched()">
-              <span id="addRole" class="heading-s add-member-field-label">Role*</span>
-              <p-select ariaLabelledBy="addRole" [options]="roleOptions()" optionLabel="label" optionValue="value" [field]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/>
+              <span id="addRoleLabel" class="heading-s add-member-field-label">Role*</span>
+              <p-select ariaLabelledBy="addRoleLabel" [options]="roleOptions()" optionLabel="label" optionValue="value" [field]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/>
             </app-field-wrapper>
           </div>
           <p-button form="addMemberForm" type="submit" label="Add Member" icon="pi pi-plus" iconPos="left"/>

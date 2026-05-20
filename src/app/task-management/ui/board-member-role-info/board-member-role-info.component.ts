@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, viewChild } from '@angular/core';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-import { PopoverModule } from 'primeng/popover';
+import { Popover, PopoverModule } from 'primeng/popover';
 
 @Component({
   selector: 'app-board-member-role-info',
@@ -30,4 +30,11 @@ import { PopoverModule } from 'primeng/popover';
   styles: ``
 })
 export class BoardMemberRoleInfoComponent {
+  destroyRef = inject(DestroyRef);
+  popover = viewChild<Popover>('op');
+  constructor(){
+    this.destroyRef.onDestroy(() => {
+      this.popover()?.hide();
+    });
+  }
 }

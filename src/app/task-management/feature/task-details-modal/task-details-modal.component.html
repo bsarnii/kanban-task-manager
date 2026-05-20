@@ -25,7 +25,7 @@
             class="checkbox-container"
             [class.disabled]="!canEdit()"
             [aria-disabled]="!canEdit()"
-            (click)="handleCheckboxClick(subtask)"
+            (click)="canEdit() && handleCheckboxClick(subtask)"
             >
             <input [checked]="subtask.completed" type="checkbox" aria-label="Subtask completed">
             <span class="checkbox-replace"></span>
@@ -35,7 +35,7 @@
       </div>
       <div class="status-container">
         <label class="heading-s">Current Status</label>
-        <select #status (change)="changeStatus(status.value)" name="status" id="status-select" class="select" [disabled]="!canEdit()">
+        <select #status (change)="canEdit() && changeStatus(status.value)" name="status" id="status-select" class="select" [disabled]="!canEdit()">
           @for (status of statuses(); track status.id) {
             <option
               [value]="status.id"
