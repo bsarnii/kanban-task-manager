@@ -47,13 +47,13 @@
             <span id="addRoleLabel" class="heading-s add-member-field-label">Role*</span>
             
             <!-- Workaround until p-select supports signal forms in v22 -->
-            <select pInputText ariaLabelledBy="addRoleLabel" [formField]="addMemberForm.role" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()">
+            <select pInputText aria-labelledby="addRoleLabel" [formField]="addMemberForm.role" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()">
               <option [value]="''">Select a role</option>
               @for(option of roleOptions(); track option.value){
                 <option [value]="option.value">{{option.label}}</option>
               }
             </select>  
-            <!--<p-select ariaLabelledBy="addRoleLabel" [options]="roleOptions()" optionLabel="label" optionValue="value" [formField]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/> -->
+            <!--<p-select aria-labelledby="addRoleLabel" [options]="roleOptions()" optionLabel="label" optionValue="value" [formField]="addMemberForm.role" placeholder="Select a role" appendTo="body" [fluid]="true" [class.p-invalid]="addMemberForm.role().invalid() && addMemberForm.role().touched()"/> -->
             </app-field-wrapper>
           </div>
           <p-button form="addMemberForm" type="submit" label="Add Member" icon="pi pi-plus" iconPos="left"/>
