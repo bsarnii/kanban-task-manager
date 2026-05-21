@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     },
     {
       path: 'auth',
-      loadChildren: () => import('src/app/auth/routes/routes').then(m => m.authRoutes),
+      loadChildren: () => import('app/auth/routes/routes').then(m => m.authRoutes),
       canActivate: [loginNotRequiredGuard]
     }
   ];

@@ -1,10 +1,10 @@
 import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms"
-import { BoardsStore } from 'src/app/task-management/+store/boards.store';
+import { BoardsStore } from 'app/task-management/+store/boards.store';
 import { ModalComponent } from "../../../shared/ui/modal/modal.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoardInputDto } from '../../types/boards.interface';
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 
 export enum BoardAddEditModalContextEnum {

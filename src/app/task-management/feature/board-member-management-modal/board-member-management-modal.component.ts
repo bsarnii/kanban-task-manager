@@ -1,6 +1,6 @@
 import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalComponent } from "src/app/shared/ui/modal/modal.component";
+import { ModalComponent } from "app/shared/ui/modal/modal.component";
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
@@ -11,7 +11,7 @@ import { form, FormField, submit, required, email, validate } from '@angular/for
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { FieldsetModule } from 'primeng/fieldset';
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 import { BoardsStore } from '../../+store/boards.store';
 import { BoardMemberManagementStore } from '../../+store/board-member-management.store';
 import { TooltipModule } from 'primeng/tooltip';

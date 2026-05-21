@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ColorThemeService } from 'src/app/core/services/color-theme.service';
+import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { LayoutComponent } from '../../ui/layout/layout.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { email, form, minLength, required, FormField, submit } from '@angular/forms/signals';
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SignUpFormModel = {
   name: string;

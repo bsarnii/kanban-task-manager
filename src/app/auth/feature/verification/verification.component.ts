@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, signal, untracked } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LayoutComponent } from "../../ui/layout/layout.component";
-import { ColorThemeService } from 'src/app/core/services/color-theme.service';
+import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';
