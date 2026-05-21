@@ -1,11 +1,11 @@
 import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
-import { TasksStore } from 'src/app/task-management/+store/tasks.store';
-import { BoardsStore } from 'src/app/task-management/+store/boards.store';
+import { TasksStore } from 'app/task-management/+store/tasks.store';
+import { BoardsStore } from 'app/task-management/+store/boards.store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalComponent } from "../../../shared/ui/modal/modal.component";
+import { ModalComponent } from "app/shared/ui/modal/modal.component";
 import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SubtaskControl = {
   id: FormControl<string | null>;

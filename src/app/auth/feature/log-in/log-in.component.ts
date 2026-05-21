@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ColorThemeService } from 'src/app/core/services/color-theme.service';
+import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
@@ -7,8 +7,8 @@ import { LayoutComponent } from "../../ui/layout/layout.component";
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageModule } from "primeng/message";
-import {form, Field, required, email, submit} from '@angular/forms/signals';
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import {form, FormField, required, email, submit} from '@angular/forms/signals';
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 interface LoginData {
   email: string;
@@ -17,7 +17,7 @@ interface LoginData {
 
 @Component({
   selector: 'app-log-in',
-  imports: [FormsModule, LayoutComponent, RouterLink, MessageModule, Field, FieldWrapperComponent],
+  imports: [FormsModule, LayoutComponent, RouterLink, MessageModule, FormField, FieldWrapperComponent],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })

@@ -8,17 +8,17 @@ export const authRoutes:Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('src/app/auth/feature/log-in/log-in.component'),
+        loadComponent: () => import('app/auth/feature/log-in/log-in.component'),
         title: 'Log in',
     },
     {
         path: 'signup',
-        loadComponent: () => import('src/app/auth/feature/sign-up/sign-up.component'),
+        loadComponent: () => import('app/auth/feature/sign-up/sign-up.component'),
         title: 'Sign up',
     },
     {
         path: 'verification/:token',
-        loadComponent: () => import('src/app/auth/feature/verification/verification.component'),
+        loadComponent: () => import('app/auth/feature/verification/verification.component'),
         title: 'Email verification',
     }
 ]

@@ -4,17 +4,17 @@
 
             <app-field-wrapper [signalFormErrors]="signUpForm.name().errors()" [canShowError]="signUpForm.name().dirty() || signUpForm.name().touched()">
                 <label for="fullName" class="heading-s">Full name*</label>
-                <input [field]="signUpForm.name" type="text" id="fullName" class="text-input">
+                <input [formField]="signUpForm.name" type="text" id="fullName" class="text-input">
             </app-field-wrapper>
 
             <app-field-wrapper [signalFormErrors]="signUpForm.email().errors()" [canShowError]="signUpForm.email().dirty() || signUpForm.email().touched()">
                 <label for="email" class="heading-s">Email*</label>
-                <input [field]="signUpForm.email" type="email" id="email" class="text-input" autocomplete="email">
+                <input [formField]="signUpForm.email" type="email" id="email" class="text-input" autocomplete="email">
             </app-field-wrapper>
 
             <app-field-wrapper [signalFormErrors]="signUpForm.password().errors()" [canShowError]="signUpForm.password().dirty() || signUpForm.password().touched()" style="margin-bottom: 1rem;">
                 <label for="password" class="heading-s">Password*</label>
-                <input [field]="signUpForm.password" type="password" id="password" class="text-input" autocomplete="new-password">
+                <input [formField]="signUpForm.password" type="password" id="password" class="text-input" autocomplete="new-password">
                 <p fieldDescription class="body-l">Password must have at least 8 characters</p>
             </app-field-wrapper>
     

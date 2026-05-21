@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { UsersStore } from "src/app/users/+store/users.store";
-import { environment } from "src/environments/environment";
+import { UsersStore } from "app/users/+store/users.store";
+import { environment } from "environments/environment";
 import { MessageService } from "primeng/api";
 
 @Injectable({providedIn: 'root'})

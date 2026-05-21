@@ -3,7 +3,7 @@ import { toObservable } from "@angular/core/rxjs-interop";
 import { CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { filter, map } from "rxjs";
 import { UsersStore } from "../../users/+store/users.store";
-import { AuthService } from "src/app/auth/services/auth.service";
+import { AuthService } from "app/auth/services/auth.service";
 
 export const loginNotRequiredGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,

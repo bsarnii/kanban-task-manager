@@ -1,6 +1,6 @@
 import { computed, inject } from "@angular/core";
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { Task, TaskInputDto } from "src/app/task-management/types/task.interface";
+import { Task, TaskInputDto } from "app/task-management/types/task.interface";
 import { BoardsStore } from "./boards.store";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { filter, pipe, switchMap, tap } from "rxjs";

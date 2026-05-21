@@ -1,17 +1,17 @@
 import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalComponent } from "src/app/shared/ui/modal/modal.component";
+import { ModalComponent } from "app/shared/ui/modal/modal.component";
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { BoardMember, BoardMemberRole, BoardMemberRoleLabels } from '../../types/board-member.interface';
 import { TagModule } from 'primeng/tag';
-import { form, Field, submit, required, email, validate } from '@angular/forms/signals';
+import { form, FormField, submit, required, email, validate } from '@angular/forms/signals';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { FieldsetModule } from 'primeng/fieldset';
-import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 import { BoardsStore } from '../../+store/boards.store';
 import { BoardMemberManagementStore } from '../../+store/board-member-management.store';
 import { TooltipModule } from 'primeng/tooltip';
@@ -23,7 +23,7 @@ import { BoardMemberRoleInfoComponent } from '../../ui/board-member-role-info/bo
 
 @Component({
   selector: 'app-board-member-management-modal',
-  imports: [FormsModule, BoardMemberRoleInfoComponent, BoardMemberRoleChipComponent, ConfirmDialogModule, TooltipModule, SelectModule, FieldsetModule, ModalComponent, ButtonModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TagModule, Field, FieldWrapperComponent],
+  imports: [FormsModule, BoardMemberRoleInfoComponent, BoardMemberRoleChipComponent, ConfirmDialogModule, TooltipModule, SelectModule, FieldsetModule, ModalComponent, ButtonModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TagModule, FormField, FieldWrapperComponent],
   templateUrl: './board-member-management-modal.component.html',
   styleUrl: './board-member-management-modal.component.scss',
   providers: [ConfirmationService, BoardMemberManagementStore]
@@ -60,7 +60,7 @@ export class BoardMemberManagementModalComponent {
   });
 
 
-  addMemberModel = signal<{email: string, role: BoardMemberRole | null}>({email: '', role: null});
+  addMemberModel = signal<{email: string, role: BoardMemberRole | ''}>({email: '', role: ''});
   addMemberForm = form(this.addMemberModel, (schemaPath) => {
       required(schemaPath.email);
       email(schemaPath.email);
@@ -79,7 +79,7 @@ export class BoardMemberManagementModalComponent {
   onAddMemberSubmit() {
     const callback = (success:boolean) => {
       if(success){
-        this.addMemberForm().reset({email: '', role: null});
+        this.addMemberForm().reset({email: '', role: ''});
       }else{
         this.messageService.add({severity: 'error', summary: 'Error Adding Member', detail: 'There was an error adding the member.'});
       }
