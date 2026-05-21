@@ -1,27 +1,87 @@
-# KanbanTaskManager
+# Kanban Task Manager (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+Frontend application for managing boards, tasks, and board members in the Kanban project.
 
-## Development server
+This app is built with Angular 21 and connects to the NestJS backend API.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tech Stack
 
-## Code scaffolding
+- Angular 21
+- TypeScript
+- SCSS
+- PrimeNG + PrimeIcons
+- NgRx Signals (`@ngrx/signals`, `@ngrx/operators`) for state management
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Main Features
 
-## Build
+- User authentication:
+	- Sign up
+	- Log in
+	- Email verification
+- Board management:
+	- Create board
+	- Edit board
+	- Delete board
+- Task management:
+	- Create task
+	- Edit task
+	- Task details modal
+- Board member management:
+	- View/add/update members and roles
+- Route guards for:
+	- Requiring authentication for task management routes
+	- Restricting auth pages when user is already logged in
+	- Loading and validating active board/task context
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Requirements
 
-## Running unit tests
+- Node.js 20+
+- npm 10+
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
 
-## Running end-to-end tests
+1. Install dependencies:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm install
+```
 
-## Further help
+2. Start the development server:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+npm start
+```
+
+3. Open the app:
+
+```text
+http://localhost:4200
+```
+
+## Environment Configuration
+
+Environment files are located in `src/environments`.
+
+Angular uses file replacement for development configuration in `angular.json`.
+
+## Project Structure
+
+```text
+src/
+	app/
+		auth/                  # authentication features, routes, services
+		core/                  # guards, interceptors, app-level services
+		shared/                # reusable UI elements (form, modal)
+		task-management/       # board/task/member features and state stores
+		users/                 # user state/data abstractions
+	environments/            # environment configs
+	styles.scss              # global styles
+	theme-preset.ts          # PrimeNG theme preset
+```
+
+## Backend Dependency
+
+This frontend expects the backend API to be running and reachable through `environment.apiUrl`.
+
+Related backend project:
+- `https://github.com/bsarnii/kanban-backend`
