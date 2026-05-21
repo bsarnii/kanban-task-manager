@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { email, form, minLength, required, Field, submit } from '@angular/forms/signals';
+import { email, form, minLength, required, FormField, submit } from '@angular/forms/signals';
 import { FieldWrapperComponent } from "src/app/shared/ui/form/field-wrapper/field-wrapper.component";
 
 type SignUpFormModel = {
@@ -18,7 +18,7 @@ type SignUpFormModel = {
 
 @Component({
   selector: 'app-sign-up',
-  imports: [FormsModule,LayoutComponent, RouterLink, FieldWrapperComponent, Field],
+  imports: [FormsModule,LayoutComponent, RouterLink, FieldWrapperComponent, FormField],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })

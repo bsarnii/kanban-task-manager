@@ -8,12 +8,12 @@
         
         <app-field-wrapper [signalFormErrors]="loginForm.email().errors()" [canShowError]="loginForm.email().touched() || loginForm.email().dirty()">
             <label for="email" class="heading-s">Email*</label>
-            <input [field]="loginForm.email" type="email" id="email" class="text-input" autocomplete="email">
+            <input [formField]="loginForm.email" type="email" id="email" class="text-input" autocomplete="email">
         </app-field-wrapper>
 
         <app-field-wrapper [signalFormErrors]="loginForm.password().errors()" [canShowError]="loginForm.password().touched() || loginForm.password().dirty()">
             <label for="password" class="heading-s">Password*</label>
-            <input [field]="loginForm.password" type="password" id="password" class="text-input" autocomplete="current-password">
+            <input [formField]="loginForm.password" type="password" id="password" class="text-input" autocomplete="current-password">
         </app-field-wrapper>
         
         <button type="submit" class="btn button-primary-s" [disabled]="loading()">
