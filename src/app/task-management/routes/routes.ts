@@ -18,11 +18,6 @@ export const taskMangagementRoutes:Routes = [
         redirectTo: 'board-not-exists'
     },
     {
-        path: 'board',
-        pathMatch: 'full',
-        redirectTo: 'board-not-exists'
-    },
-    {
         path: 'board-not-exists',
         canActivate: [loadBoardsGuard, doesBoardExistsGuard],
         component: BoardNotExistsComponent,
@@ -35,7 +30,7 @@ export const taskMangagementRoutes:Routes = [
         ]
     },
     {
-        path: 'board/:boardId',
+        path: ':boardId',
         component: BoardComponent,
         canActivate: [loadBoardsGuard, activeBoardGuard],
         children: [

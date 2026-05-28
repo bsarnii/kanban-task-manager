@@ -1,0 +1,134 @@
+:host-context([data-theme='light']){
+  :host{
+    background: linear-gradient(#c8c5ff, #fff);
+  }
+  header{
+    background: #c8c5ff;
+  }
+  footer{
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+}
+:host{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100dvh;
+  width: 100%;
+  background: linear-gradient(#131725, #2d3660);
+}
+header{
+  position: sticky;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #131725;
+
+  .header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    height: 4rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    @media screen and (max-width: 575px) {
+        padding: 0 1rem;
+    }
+  }
+
+  .header-logo-container {
+    width: 20rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    @media screen and (max-width: 575px) {
+      gap: 0.5rem;
+    }
+  }
+}
+
+main{
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem 1.5rem;
+    @media screen and (max-width: 575px) {
+      flex-direction: column;
+      padding: 1rem;
+    }
+  .hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 2rem 0;
+    flex-wrap: wrap;
+
+    .hero-first{
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 550px;
+
+      a{
+        align-self: flex-start;
+      }
+    }
+
+    .hero-second{
+      width: 100%;
+      min-width: 300px;
+      max-width: 600px;
+      @media screen and (max-width: 575px) {
+        min-width: none;
+        max-width: 100%;
+      }
+      img{
+        width: 100%;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+}
+
+footer{
+  background-color: rgba(0, 0, 0, 0.15);
+  width: 100%;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+
+  .footer-author{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-socials{
+    display: flex;
+    gap: 0.75rem;
+
+    a{
+      font-size: 1.25rem;
+      color: var(--text-color);
+      transition: color 0.2s;
+
+      &:hover{
+        color: var(--primary-color);
+      }
+    }
+  }
+}

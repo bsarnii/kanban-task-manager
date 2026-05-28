@@ -295,12 +295,15 @@ fieldset{
 }
 
 a{
-    color: var(--color-link);
     text-decoration: none;
-    font-size: 13px;
-    &:hover{
+    &:not([pButton]){
+        font-size: 13px;
+        color: var(--color-link);
+        &:hover{
         text-decoration: underline;
+        }   
     }
+
 }
 
 [data-theme = 'dark'] {
