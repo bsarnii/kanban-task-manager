@@ -17,6 +17,10 @@ export class AuthService {
         return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password});
     }
 
+    loginAsTestUser(){
+        return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email: 'test@mykanbanapp.com', password: 'testmykanbanapp'});
+    }
+
     signUp(signUpInputDTO: {name: string, email: string, password: string}) {
         return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO);
     }

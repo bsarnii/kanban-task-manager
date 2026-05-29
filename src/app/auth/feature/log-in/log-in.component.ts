@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -26,6 +26,16 @@ export default class LogInComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  demo = input(false);
+  constructor(){
+    effect(() => {
+      if(this.demo()){
+        this.logInWithTestUser();
+      }
+    })
+
+  }
+
   loginModel = signal<LoginData>({
     email: '',
     password: '',
@@ -52,7 +62,7 @@ export default class LogInComponent {
 
   logInWithTestUser(){
     this.loading.set(true);
-    this.authService.logIn('test@mykanbanapp.com', 'testmykanbanapp').pipe(
+    this.authService.loginAsTestUser().pipe(
       tap(res => this.onLoginSuccess(res)),
       catchError((err:HttpErrorResponse) => this.onLoginError(err))
     ).subscribe();
