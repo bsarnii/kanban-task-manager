@@ -3,7 +3,7 @@
   <section class="hero">
     <div class="hero-first">
       <h1 class="heading-2xl">Organize Work Effortlessly with Kanban</h1>
-      <p class="body-xl">A simple, powerful Kanban board to help you visualize tasks, improve workflow, and ship faster with your team.</p>
+      <p class="body-xl">Drag-and-drop task boards with role-based access, subtask tracking, and real-time collaboration — built for teams that move fast.</p>
       <a pButton [raised]="true" [rounded]="true" size="large" [routerLink]="['auth', 'login']" [queryParams]="{demo: true}">
         <span pButtonLabel>Try the Demo App</span>
         <i class="pi pi-arrow-right" pButtonIcon></i>
@@ -20,29 +20,37 @@
       <h2 class="heading-xl">Built for collaborative task management</h2>
     </div>
 
-    <div class="features-grid">
+    <div class="features-content">
       <p-card class="feature-card">
         <ng-template pTemplate="header">
-          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-team.svg' : 'assets/home/feature-team-dark.svg'" alt="Invite and organize team members">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-team.svg' : 'assets/home/feature-team-dark.svg'" alt="Role-based team permissions">
         </ng-template>
-        <ng-template pTemplate="title"><h3 class="heading-l">Team Access Made Easy</h3></ng-template>
-        <p class="body-l">Invite people to your board, give them the right access, and make sure everyone knows who is handling what.</p>
+        <ng-template pTemplate="title"><h3 class="heading-l">Role-Based Permissions</h3></ng-template>
+        <p class="body-l">Assign Owner, Editor, or Viewer roles to control who can create tasks, modify boards, or simply observe progress.</p>
       </p-card>
 
       <p-card class="feature-card">
         <ng-template pTemplate="header">
-          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-tasks.svg' : 'assets/home/feature-tasks-dark.svg'" alt="Add and update tasks">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-tasks.svg' : 'assets/home/feature-tasks-dark.svg'" alt="Tasks with subtask tracking">
         </ng-template>
-        <ng-template pTemplate="title"><h3 class="heading-l">Simple Task Updates</h3></ng-template>
-        <p class="body-l">Add new tasks, edit details anytime, and remove finished items so your board stays clear and up to date.</p>
+        <ng-template pTemplate="title"><h3 class="heading-l">Subtask Progress Tracking</h3></ng-template>
+        <p class="body-l">Break work into subtasks, track completion at a glance, and keep every detail visible without losing the bigger picture.</p>
       </p-card>
 
       <p-card class="feature-card">
         <ng-template pTemplate="header">
-          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-boards.svg' : 'assets/home/feature-boards-dark.svg'" alt="Create and adjust boards">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-dragdrop.svg' : 'assets/home/feature-dragdrop-dark.svg'" alt="Drag and drop workflow">
         </ng-template>
-        <ng-template pTemplate="title"><h3 class="heading-l">Flexible Project Boards</h3></ng-template>
-        <p class="body-l">Set up boards for different projects, adjust them as your work changes, and keep your workflow organized.</p>
+        <ng-template pTemplate="title"><h3 class="heading-l">Drag-and-Drop Workflow</h3></ng-template>
+        <p class="body-l">Move tasks between columns instantly. Reorder priorities or transition statuses with a single gesture.</p>
+      </p-card>
+
+      <p-card class="feature-card">
+        <ng-template pTemplate="header">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-boards.svg' : 'assets/home/feature-boards-dark.svg'" alt="Custom project boards">
+        </ng-template>
+        <ng-template pTemplate="title"><h3 class="heading-l">Custom Project Boards</h3></ng-template>
+        <p class="body-l">Create boards with tailored columns for each project. Add, rename, or remove statuses as your process evolves.</p>
       </p-card>
     </div>
   </section>
