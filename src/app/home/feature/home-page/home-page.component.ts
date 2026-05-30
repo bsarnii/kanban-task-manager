@@ -3,10 +3,11 @@ import { ButtonDirective, ButtonLabel } from "primeng/button";
 import { RouterLink } from '@angular/router';
 import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { PublicFooterComponent } from "app/shared/ui/public-footer/public-footer.component";
+import { PublicHeaderComponent } from "app/shared/ui/public-header/public-header.component";
 
 @Component({
   selector: 'app-home-page',
-  imports: [ButtonDirective, RouterLink, ButtonLabel, PublicFooterComponent],
+  imports: [ButtonDirective, RouterLink, ButtonLabel, PublicFooterComponent, PublicHeaderComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })

@@ -1,0 +1,15 @@
+<header>
+  <div class="header-logo-container">
+    <a routerLink="/">
+      <img 
+        class="logo" 
+        [src]="colorTheme === 'light' ? 'assets/logo-dark.svg' : 'assets/logo-light.svg'" 
+        alt="logo"
+      >
+    </a>
+  </div>
+  <div class="header-actions">
+    <a pButton [routerLink]="['/','auth', 'signup']">Sign&nbsp;up</a>
+    <a pButton [routerLink]="['/','auth', 'login']" severity="secondary">Log&nbsp;in</a>
+  </div>
+</header>

@@ -19,6 +19,7 @@ $redHover: #FF9898;
 :root{
     --color-bg: #20212C;
     --color-sec-bg: #2B2C37;
+    --color-public-bg: linear-gradient(#131725, #2d3660);
     --color-text: #FFFFFF;
     --label-text-color: #FFFFFF;
     --secondary-button-color: #FFFFFF;
@@ -33,6 +34,7 @@ $redHover: #FF9898;
 [data-theme = 'light'] {
     --color-bg: #F4F7FD;
     --color-sec-bg: #FFFFFF;
+    --color-public-bg: linear-gradient(#c8c5ff, #fff);
     --color-text: #000112;
     --label-text-color: #828FA3;
     --secondary-button-color: #F4F7FD;

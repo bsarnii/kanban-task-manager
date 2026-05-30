@@ -1,18 +1,4 @@
-<header>
-  <div class="header-container">
-    <div class="header-logo-container">
-        <img 
-          class="logo" 
-          [src]="colorTheme === 'light' ? 'assets/logo-dark.svg' : 'assets/logo-light.svg'" 
-          alt="logo"
-        >
-    </div>
-    <div class="header-actions">
-      <a pButton [routerLink]="['auth', 'signup']">Sign&nbsp;up</a>
-      <a pButton [routerLink]="['auth', 'login']" severity="secondary">Log&nbsp;in</a>
-    </div>
-  </div>
-</header>
+<app-public-header/>
 <main>
   <section class="hero">
     <div class="hero-first">
