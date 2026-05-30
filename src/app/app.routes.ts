@@ -7,6 +7,11 @@ import { requireLoginGuard } from "./core/guards/require-login.guard";
 const appRoutes: Routes = [
     {
       path: '',
+      title: 'Kanban Task Manager',
+      loadComponent: () => import('./home/feature/home-page/home-page.component').then(m => m.HomePageComponent),
+    },
+    {
+      path: 'board',
       component: TaskManagementComponent,
       title: 'Task management',
       children: [

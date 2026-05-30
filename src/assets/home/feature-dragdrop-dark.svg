@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <rect width="400" height="240" rx="8" fill="#2B2C37"/>
+  <rect x="100" y="55" width="200" height="130" rx="8" fill="#20212C" stroke="#635FC7" stroke-width="2"/>
+  <!-- Column lines -->
+  <line x1="167" y1="55" x2="167" y2="185" stroke="#A8A4FF" stroke-width="1" opacity="0.2"/>
+  <line x1="234" y1="55" x2="234" y2="185" stroke="#A8A4FF" stroke-width="1" opacity="0.2"/>
+  <!-- Cards in columns -->
+  <rect x="112" y="70" width="44" height="20" rx="4" fill="#635FC7" opacity="0.35"/>
+  <rect x="112" y="96" width="44" height="20" rx="4" fill="#635FC7" opacity="0.35"/>
+  <rect x="179" y="70" width="44" height="20" rx="4" fill="#A8A4FF" opacity="0.45"/>
+  <rect x="246" y="70" width="44" height="20" rx="4" fill="#49C4A3" opacity="0.4"/>
+  <!-- Drag arrow -->
+  <path d="M156 106 L179 80" stroke="#A8A4FF" stroke-width="2" stroke-dasharray="4 2" stroke-linecap="round" marker-end="url(#arrowhead-dark)"/>
+  <defs>
+    <marker id="arrowhead-dark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <polygon points="0 0, 6 3, 0 6" fill="#A8A4FF"/>
+    </marker>
+  </defs>
+  <!-- Hand cursor -->
+  <circle cx="156" cy="110" r="6" fill="#A8A4FF" opacity="0.5"/>
+</svg>

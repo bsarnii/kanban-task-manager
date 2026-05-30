@@ -1,0 +1,42 @@
+:host-context([data-theme='light']){
+  background: #c8c5ff;
+
+}
+:host{
+  display: block;
+  position: sticky;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #131725;
+  z-index: 1;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    height: 4rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    @media screen and (max-width: 575px) {
+        padding: 0 1rem;
+    }
+
+  .header-logo-container {
+    width: 20rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    @media screen and (max-width: 575px) {
+      gap: 0.5rem;
+    }
+  }
+}
