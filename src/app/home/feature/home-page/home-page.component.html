@@ -2,15 +2,48 @@
 <main>
   <section class="hero">
     <div class="hero-first">
-      <h1 class="heading-xl">Organize Work Effortlessly with Kanban.</h1>
-      <p class="heading-m">A simple, powerful Kanban board to help you visualize tasks, improve workflow, and ship faster with your team.</p>
+      <h1 class="heading-2xl">Organize Work Effortlessly with Kanban</h1>
+      <p class="body-xl">A simple, powerful Kanban board to help you visualize tasks, improve workflow, and ship faster with your team.</p>
       <a pButton [raised]="true" [rounded]="true" size="large" [routerLink]="['auth', 'login']" [queryParams]="{demo: true}">
         <span pButtonLabel>Try the Demo App</span>
         <i class="pi pi-arrow-right" pButtonIcon></i>
       </a>
     </div>
     <div class="hero-second">
-      <img [src]="colorTheme === 'light' ? 'assets/home/board_desktop_light.png' : 'assets/home/board_desktop_dark.png'" alt="Hero Image">
+      <img [src]="colorTheme === 'light' ? 'assets/home/board_desktop_light.png' : 'assets/home/board_desktop_dark.png'" alt="Application preview">
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-head">
+      <p class="heading-s">Everything your team needs to ship faster</p>
+      <h2 class="heading-xl">Built for collaborative task management</h2>
+    </div>
+
+    <div class="features-grid">
+      <p-card class="feature-card">
+        <ng-template pTemplate="header">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-team.svg' : 'assets/home/feature-team-dark.svg'" alt="Invite and organize team members">
+        </ng-template>
+        <ng-template pTemplate="title"><h3 class="heading-l">Team Access Made Easy</h3></ng-template>
+        <p class="body-l">Invite people to your board, give them the right access, and make sure everyone knows who is handling what.</p>
+      </p-card>
+
+      <p-card class="feature-card">
+        <ng-template pTemplate="header">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-tasks.svg' : 'assets/home/feature-tasks-dark.svg'" alt="Add and update tasks">
+        </ng-template>
+        <ng-template pTemplate="title"><h3 class="heading-l">Simple Task Updates</h3></ng-template>
+        <p class="body-l">Add new tasks, edit details anytime, and remove finished items so your board stays clear and up to date.</p>
+      </p-card>
+
+      <p-card class="feature-card">
+        <ng-template pTemplate="header">
+          <img class="feature-image" [src]="colorTheme === 'light' ? 'assets/home/feature-boards.svg' : 'assets/home/feature-boards-dark.svg'" alt="Create and adjust boards">
+        </ng-template>
+        <ng-template pTemplate="title"><h3 class="heading-l">Flexible Project Boards</h3></ng-template>
+        <p class="body-l">Set up boards for different projects, adjust them as your work changes, and keep your workflow organized.</p>
+      </p-card>
     </div>
   </section>
 </main>
