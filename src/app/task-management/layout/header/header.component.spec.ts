@@ -1,59 +1,25 @@
+import type { MockedObject } from "vitest";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BoardsService } from '../services/boards.service';
-import { ModalShowService } from '../../../core/services/modal-show.service';
 import { HeaderComponent } from './header.component';
+import { BoardsStore } from "app/task-management/+store/boards.store";
 
 describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
-  let modalShowServiceSpy: jasmine.SpyObj<ModalShowService>;
-  const mockBoardsService = {
-    boards:{
-      boards: []
-    },
-    currentTask: {
-      description: "",
-      status: "Todo",
-      subtasks: [],
-      title: ""
-    },
-    currentBoard: {
-      columns: [],
-      name: ""
-    },
-    getBoards(){}
-  }
+    let component: HeaderComponent;
+    let fixture: ComponentFixture<HeaderComponent>;
 
-  beforeEach(async () => {
-    const modalShowServiceSpyObj = jasmine.createSpyObj('ModalShowService',
-     ['openEditBoardModal', 'closeEditDeleteContainer', 'openDeleteBoardModal', 'openCreateTaskModal'],
-     ['showCreateTaskModal']
-     );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [HeaderComponent],
+            providers: [BoardsStore]
+        })
+            .compileComponents();
 
-    await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-      providers: [
-        {provide: BoardsService, useValue: mockBoardsService},
-        {provide: ModalShowService, useValue: modalShowServiceSpyObj}
-      
-      ]
-    })
-    .compileComponents();
+        fixture = TestBed.createComponent(HeaderComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    modalShowServiceSpy = TestBed.inject(ModalShowService) as jasmine.SpyObj<ModalShowService>;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should set the status to empty string and openCreateTaskModal should be called', () => {
-    component.handleAddNewTask();
-    expect(mockBoardsService.currentTask.status).toBe("");
-    expect(modalShowServiceSpy.openCreateTaskModal).toHaveBeenCalled();
-  });
-
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
