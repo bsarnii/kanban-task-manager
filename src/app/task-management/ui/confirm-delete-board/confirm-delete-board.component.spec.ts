@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmDeleteBoardComponent } from './confirm-delete-board.component';
-import { BoardsStore } from 'app/task-management/+store/boards.store';
 
 describe('ConfirmDeleteBoardComponent', () => {
   let component: ConfirmDeleteBoardComponent;
@@ -8,12 +7,12 @@ describe('ConfirmDeleteBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmDeleteBoardComponent ],
-      providers: [BoardsStore]
+      imports: [ ConfirmDeleteBoardComponent ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ConfirmDeleteBoardComponent);
+    fixture.componentRef.setInput('board', { id: '1', name: 'Test', statuses: [], createdAt: '', createdBy: '', boardMemberRole: 'OWNER' });
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

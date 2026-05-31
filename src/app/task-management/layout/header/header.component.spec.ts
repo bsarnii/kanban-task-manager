@@ -1,7 +1,8 @@
-import type { MockedObject } from "vitest";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { HeaderComponent } from './header.component';
-import { BoardsStore } from "app/task-management/+store/boards.store";
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -9,8 +10,8 @@ describe('HeaderComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [HeaderComponent],
-            providers: [BoardsStore]
+            imports: [HeaderComponent],
+            providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()]
         })
             .compileComponents();
 

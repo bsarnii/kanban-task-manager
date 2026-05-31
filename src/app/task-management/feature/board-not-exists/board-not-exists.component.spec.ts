@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideRouter } from '@angular/router';
 import { BoardNotExistsComponent } from './board-not-exists.component';
 
 describe('BoardNotExistsComponent', () => {
@@ -8,7 +8,8 @@ describe('BoardNotExistsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [BoardNotExistsComponent]
+            imports: [BoardNotExistsComponent],
+            providers: [provideRouter([])]
         })
             .compileComponents();
 

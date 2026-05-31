@@ -8,11 +8,12 @@ describe('ConfirmDeleteTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmDeleteTaskComponent ]
+      imports: [ ConfirmDeleteTaskComponent ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ConfirmDeleteTaskComponent);
+    fixture.componentRef.setInput('task', { id: '1', boardId: '1', name: 'Test', description: '', statusId: '1', subtasks: [], createdAt: '' });
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
