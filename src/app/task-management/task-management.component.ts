@@ -12,16 +12,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './task-management.component.html',
   styleUrl: './task-management.component.scss'
 })
-export class TaskManagementComponent implements OnInit, OnDestroy {
+export class TaskManagementComponent implements OnDestroy {
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
-
-  ngOnInit(){
-    if (window.innerWidth <= 575){
-      this.sidebarService.sidebarOpened = false;
-    }
-  }
 
   ngOnDestroy() {
     this.boardsStore.reset();

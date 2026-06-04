@@ -19,14 +19,9 @@ export class SidebarComponent {
   usersStore = inject(UsersStore);
   authService = inject(AuthService);
 
-  handleOnBoardClick(){
+  closeSidebarOnMobile() {
     if (window.innerWidth <= 575) {
-      this.sidebarService.sidebarOpened = false
-    }
-  }
-  onCreateBoardClick(){
-    if (window.innerWidth <= 575) {
-      this.sidebarService.sidebarOpened = false
+      this.sidebarService.close();
     }
   }
 

@@ -2,17 +2,17 @@
 <div class="header-left">
     <img 
         class="logo" 
-        [ngClass]="sidebarService.sidebarOpened ? 'sidebarOpened' : 'sidebarClosed'" 
+        [ngClass]="sidebarService.sidebarOpened() ? 'sidebarOpened' : 'sidebarClosed'" 
         [src]="colorThemeService.colorTheme === 'light' ? 'assets/logo-dark.svg' : 'assets/logo-light.svg'" 
         alt="logo"
     >
     <img class="mobile-logo" src="assets/logo-mobile.svg" alt="logo-mobile">
     <div class="line"></div>
-    <button (click)="sidebarService.toggleSidebar()">
+    <button (click)="sidebarService.toggle()">
         @if(activeBoard){
         <h1 class="heading-xl">{{activeBoard.name}}</h1>
         }
-        @if(sidebarService.sidebarOpened){
+        @if(sidebarService.sidebarOpened()){
             <img src="assets/icon-chevron-up.svg" alt="collapse menu">
         }@else{
             <img src="assets/icon-chevron-down.svg" alt="extend menu">

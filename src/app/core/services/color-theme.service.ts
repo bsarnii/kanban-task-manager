@@ -8,7 +8,7 @@ export class ColorThemeService {
   colorTheme: ColorTheme = 'light';
 
   constructor(){
-    this.getTheme();
+    this.initializeTheme();
   }
 
   switchTheme(){
@@ -28,7 +28,7 @@ export class ColorThemeService {
     localStorage.setItem("colorTheme", theme)
   }
 
-  getTheme(){
+  initializeTheme(){
     const localSotrageTheme = localStorage['colorTheme'];
     if (localSotrageTheme === 'light' || localSotrageTheme === 'dark') {
       this.colorTheme = localSotrageTheme;
