@@ -21,20 +21,22 @@
       <h5 class="heading-s">Subtasks({{ completedSubtasks().length }} of {{task().subtasks.length}})</h5>
       <div class="subtask-container">
         @for (subtask of task().subtasks; let i = $index; track i) {
-          <div
+          <label
             class="checkbox-container"
             [class.disabled]="!canEdit()"
             [aria-disabled]="!canEdit()"
+            tabindex="0"
+            (keypress)="canEdit() && handleCheckboxClick(subtask)"
             (click)="canEdit() && handleCheckboxClick(subtask)"
             >
             <input [checked]="subtask.completed" type="checkbox" aria-label="Subtask completed">
             <span class="checkbox-replace"></span>
             {{subtask.name}}
-          </div>
+        </label>
         }
       </div>
       <div class="status-container">
-        <label class="heading-s">Current Status</label>
+        <label class="heading-s" for="status-select">Current Status</label>
         <select #status (change)="canEdit() && changeStatus(status.value)" name="status" id="status-select" class="select" [disabled]="!canEdit()">
           @for (status of statuses(); track status.id) {
             <option
@@ -49,14 +51,14 @@
   </app-modal>
 }
 @if(!taskBeingEdited() && !tasksStore.activeTaskExists()){
-  <app-active-task-not-found (close)="close()"/>
+  <app-active-task-not-found (closeModal)="close()"/>
 }
 
 @if(taskBeingDeleted()){
   <app-confirm-delete-task 
   [task]="task()"
-  (confirm)="deleteTask()" 
-  (cancel)="taskBeingDeleted.set(false)" 
+  (confirmDelete)="deleteTask()" 
+  (cancelDelete)="taskBeingDeleted.set(false)" 
   />
 }
 

@@ -1,12 +1,10 @@
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
+import { CanActivateFn, Router } from "@angular/router";
 import { UsersStore } from "../../users/+store/users.store";
 import { inject } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { filter, map } from "rxjs";
 
 export const requireLoginGuard: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
   ) => {
     const usersStore = inject(UsersStore);
     const router = inject(Router);

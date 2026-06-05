@@ -4,8 +4,9 @@
 </div>
 <div (dragover)="onDragOver($event)" class="column-body" (drop)="onDrop($event)">
   @for (task of tasks; let i = $index; track i) {
-    <div class="task" 
+    <div class="task" role="button" tabindex="0" 
       [id]="task.id" 
+      (keypress)="taskClick.emit(task.id)"
       (click)="taskClick.emit(task.id)"
       (dragstart)="onDragStart(task)"
       [draggable]="canEdit()">

@@ -41,7 +41,7 @@ export default class LogInComponent {
     password: '',
   });
   loginForm = form(this.loginModel, (schemaPath) => {
-    required(schemaPath.email), {message: 'Email is required'};
+    required(schemaPath.email, {message: 'Email is required'});
     email(schemaPath.email);
 
     required(schemaPath.password, {message: 'Password is required'});

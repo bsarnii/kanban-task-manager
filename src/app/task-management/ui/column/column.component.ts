@@ -13,11 +13,11 @@ export class ColumnComponent{
   tasksStore = inject(TasksStore);
 
   canEdit = input<boolean>(false);
-  @Input() color:string = "#49C4E5";
-  @Input() columnName:string = "TODO";
-  @Input() taskNumber:number = 0;
-  @Input() tasks:Array<Task>= [];
-  @Input() columnIndex:number = 0;
+  @Input() color = "#49C4E5";
+  @Input() columnName = "TODO";
+  @Input() taskNumber = 0;
+  @Input() tasks:Task[]= [];
+  @Input() columnIndex = 0;
   @Input() statusId = "";
   
   taskClick = output<string>();

@@ -45,8 +45,8 @@
 @if(boardBeingDeleted() && activeBoard){
     <app-confirm-delete-board 
         [board]="activeBoard"
-        (confirm)="deleteBoard()" 
-        (cancel)="boardBeingDeleted.set(false)" 
+        (confirmDelete)="deleteBoard()" 
+        (cancelDelete)="boardBeingDeleted.set(false)" 
     />
 }
 

@@ -1,13 +1,11 @@
 import { inject } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
+import { CanActivateFn, Router } from "@angular/router";
 import { filter, map } from "rxjs";
 import { UsersStore } from "../../users/+store/users.store";
 import { AuthService } from "app/auth/services/auth.service";
 
 export const loginNotRequiredGuard: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
   ) => {
     const authService = inject(AuthService);
     const usersStore = inject(UsersStore);

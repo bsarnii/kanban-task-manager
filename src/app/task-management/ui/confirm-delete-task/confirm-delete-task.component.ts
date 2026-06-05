@@ -11,6 +11,6 @@ import { Task } from '../../types/task.interface';
 export class ConfirmDeleteTaskComponent {
   task = input.required<Task>();
 
-  confirm = output();
-  cancel = output();
+  confirmDelete = output();
+  cancelDelete = output();
 }

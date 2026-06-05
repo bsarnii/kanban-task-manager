@@ -28,7 +28,7 @@ export default class VerificationComponent {
     effect(() => {
       const _token = this.token();
       untracked(() => {
-        if(!!_token){
+        if(_token){
           this.loading.set(true);
           this.authService.sendVerificationToken(_token).pipe(
             tap((result) => {
@@ -42,7 +42,6 @@ export default class VerificationComponent {
           ).subscribe();
         }
       })
-      if(_token){}
     })
   }
 

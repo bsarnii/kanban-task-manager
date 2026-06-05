@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { BoardsStore } from './+store/boards.store';
 import { TasksStore } from './+store/tasks.store';
 import { SidebarToggleService } from './layout/sidebar/sidebar-toggle.service';

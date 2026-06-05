@@ -1,5 +1,5 @@
 @if(!tasksStore.activeTaskExists() && addEditContext() === TaskAddEditModalContextEnum.edit){
-  <app-active-task-not-found (close)="close()"/>
+  <app-active-task-not-found (closeModal)="close()"/>
 }@else{
   <app-modal (backdropClick)="close()">
     <h4 class="heading-l" modalHeader>
@@ -34,7 +34,7 @@
       </fieldset>
 
       <app-field-wrapper [fieldErrors]="formStatus.errors" [canShowError]="formStatus.touched || formStatus.dirty">
-        <label class="heading-s status-label">Status*</label>
+        <label for="status" class="heading-s status-label">Status*</label>
         <select [formControl]="formStatus" class="select" name="status">
           @for (status of boardsStore.activeBoard()?.statuses; track $index) {
             <option

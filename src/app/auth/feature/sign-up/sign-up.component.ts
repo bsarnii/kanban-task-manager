@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { email, form, minLength, required, FormField, submit } from '@angular/forms/signals';
 import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
-type SignUpFormModel = {
+interface SignUpFormModel {
   name: string;
   email: string;
   password: string;

@@ -7,12 +7,12 @@ import { filter, pipe, switchMap, tap } from "rxjs";
 import { TasksDataService } from "./tasks-data.service";
 import { tapResponse } from "@ngrx/operators";
 
-type TasksState = { 
+interface TasksState { 
     tasks: Task[],
     activeTaskId: string | null,
     loading: boolean,
     loaded: boolean
-};
+}
 
 const initialState: TasksState = {
     tasks: [],
@@ -94,7 +94,7 @@ const initialState: TasksState = {
         ));
 
         const updateTaskPositions = (taskIdToBeMoved:string, taskIdToBePlaced:string | null, isSameStatus:boolean) => {
-            let tasksToUpdate = [...store.tasks()];
+            const tasksToUpdate = [...store.tasks()];
             const indexToMove = tasksToUpdate.findIndex(item => item.id === taskIdToBeMoved);
             let indexToBePlaced = tasksToUpdate.findIndex(item => item.id === taskIdToBePlaced);
             if(indexToBePlaced < 0){
@@ -105,7 +105,7 @@ const initialState: TasksState = {
                 indexToBePlaced++;
             }
 
-            let placeholder = {};
+            const placeholder = {};
             // remove the object from its initial position and
             // plant the placeholder object in its place to
             // keep the array length constant

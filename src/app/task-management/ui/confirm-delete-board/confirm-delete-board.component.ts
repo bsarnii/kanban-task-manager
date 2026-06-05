@@ -11,6 +11,6 @@ import { Board } from '../../types/boards.interface';
 export class ConfirmDeleteBoardComponent {
   board = input.required<Board>();
 
-  confirm = output();
-  cancel = output();
+  confirmDelete = output();
+  cancelDelete = output();
 }

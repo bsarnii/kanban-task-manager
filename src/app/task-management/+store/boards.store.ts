@@ -7,12 +7,12 @@ import { filter, map, pipe, switchMap, tap } from 'rxjs';
 import { BoardsDataService } from './boards-data.service';
 import { tapResponse } from '@ngrx/operators';
 
-type BoardsState = { 
+interface BoardsState { 
     boards: Board[],
     activeBoardId: string | null,
     loading: boolean,
     loaded: boolean
-};
+}
 
 const initialState: BoardsState = {
     boards: [],

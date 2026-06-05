@@ -4,12 +4,12 @@ import { map, Observable } from "rxjs";
 import { environment } from "environments/environment";
 import { User } from "../types/user.interface";
 
-type JwtAuthTokenPayload = {
+interface JwtAuthTokenPayload {
     userId: string;
     email: string;
     iat: number;
     exp: number;
-  };
+  }
 
 @Injectable({providedIn: 'root'})
 export class UsersDataService {

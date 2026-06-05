@@ -1,4 +1,4 @@
-<div class="backdrop" (click)="backdropClick.emit()"></div>
+<div class="backdrop" tabindex="0" (keypress)="backdropClick.emit()" (click)="backdropClick.emit()"></div>
 <div class="modal">
     <div class="modal-header">
         <ng-content select="[modalHeader]"></ng-content>

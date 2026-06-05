@@ -5,13 +5,13 @@ import { ModalComponent } from "../../../shared/ui/modal/modal.component";
   selector: 'app-active-task-not-found',
   imports: [ModalComponent],
   template: `
-    <app-modal (backdropClick)="close.emit()">
+    <app-modal (backdropClick)="closeModal.emit()">
     <div class="content" modalBody>
       <i class="pi pi-exclamation-triangle" style="font-size: 2rem;"></i>
       <h1 class="heading-xl">Task not found!</h1>
       <p class="body-l">Please select an existing task or create a new one.</p>
     </div>
-    <button class="btn button-secondary" modalFooter (click)="close.emit()">Close</button>
+    <button class="btn button-secondary" modalFooter (click)="closeModal.emit()">Close</button>
   </app-modal>
 
   `,
@@ -32,5 +32,5 @@ import { ModalComponent } from "../../../shared/ui/modal/modal.component";
   `
 })
 export class ActiveTaskNotFoundComponent {
-  close = output();
+  closeModal = output();
 }

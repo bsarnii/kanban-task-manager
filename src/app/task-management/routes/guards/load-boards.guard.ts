@@ -4,7 +4,7 @@ import { inject } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { filter } from "rxjs";
 
-export const loadBoardsGuard: CanActivateFn = (route, state) => {
+export const loadBoardsGuard: CanActivateFn = () => {
     const boardStore = inject(BoardsStore);
     const boardsLoaded$ = toObservable(boardStore.loaded);
 

@@ -8,5 +8,5 @@
 </button>
 
 @if (sidebarService.sidebarOpened()) {
-  <div (click)="sidebarService.close()" class="dark-background"></div>
+  <div tabindex="0" (keypress)="sidebarService.close()" (click)="sidebarService.close()" class="dark-background"></div>
 }

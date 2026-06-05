@@ -5,13 +5,12 @@ import { inject } from "@angular/core";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, tap, switchMap } from "rxjs";
 import { tapResponse } from '@ngrx/operators';
-import { Router } from "@angular/router";
 
-type UsersState = { 
+interface UsersState { 
     currentUser: User | null,
     loading: boolean,
     loaded: boolean
-};
+}
 
 const initialState: UsersState = {
     currentUser: null,
@@ -22,7 +21,7 @@ const initialState: UsersState = {
  export const UsersStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store, usersDataService = inject(UsersDataService), router = inject(Router)) => {
+    withMethods((store, usersDataService = inject(UsersDataService)) => {
         const clearCurrentUser = () => patchState(store, () => initialState);
         const loadCurrentUser = rxMethod<void>(pipe(
             tap(() => patchState(store, () => ({ loading: true }))),

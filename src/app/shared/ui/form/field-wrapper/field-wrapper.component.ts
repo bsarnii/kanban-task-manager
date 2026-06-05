@@ -24,13 +24,13 @@ export class FieldWrapperComponent {
     if(!this.canShowError()){
       return '';
     }
-    if(this.fieldErrors()?.hasOwnProperty('required')){
+    if(this.fieldErrors()?.['required']){
       return this.defaultErrorMessages.required;
     }
-    if(this.fieldErrors()?.hasOwnProperty('maxlength')){
+    if(this.fieldErrors()?.['maxlength']){
       return this.defaultErrorMessages.maxLength;
     }
-    if(this.fieldErrors()?.hasOwnProperty('email')){
+    if(this.fieldErrors()?.['email']){
       return this.defaultErrorMessages.email;
     }
     return '';

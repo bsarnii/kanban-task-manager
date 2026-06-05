@@ -7,7 +7,7 @@ import { ModalComponent } from "app/shared/ui/modal/modal.component";
 import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
 import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
 
-type SubtaskControl = {
+interface SubtaskControl {
   id: FormControl<string | null>;
   name: FormControl<string>;
   completed: FormControl<boolean>;

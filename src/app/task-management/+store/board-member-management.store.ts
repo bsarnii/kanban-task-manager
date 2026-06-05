@@ -6,11 +6,11 @@ import { BoardMember, BoardMemberRole } from '../types/board-member.interface';
 import { BoardMembersDataService } from './board-members-data.service';
 import { BoardsStore } from './boards.store';
 
-type BoardMemberManagementState = {
+interface BoardMemberManagementState {
 	boardMembers: BoardMember[];
 	loading: boolean;
 	loaded: boolean;
-};
+}
 
 const initialState: BoardMemberManagementState = {
 	boardMembers: [],

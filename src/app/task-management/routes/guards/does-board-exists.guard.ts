@@ -4,7 +4,7 @@ import { CanActivateFn, Router } from "@angular/router";
 import { BoardsStore } from "../../+store/boards.store";
 import { filter, map } from "rxjs";
 
-export const doesBoardExistsGuard: CanActivateFn = (route, state) => {
+export const doesBoardExistsGuard: CanActivateFn = () => {
     const boardStore = inject(BoardsStore);
     const router = inject(Router);
   
