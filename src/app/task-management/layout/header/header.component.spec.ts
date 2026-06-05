@@ -5,22 +5,21 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
-    let component: HeaderComponent;
-    let fixture: ComponentFixture<HeaderComponent>;
+  let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [HeaderComponent],
-            providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()]
-        })
-            .compileComponents();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HeaderComponent],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
-        fixture = TestBed.createComponent(HeaderComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+    fixture = TestBed.createComponent(HeaderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

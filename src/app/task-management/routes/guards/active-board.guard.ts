@@ -1,11 +1,11 @@
-import { inject } from "@angular/core";
-import { CanActivateFn} from "@angular/router";
-import { BoardsStore } from "../../+store/boards.store";
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { BoardsStore } from '../../+store/boards.store';
 
 export const activeBoardGuard: CanActivateFn = (route) => {
-    const boardStore = inject(BoardsStore);
-    const boardId = route.params['boardId'] as string;
-    boardStore.setActiveBoardId(boardId);
+  const boardStore = inject(BoardsStore);
+  const boardId = route.params['boardId'] as string;
+  boardStore.setActiveBoardId(boardId);
 
-    return true ;
-  };
+  return true;
+};

@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {SidebarComponent} from './sidebar.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SidebarComponent } from './sidebar.component';
 import { MessageService } from 'primeng/api';
 import { provideRouter, Router } from '@angular/router';
-import { BoardComponent } from "../../feature/board/board.component";
+import { BoardComponent } from '../../feature/board/board.component';
 import { BoardsStore } from 'app/task-management/+store/boards.store';
 import { signal } from '@angular/core';
 import { Board } from 'app/task-management/types/boards.interface';
@@ -20,30 +20,30 @@ describe('SidebarComponent', () => {
   const mockBoards = [
     { id: '1', name: 'Board 1' },
     { id: '2', name: 'Board 2' },
-    { id: '3', name: 'Board 3' }
+    { id: '3', name: 'Board 3' },
   ] as Board[];
 
   const colorThemeServiceStub: Partial<Mocked<ColorThemeService>> = {
-    switchTheme: vi.fn()
+    switchTheme: vi.fn(),
   };
   const authServiceStub: Partial<Mocked<AuthService>> = {
-    logOut: vi.fn()
-  }
+    logOut: vi.fn(),
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SidebarComponent],
       providers: [
         provideRouter([
-          {path: 'board/:boardId', component: BoardComponent},
-          {path: 'board/:boardId/add-board', component: BoardAddEditModalComponent},
-        ]), 
+          { path: 'board/:boardId', component: BoardComponent },
+          { path: 'board/:boardId/add-board', component: BoardAddEditModalComponent },
+        ]),
         MessageService,
-        {provide: BoardsStore, useValue: { boards: signal(mockBoards), activeBoardId: signal('1') }},
-        {provide: ColorThemeService, useValue: colorThemeServiceStub },
+        { provide: BoardsStore, useValue: { boards: signal(mockBoards), activeBoardId: signal('1') } },
+        { provide: ColorThemeService, useValue: colorThemeServiceStub },
         UsersStore,
-        {provide: AuthService, useValue: authServiceStub }
-      ]
+        { provide: AuthService, useValue: authServiceStub },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SidebarComponent);
@@ -63,32 +63,26 @@ describe('SidebarComponent', () => {
   });
 
   it('should navigate to the correct board on board click', async () => {
-  const router = TestBed.inject(Router);
-  fixture.detectChanges();
-  const button = fixture.nativeElement.querySelector(
-    '.btn.btn-list'
-  ) as HTMLButtonElement;
-  button.click();
-  await fixture.whenStable();
-  expect(router.url).toBe('/board/1');
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('.btn.btn-list') as HTMLButtonElement;
+    button.click();
+    await fixture.whenStable();
+    expect(router.url).toBe('/board/1');
   });
 
   it('should navigate to add-board page on create board click', async () => {
     const router = TestBed.inject(Router);
     fixture.detectChanges();
-    const createBoardButton = fixture.nativeElement.querySelector(
-      '.btn.btn-create'
-    ) as HTMLButtonElement;
+    const createBoardButton = fixture.nativeElement.querySelector('.btn.btn-create') as HTMLButtonElement;
     createBoardButton.click();
     await fixture.whenStable();
     expect(router.url).toContain('/add-board');
   });
 
-  it('should toggle color theme on theme toggle button click',async () => {
+  it('should toggle color theme on theme toggle button click', async () => {
     fixture.detectChanges();
-    const themeToggleElement = fixture.nativeElement.querySelector(
-      '#theme-switcher-checkbox'
-    ) as HTMLInputElement;
+    const themeToggleElement = fixture.nativeElement.querySelector('#theme-switcher-checkbox') as HTMLInputElement;
     themeToggleElement.click();
     await fixture.whenStable();
     expect(colorThemeServiceStub.switchTheme).toHaveBeenCalled();
@@ -96,9 +90,7 @@ describe('SidebarComponent', () => {
 
   it('should log out on logout button click', async () => {
     fixture.detectChanges();
-    const logoutButton = fixture.nativeElement.querySelector(
-      '[data-testid="logoutButton"]'
-    ) as HTMLButtonElement;
+    const logoutButton = fixture.nativeElement.querySelector('[data-testid="logoutButton"]') as HTMLButtonElement;
     logoutButton.click();
     await fixture.whenStable();
     expect(authServiceStub.logOut).toHaveBeenCalled();
@@ -108,12 +100,9 @@ describe('SidebarComponent', () => {
     const sidebarToggleService = TestBed.inject(SidebarToggleService);
     fixture.detectChanges();
     sidebarToggleService.open();
-    const hideSidebarButton = fixture.nativeElement.querySelector(
-      '.display-sidebar'
-    ) as HTMLButtonElement;
+    const hideSidebarButton = fixture.nativeElement.querySelector('.display-sidebar') as HTMLButtonElement;
     hideSidebarButton.click();
     await fixture.whenStable();
     expect(sidebarToggleService.sidebarOpened()).toBe(false);
   });
-
 });

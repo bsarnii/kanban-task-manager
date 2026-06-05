@@ -3,12 +3,11 @@ import { provideRouter } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import LogInComponent from './log-in.component';
 
-
 describe('LogInComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LogInComponent],
-      providers: [provideRouter([]), MessageService]
+      providers: [provideRouter([]), MessageService],
     }).compileComponents();
   });
 
@@ -17,5 +16,4 @@ describe('LogInComponent', () => {
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
-  
 });

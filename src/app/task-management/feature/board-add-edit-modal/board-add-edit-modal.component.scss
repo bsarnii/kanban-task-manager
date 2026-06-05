@@ -1,47 +1,47 @@
-form{
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statuses-container {
+  .status {
     display: flex;
-    flex-direction: column;
-    gap: .5rem;
-}
-
-.statuses-container{
-    .status{
-        display: flex;
-        justify-content: space-between;
-        input{
-            width: 100%;
-            margin-bottom: .5rem;
-        }
-        button{
-            background-color: transparent;
-            border: none;
-            padding: 1rem 0 1rem 1rem;
-            cursor: pointer;
-            &:hover{
-                svg{
-                    g{
-                        fill: #EA5555;
-                    }
-                }
-            }
-            svg{
-                g{
-                    transition: fill .3s;
-                }
-            }
-        }
+    justify-content: space-between;
+    input {
+      width: 100%;
+      margin-bottom: 0.5rem;
     }
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 1rem 0 1rem 1rem;
+      cursor: pointer;
+      &:hover {
+        svg {
+          g {
+            fill: #ea5555;
+          }
+        }
+      }
+      svg {
+        g {
+          transition: fill 0.3s;
+        }
+      }
+    }
+  }
 }
 
-.add-new-column-btn{
-    margin-top: .5rem;
-    width: fit-content;
-    display: flex; 
-    gap: 0.5rem; 
-    align-items: center; 
-    justify-content: center;
+.add-new-column-btn {
+  margin-top: 0.5rem;
+  width: fit-content;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.submit{
-    margin-top: 1.5rem;
+.submit {
+  margin-top: 1.5rem;
 }

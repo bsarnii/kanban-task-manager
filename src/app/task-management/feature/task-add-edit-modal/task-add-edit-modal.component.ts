@@ -1,11 +1,18 @@
 import { Component, computed, ElementRef, inject, input, OnInit, viewChildren } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TasksStore } from 'app/task-management/+store/tasks.store';
 import { BoardsStore } from 'app/task-management/+store/boards.store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalComponent } from "app/shared/ui/modal/modal.component";
-import { ActiveTaskNotFoundComponent } from "../../ui/active-task-not-found/active-task-not-found.component";
-import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { ModalComponent } from 'app/shared/ui/modal/modal.component';
+import { ActiveTaskNotFoundComponent } from '../../ui/active-task-not-found/active-task-not-found.component';
+import { FieldWrapperComponent } from 'app/shared/ui/form/field-wrapper/field-wrapper.component';
 
 interface SubtaskControl {
   id: FormControl<string | null>;
@@ -15,14 +22,14 @@ interface SubtaskControl {
 
 export enum TaskAddEditModalContextEnum {
   add = 'add',
-  edit = 'edit'
+  edit = 'edit',
 }
 
 @Component({
-    selector: 'app-task-add-edit-modal',
-    templateUrl: './task-add-edit-modal.component.html',
-    styleUrls: ['./task-add-edit-modal.component.scss'],
-    imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent, FieldWrapperComponent]
+  selector: 'app-task-add-edit-modal',
+  templateUrl: './task-add-edit-modal.component.html',
+  styleUrls: ['./task-add-edit-modal.component.scss'],
+  imports: [ReactiveFormsModule, ModalComponent, ActiveTaskNotFoundComponent, FieldWrapperComponent],
 })
 export class TaskAddEditModalComponent implements OnInit {
   router = inject(Router);
@@ -31,8 +38,8 @@ export class TaskAddEditModalComponent implements OnInit {
   tasksStore = inject(TasksStore);
   boardsStore = inject(BoardsStore);
 
-  constructor(){
-    if(!this.boardsStore.activeBoardExists()){
+  constructor() {
+    if (!this.boardsStore.activeBoardExists()) {
       this.close();
     }
   }
@@ -40,46 +47,53 @@ export class TaskAddEditModalComponent implements OnInit {
   addEditContext = input<TaskAddEditModalContextEnum>(TaskAddEditModalContextEnum.add);
   subtaskInputs = viewChildren<ElementRef<HTMLInputElement>>('subtaskInput');
 
-  modalName = computed(() => this.addEditContext() === TaskAddEditModalContextEnum.add ? "Add New Task" : "Edit Task");
-  taskName = computed(() => this.tasksStore.activeTask()?.name || "");
+  modalName = computed(() =>
+    this.addEditContext() === TaskAddEditModalContextEnum.add ? 'Add New Task' : 'Edit Task',
+  );
+  taskName = computed(() => this.tasksStore.activeTask()?.name || '');
   initialSubtasks = computed(() => {
     const activeTask = this.tasksStore.activeTask();
-    if(activeTask && activeTask.subtasks.length){
+    if (activeTask && activeTask.subtasks.length) {
       return activeTask.subtasks;
     }
-    return [{id: null, name: "", completed: false}]
-  })
-
+    return [{ id: null, name: '', completed: false }];
+  });
 
   form = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(60)]],
     description: [''],
     subtasks: this.fb.array([] as FormGroup<SubtaskControl>[]),
-    status: ['', Validators.required]
-  })
+    status: ['', Validators.required],
+  });
 
-  subtaskPlaceholders = ["e.g. Make coffee", "e.g Drink coffee & smile", "e.g. Enjoy your caffeine boost", "e.g. Wash the cup"]
+  subtaskPlaceholders = [
+    'e.g. Make coffee',
+    'e.g Drink coffee & smile',
+    'e.g. Enjoy your caffeine boost',
+    'e.g. Wash the cup',
+  ];
 
-
-  removeSubtask(index:number,event:Event){
+  removeSubtask(index: number, event: Event) {
     event.preventDefault();
     this.formSubtasks.removeAt(index);
   }
-  addNewSubtask(event:Event){
+  addNewSubtask(event: Event) {
     event.preventDefault();
-    this.formSubtasks.push(this.fb.group({
-      id: new FormControl(),
-      name: new FormControl('', { nonNullable: true }),
-      completed: new FormControl(false, { nonNullable: true })
-    }));
+    this.formSubtasks.push(
+      this.fb.group({
+        id: new FormControl(),
+        name: new FormControl('', { nonNullable: true }),
+        completed: new FormControl(false, { nonNullable: true }),
+      }),
+    );
     setTimeout(() => {
       this.subtaskInputs()[this.subtaskInputs().length - 1].nativeElement.focus();
     }, 100);
   }
-  
-  saveTask(event:Event){
+
+  saveTask(event: Event) {
     event.preventDefault();
-    if(this.form.invalid){
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
@@ -89,32 +103,38 @@ export class TaskAddEditModalComponent implements OnInit {
         name: this.formName.value,
         description: this.formDescription.value,
         statusId: this.formStatus.value,
-        subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
-          id: subtask.id || undefined, 
-          name: subtask.name, 
-          completed: subtask.completed
-        })).filter(subtask => subtask.name !== "")
-      }
-    })
+        subtasks: this.formSubtasks
+          .getRawValue()
+          .map((subtask) => ({
+            id: subtask.id || undefined,
+            name: subtask.name,
+            completed: subtask.completed,
+          }))
+          .filter((subtask) => subtask.name !== ''),
+      },
+    });
     this.close();
   }
 
-  createTask(event:Event){
-    event.preventDefault()
-    if(this.form.invalid){
+  createTask(event: Event) {
+    event.preventDefault();
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
     this.tasksStore.addTask({
-      boardId: this.boardsStore.activeBoardId() || "",
+      boardId: this.boardsStore.activeBoardId() || '',
       name: this.formName.value,
       description: this.formDescription.value,
       statusId: this.formStatus.value,
-      subtasks: this.formSubtasks.getRawValue().map((subtask) => ({
-        name: subtask.name, 
-        completed: false
-      })).filter(subtask => subtask.name !== "")
-    })
+      subtasks: this.formSubtasks
+        .getRawValue()
+        .map((subtask) => ({
+          name: subtask.name,
+          completed: false,
+        }))
+        .filter((subtask) => subtask.name !== ''),
+    });
     this.close();
   }
 
@@ -124,31 +144,33 @@ export class TaskAddEditModalComponent implements OnInit {
   get formDescription() {
     return this.form.get('description') as FormControl<string>;
   }
-  get formSubtasks(){
+  get formSubtasks() {
     return this.form.get('subtasks') as FormArray<FormGroup<SubtaskControl>>;
   }
-  get formStatus(){
+  get formStatus() {
     return this.form.get('status') as FormControl<string>;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.formName.setValue(this.taskName());
-    this.formDescription.setValue(this.tasksStore.activeTask()?.description || "");
+    this.formDescription.setValue(this.tasksStore.activeTask()?.description || '');
     this.formStatus.setValue(this.tasksStore.activeTask()?.statusId || this.boardsStore.activeBoardStatuses()[0].id);
-    this.initialSubtasks().map(subtask => {
-      this.formSubtasks.push(this.fb.group({
-        id: subtask.id ,
-        name: subtask.name,
-        completed: subtask.completed
-      }))
+    this.initialSubtasks().map((subtask) => {
+      this.formSubtasks.push(
+        this.fb.group({
+          id: subtask.id,
+          name: subtask.name,
+          completed: subtask.completed,
+        }),
+      );
     });
   }
 
   TaskAddEditModalContextEnum = TaskAddEditModalContextEnum;
 
-  close(){
-    this.router.navigate(
-      [this.addEditContext() === TaskAddEditModalContextEnum.add ? '..' : '../../..'], { relativeTo: this.route }
-    );
+  close() {
+    this.router.navigate([this.addEditContext() === TaskAddEditModalContextEnum.add ? '..' : '../../..'], {
+      relativeTo: this.route,
+    });
   }
 }

@@ -1,49 +1,52 @@
-import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { UsersStore } from "app/users/+store/users.store";
-import { environment } from "environments/environment";
-import { MessageService } from "primeng/api";
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsersStore } from 'app/users/+store/users.store';
+import { environment } from 'environments/environment';
+import { MessageService } from 'primeng/api';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-    http = inject(HttpClient);
-    apiUrl = environment.apiUrl;
-    usersStore = inject(UsersStore);
-    router = inject(Router);
-    messageService = inject(MessageService);
+  http = inject(HttpClient);
+  apiUrl = environment.apiUrl;
+  usersStore = inject(UsersStore);
+  router = inject(Router);
+  messageService = inject(MessageService);
 
-    logIn(email: string, password: string) {
-        return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email, password});
-    }
+  logIn(email: string, password: string) {
+    return this.http.post<{ access_token: string }>(`${this.apiUrl}/auth/login`, { email, password });
+  }
 
-    loginAsTestUser(){
-        return this.http.post<{access_token: string}>(`${this.apiUrl}/auth/login`, {email: 'test@mykanbanapp.com', password: 'testmykanbanapp'});
-    }
+  loginAsTestUser() {
+    return this.http.post<{ access_token: string }>(`${this.apiUrl}/auth/login`, {
+      email: 'test@mykanbanapp.com',
+      password: 'testmykanbanapp',
+    });
+  }
 
-    signUp(signUpInputDTO: {name: string, email: string, password: string}) {
-        return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO);
-    }
+  signUp(signUpInputDTO: { name: string; email: string; password: string }) {
+    return this.http.post<unknown>(`${this.apiUrl}/users/signup`, signUpInputDTO);
+  }
 
-    resendVerificationEmail(email: string) {
-        return this.http.post<unknown>(`${this.apiUrl}/users/resend-verification`, { email });
-    }
+  resendVerificationEmail(email: string) {
+    return this.http.post<unknown>(`${this.apiUrl}/users/resend-verification`, { email });
+  }
 
-    sendVerificationToken(token: string){
-        return this.http.get<{message: string}>(`${this.apiUrl}/users/verify`, { params: { token } })
-    }
+  sendVerificationToken(token: string) {
+    return this.http.get<{ message: string }>(`${this.apiUrl}/users/verify`, { params: { token } });
+  }
 
-    setAuthToken(token:string){
-        localStorage.setItem('access_token', token);
-    }
+  setAuthToken(token: string) {
+    localStorage.setItem('access_token', token);
+  }
 
-    getAuthToken():string | null{
-        return localStorage.getItem('access_token');
-    }
+  getAuthToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
 
-    logOut(){
-        localStorage.removeItem('access_token');
-        this.usersStore.clearCurrentUser();
-        this.router.navigate(['/auth']);
-    }
+  logOut() {
+    localStorage.removeItem('access_token');
+    this.usersStore.clearCurrentUser();
+    this.router.navigate(['/auth']);
+  }
 }

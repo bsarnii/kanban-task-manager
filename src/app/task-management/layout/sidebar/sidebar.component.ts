@@ -7,10 +7,10 @@ import { UsersStore } from 'app/users/+store/users.store';
 import { AuthService } from 'app/auth/services/auth.service';
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    imports: [RouterLink, RouterLinkActive]
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  imports: [RouterLink, RouterLinkActive],
 })
 export class SidebarComponent {
   colorThemeService = inject(ColorThemeService);
@@ -27,11 +27,10 @@ export class SidebarComponent {
 
   createNewBoardPath = computed(() => {
     const boardId = this.boardsStore.activeBoardId();
-    if(boardId){
+    if (boardId) {
       return ['/board', boardId, 'add-board'];
     } else {
       return ['/board-not-exists', 'add-board'];
     }
-  })
-
+  });
 }

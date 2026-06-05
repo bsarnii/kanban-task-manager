@@ -10,10 +10,9 @@ describe('ColumnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ColumnComponent ],
-      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()]
-    })
-    .compileComponents();
+      imports: [ColumnComponent],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ColumnComponent);
     component = fixture.componentInstance;

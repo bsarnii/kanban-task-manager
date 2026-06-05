@@ -6,8 +6,5 @@
     "target": "es2022",
     "types": ["vitest/globals"]
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }

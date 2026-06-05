@@ -9,14 +9,14 @@ import { Component } from '@angular/core';
     <p class="body-l">Please select an existing board or create a new one.</p>
   `,
   styles: `
-    :host{
+    :host {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: .5rem;
+      gap: 0.5rem;
     }
-  `
+  `,
 })
 export class ActiveBoardNotFoundComponent {}

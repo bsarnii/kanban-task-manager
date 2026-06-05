@@ -3,22 +3,21 @@ import { provideRouter } from '@angular/router';
 import { PublicHeaderComponent } from './public-header.component';
 
 describe('PublicHeaderComponent', () => {
-    let component: PublicHeaderComponent;
-    let fixture: ComponentFixture<PublicHeaderComponent>;
+  let component: PublicHeaderComponent;
+  let fixture: ComponentFixture<PublicHeaderComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [PublicHeaderComponent],
-            providers: [provideRouter([])]
-        })
-            .compileComponents();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PublicHeaderComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
 
-        fixture = TestBed.createComponent(PublicHeaderComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+    fixture = TestBed.createComponent(PublicHeaderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

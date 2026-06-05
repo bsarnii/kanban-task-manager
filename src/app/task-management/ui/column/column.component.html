@@ -1,18 +1,22 @@
 <div class="column-head">
   <span [style.background-color]="color"></span>
-  <h2 class="heading-s">{{columnName | uppercase}} ({{taskNumber}})</h2>
+  <h2 class="heading-s">{{ columnName | uppercase }} ({{ taskNumber }})</h2>
 </div>
 <div (dragover)="onDragOver($event)" class="column-body" (drop)="onDrop($event)">
   @for (task of tasks; let i = $index; track i) {
-    <div class="task" role="button" tabindex="0" 
-      [id]="task.id" 
+    <div
+      class="task"
+      role="button"
+      tabindex="0"
+      [id]="task.id"
       (keypress)="taskClick.emit(task.id)"
       (click)="taskClick.emit(task.id)"
       (dragstart)="onDragStart(task)"
-      [draggable]="canEdit()">
+      [draggable]="canEdit()"
+    >
       <div class="task-inner-wrapper" [style.pointer-events]="draggedTask() ? 'none' : 'auto'">
-        <h3 class="heading-m">{{task.name}}</h3>
-        <p class="body-m">{{filterCompletedSubtasks(task.subtasks)}} of {{task.subtasks.length}} subtasks</p>
+        <h3 class="heading-m">{{ task.name }}</h3>
+        <p class="body-m">{{ filterCompletedSubtasks(task.subtasks) }} of {{ task.subtasks.length }} subtasks</p>
       </div>
     </div>
   }

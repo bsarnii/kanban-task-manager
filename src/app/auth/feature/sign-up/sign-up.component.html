@@ -1,46 +1,65 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
-    @if(!signUpSuccess()) {
-        <form (ngSubmit)="signUp()">
+  @if (!signUpSuccess()) {
+    <form (ngSubmit)="signUp()">
+      <app-field-wrapper
+        [signalFormErrors]="signUpForm.name().errors()"
+        [canShowError]="signUpForm.name().dirty() || signUpForm.name().touched()"
+      >
+        <label for="fullName" class="heading-s">Full name*</label>
+        <input [formField]="signUpForm.name" type="text" id="fullName" class="text-input" />
+      </app-field-wrapper>
 
-            <app-field-wrapper [signalFormErrors]="signUpForm.name().errors()" [canShowError]="signUpForm.name().dirty() || signUpForm.name().touched()">
-                <label for="fullName" class="heading-s">Full name*</label>
-                <input [formField]="signUpForm.name" type="text" id="fullName" class="text-input">
-            </app-field-wrapper>
+      <app-field-wrapper
+        [signalFormErrors]="signUpForm.email().errors()"
+        [canShowError]="signUpForm.email().dirty() || signUpForm.email().touched()"
+      >
+        <label for="email" class="heading-s">Email*</label>
+        <input [formField]="signUpForm.email" type="email" id="email" class="text-input" autocomplete="email" />
+      </app-field-wrapper>
 
-            <app-field-wrapper [signalFormErrors]="signUpForm.email().errors()" [canShowError]="signUpForm.email().dirty() || signUpForm.email().touched()">
-                <label for="email" class="heading-s">Email*</label>
-                <input [formField]="signUpForm.email" type="email" id="email" class="text-input" autocomplete="email">
-            </app-field-wrapper>
+      <app-field-wrapper
+        [signalFormErrors]="signUpForm.password().errors()"
+        [canShowError]="signUpForm.password().dirty() || signUpForm.password().touched()"
+        style="margin-bottom: 1rem"
+      >
+        <label for="password" class="heading-s">Password*</label>
+        <input
+          [formField]="signUpForm.password"
+          type="password"
+          id="password"
+          class="text-input"
+          autocomplete="new-password"
+        />
+        <p fieldDescription class="body-l">Password must have at least 8 characters</p>
+      </app-field-wrapper>
 
-            <app-field-wrapper [signalFormErrors]="signUpForm.password().errors()" [canShowError]="signUpForm.password().dirty() || signUpForm.password().touched()" style="margin-bottom: 1rem;">
-                <label for="password" class="heading-s">Password*</label>
-                <input [formField]="signUpForm.password" type="password" id="password" class="text-input" autocomplete="new-password">
-                <p fieldDescription class="body-l">Password must have at least 8 characters</p>
-            </app-field-wrapper>
-    
-            <button type="submit" class="btn button-primary-s" [disabled]="loading()">
-                @if(loading()){
-                    <i class="pi pi-spin pi-spinner"></i>
-                }@else{
-                    Sign Up
-                }
-            </button>
-        </form>
-        <a routerLink="../login">Already have an account? Log in</a>
-    }@else{
-        <h1 class="heading-l">Registration successful!</h1>
-        <p class="body-l">
-            Please check your inbox to verify your email address. If you didn't receive an email, click 
-            <a role="button" tabindex="0" (click)="resendVerificationEmail()" [style.pointerEvents]="resendLoading() ? 'none' : 'auto'">
-                @if(resendLoading()){
-                    <i class="pi pi-spin pi-spinner"></i>
-                }@else{
-                here
-                }
-            </a>.
-            <br/>
-            Be sure to check your spam folder.
-        </p>
-    }
-
+      <button type="submit" class="btn button-primary-s" [disabled]="loading()">
+        @if (loading()) {
+          <i class="pi pi-spin pi-spinner"></i>
+        } @else {
+          Sign Up
+        }
+      </button>
+    </form>
+    <a routerLink="../login">Already have an account? Log in</a>
+  } @else {
+    <h1 class="heading-l">Registration successful!</h1>
+    <p class="body-l">
+      Please check your inbox to verify your email address. If you didn't receive an email, click
+      <a
+        role="button"
+        tabindex="0"
+        (click)="resendVerificationEmail()"
+        [style.pointerEvents]="resendLoading() ? 'none' : 'auto'"
+      >
+        @if (resendLoading()) {
+          <i class="pi pi-spin pi-spinner"></i>
+        } @else {
+          here
+        }</a
+      >.
+      <br />
+      Be sure to check your spam folder.
+    </p>
+  }
 </app-auth-layout>

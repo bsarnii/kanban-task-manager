@@ -1,12 +1,14 @@
 <app-modal (backdropClick)="cancelDelete.emit()">
-    <ng-container modalHeader>
-        <h3 class="heading-l">Delete this task?</h3>
-    </ng-container>
-    <ng-container modalBody>
-        <p class="body-l">Are you sure you want to delete the '{{task().name}}' task and it's subtasks? This action cannot be reversed.</p>
-    </ng-container>
-    <div class="button-container" modalFooter>
-        <button (click)="confirmDelete.emit()" class="btn button-destructive">Delete</button>
-        <button (click)="cancelDelete.emit()" class="btn button-secondary">Cancel</button>
-    </div>
+  <ng-container modalHeader>
+    <h3 class="heading-l">Delete this task?</h3>
+  </ng-container>
+  <ng-container modalBody>
+    <p class="body-l">
+      Are you sure you want to delete the '{{ task().name }}' task and it's subtasks? This action cannot be reversed.
+    </p>
+  </ng-container>
+  <div class="button-container" modalFooter>
+    <button (click)="confirmDelete.emit()" class="btn button-destructive">Delete</button>
+    <button (click)="cancelDelete.emit()" class="btn button-secondary">Cancel</button>
+  </div>
 </app-modal>

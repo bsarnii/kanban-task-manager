@@ -7,12 +7,18 @@ describe('ConfirmDeleteBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ConfirmDeleteBoardComponent ]
-    })
-    .compileComponents();
+      imports: [ConfirmDeleteBoardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ConfirmDeleteBoardComponent);
-    fixture.componentRef.setInput('board', { id: '1', name: 'Test', statuses: [], createdAt: '', createdBy: '', boardMemberRole: 'OWNER' });
+    fixture.componentRef.setInput('board', {
+      id: '1',
+      name: 'Test',
+      statuses: [],
+      createdAt: '',
+      createdBy: '',
+      boardMemberRole: 'OWNER',
+    });
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

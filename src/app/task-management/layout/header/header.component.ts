@@ -3,52 +3,52 @@ import { ColorThemeService } from '../../../core/services/color-theme.service';
 import { SidebarToggleService } from '../sidebar/sidebar-toggle.service';
 import { CommonModule } from '@angular/common';
 import { BoardsStore } from '../../+store/boards.store';
-import { ConfirmDeleteBoardComponent } from "../../ui/confirm-delete-board/confirm-delete-board.component";
+import { ConfirmDeleteBoardComponent } from '../../ui/confirm-delete-board/confirm-delete-board.component';
 import { RouterLink } from '@angular/router';
-import { BoardMemberRoleChipComponent } from "../../ui/board-member-role-chip/board-member-role-chip.component";
+import { BoardMemberRoleChipComponent } from '../../ui/board-member-role-chip/board-member-role-chip.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    imports: [CommonModule, ConfirmDeleteBoardComponent, RouterLink, BoardMemberRoleChipComponent]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  imports: [CommonModule, ConfirmDeleteBoardComponent, RouterLink, BoardMemberRoleChipComponent],
 })
 export class HeaderComponent {
-    boardsStore = inject(BoardsStore);
-    colorThemeService = inject(ColorThemeService);
-    sidebarService = inject(SidebarToggleService);
+  boardsStore = inject(BoardsStore);
+  colorThemeService = inject(ColorThemeService);
+  sidebarService = inject(SidebarToggleService);
 
-    boardBeingDeleted = signal(false);
-    showEditDeleteOverlay = false;
-    editBoardPath = computed(() => [this.boardsStore.activeBoardId(), 'edit-board']);
-    addTaskPath = computed(() => [this.boardsStore.activeBoardId(), 'add-task']);
-    boardMembersPath = computed(() => [this.boardsStore.activeBoardId(), 'board-members']);
+  boardBeingDeleted = signal(false);
+  showEditDeleteOverlay = false;
+  editBoardPath = computed(() => [this.boardsStore.activeBoardId(), 'edit-board']);
+  addTaskPath = computed(() => [this.boardsStore.activeBoardId(), 'add-task']);
+  boardMembersPath = computed(() => [this.boardsStore.activeBoardId(), 'board-members']);
 
-    @HostListener('document:click')
-    clickOutside() {
-        this.showEditDeleteOverlay = false;
-    }
+  @HostListener('document:click')
+  clickOutside() {
+    this.showEditDeleteOverlay = false;
+  }
 
-    toggleEditDeleteOverlay(event: MouseEvent){
-      event.stopPropagation();
-      this.showEditDeleteOverlay = !this.showEditDeleteOverlay;
-    }
+  toggleEditDeleteOverlay(event: MouseEvent) {
+    event.stopPropagation();
+    this.showEditDeleteOverlay = !this.showEditDeleteOverlay;
+  }
 
-    deleteBoard(){
-      this.boardsStore.deleteBoard(this.boardsStore.activeBoard()!.id);
-      if(this.boardsStore.boards().length){
-        this.boardsStore.setActiveBoardId(this.boardsStore.boards()[0].id);
-      } else {
-        this.boardsStore.setActiveBoardId(null);
-      }
-      this.boardBeingDeleted.set(false);
+  deleteBoard() {
+    this.boardsStore.deleteBoard(this.boardsStore.activeBoard()!.id);
+    if (this.boardsStore.boards().length) {
+      this.boardsStore.setActiveBoardId(this.boardsStore.boards()[0].id);
+    } else {
+      this.boardsStore.setActiveBoardId(null);
     }
+    this.boardBeingDeleted.set(false);
+  }
 
-    onEditBoardBtnClick(event: MouseEvent){
-      this.toggleEditDeleteOverlay(event);
-    }
-    onDeleteBoardBtnClick(event: MouseEvent){
-      this.boardBeingDeleted.set(true);
-      this.toggleEditDeleteOverlay(event)
-    }
+  onEditBoardBtnClick(event: MouseEvent) {
+    this.toggleEditDeleteOverlay(event);
+  }
+  onDeleteBoardBtnClick(event: MouseEvent) {
+    this.boardBeingDeleted.set(true);
+    this.toggleEditDeleteOverlay(event);
+  }
 }

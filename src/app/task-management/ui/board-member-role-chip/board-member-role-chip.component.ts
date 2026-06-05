@@ -8,19 +8,21 @@ import { TooltipModule } from 'primeng/tooltip';
   imports: [ChipModule, TooltipModule],
   template: `
     @switch (role()) {
-      @case ('owner') { 
-        <p-chip icon="pi pi-crown" label="Owner" pTooltip="Full access to boards, members, and tasks."/> 
+      @case ('owner') {
+        <p-chip icon="pi pi-crown" label="Owner" pTooltip="Full access to boards, members, and tasks." />
       }
       @case ('editor') {
-        <p-chip icon="pi pi-pencil" label="Editor" pTooltip="Can create and manage tasks."/>
+        <p-chip icon="pi pi-pencil" label="Editor" pTooltip="Can create and manage tasks." />
       }
       @case ('viewer') {
-        <p-chip icon="pi pi-eye" label="Viewer" pTooltip="View-only access to tasks."/>
+        <p-chip icon="pi pi-eye" label="Viewer" pTooltip="View-only access to tasks." />
       }
-      @default { <p>{{role()}}</p> }
+      @default {
+        <p>{{ role() }}</p>
+      }
     }
   `,
-  styles: ``
+  styles: ``,
 })
 export class BoardMemberRoleChipComponent {
   role = input.required<BoardMemberRole>();

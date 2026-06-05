@@ -1,72 +1,77 @@
-import { Routes } from "@angular/router";
-import { doesBoardExistsGuard } from "./guards/does-board-exists.guard";
-import { activeBoardGuard } from "./guards/active-board.guard";
-import { BoardComponent } from "../feature/board/board.component";
-import { BoardNotExistsComponent } from "../feature/board-not-exists/board-not-exists.component";
-import { TaskDetailsModalComponent } from "../feature/task-details-modal/task-details-modal.component";
-import { activeTaskOnActivate, activeTaskOnDeactivate } from "./guards/active-task.guard";
-import { BoardAddEditModalComponent, BoardAddEditModalContextEnum } from "../feature/board-add-edit-modal/board-add-edit-modal.component";
-import { TaskAddEditModalComponent, TaskAddEditModalContextEnum } from "../feature/task-add-edit-modal/task-add-edit-modal.component";
-import { loadBoardsGuard } from "./guards/load-boards.guard";
-import { tasksLoaded } from "./guards/tasks-loaded.guard";
-import { BoardMemberManagementModalComponent } from "../feature/board-member-management-modal/board-member-management-modal.component";
+import { Routes } from '@angular/router';
+import { doesBoardExistsGuard } from './guards/does-board-exists.guard';
+import { activeBoardGuard } from './guards/active-board.guard';
+import { BoardComponent } from '../feature/board/board.component';
+import { BoardNotExistsComponent } from '../feature/board-not-exists/board-not-exists.component';
+import { TaskDetailsModalComponent } from '../feature/task-details-modal/task-details-modal.component';
+import { activeTaskOnActivate, activeTaskOnDeactivate } from './guards/active-task.guard';
+import {
+  BoardAddEditModalComponent,
+  BoardAddEditModalContextEnum,
+} from '../feature/board-add-edit-modal/board-add-edit-modal.component';
+import {
+  TaskAddEditModalComponent,
+  TaskAddEditModalContextEnum,
+} from '../feature/task-add-edit-modal/task-add-edit-modal.component';
+import { loadBoardsGuard } from './guards/load-boards.guard';
+import { tasksLoaded } from './guards/tasks-loaded.guard';
+import { BoardMemberManagementModalComponent } from '../feature/board-member-management-modal/board-member-management-modal.component';
 
-export const taskMangagementRoutes:Routes = [
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'board-not-exists'
-    },
-    {
-        path: 'board-not-exists',
-        canActivate: [loadBoardsGuard, doesBoardExistsGuard],
-        component: BoardNotExistsComponent,
+export const taskMangagementRoutes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'board-not-exists',
+  },
+  {
+    path: 'board-not-exists',
+    canActivate: [loadBoardsGuard, doesBoardExistsGuard],
+    component: BoardNotExistsComponent,
+    children: [
+      {
+        path: 'add-board',
+        component: BoardAddEditModalComponent,
+        data: { addEditContext: BoardAddEditModalContextEnum.add },
+      },
+    ],
+  },
+  {
+    path: ':boardId',
+    component: BoardComponent,
+    canActivate: [loadBoardsGuard, activeBoardGuard],
+    children: [
+      {
+        path: 'task/:taskId',
+        component: TaskDetailsModalComponent,
+        canActivate: [activeTaskOnActivate, tasksLoaded],
+        canDeactivate: [activeTaskOnDeactivate],
         children: [
-            {
-                path: 'add-board',
-                component: BoardAddEditModalComponent,
-                data: { addEditContext: BoardAddEditModalContextEnum.add }
-            }
-        ]
-    },
-    {
-        path: ':boardId',
-        component: BoardComponent,
-        canActivate: [loadBoardsGuard, activeBoardGuard],
-        children: [
-            {
-                path: 'task/:taskId',
-                component: TaskDetailsModalComponent,
-                canActivate: [activeTaskOnActivate, tasksLoaded],
-                canDeactivate: [activeTaskOnDeactivate],
-                children: [
-                    {
-                        path: 'edit-task',
-                        component: TaskAddEditModalComponent,
-                        data: { addEditContext: TaskAddEditModalContextEnum.edit }
-                    }
-                ]
-            },
-            {
-                path: 'board-members',
-                component: BoardMemberManagementModalComponent
-            },
-            {
-                path: 'add-board',
-                component: BoardAddEditModalComponent,
-                data: { addEditContext: BoardAddEditModalContextEnum.add }
-            },
-            {
-                path: 'edit-board',
-                component: BoardAddEditModalComponent,
-                data: { addEditContext: BoardAddEditModalContextEnum.edit }
-            },
-            {
-                path: 'add-task',
-                component: TaskAddEditModalComponent,
-                data: { addEditContext: TaskAddEditModalContextEnum.add }
-            }
-        ]
-    },
-
+          {
+            path: 'edit-task',
+            component: TaskAddEditModalComponent,
+            data: { addEditContext: TaskAddEditModalContextEnum.edit },
+          },
+        ],
+      },
+      {
+        path: 'board-members',
+        component: BoardMemberManagementModalComponent,
+      },
+      {
+        path: 'add-board',
+        component: BoardAddEditModalComponent,
+        data: { addEditContext: BoardAddEditModalContextEnum.add },
+      },
+      {
+        path: 'edit-board',
+        component: BoardAddEditModalComponent,
+        data: { addEditContext: BoardAddEditModalContextEnum.edit },
+      },
+      {
+        path: 'add-task',
+        component: TaskAddEditModalComponent,
+        data: { addEditContext: TaskAddEditModalContextEnum.add },
+      },
+    ],
+  },
 ];

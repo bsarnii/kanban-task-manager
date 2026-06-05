@@ -1,6 +1,5 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ColorThemeService } from './color-theme.service';
-
 
 describe('ColorThemeService', () => {
   let service: ColorThemeService;
@@ -36,7 +35,7 @@ describe('ColorThemeService', () => {
       expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
     });
 
-     it('should add my-app-dark class to document.documentElement if theme is dark', () => {
+    it('should add my-app-dark class to document.documentElement if theme is dark', () => {
       localStorage.setItem('colorTheme', 'dark');
       service.initializeTheme();
       expect(document.documentElement.classList.contains('my-app-dark')).toBe(true);
@@ -83,5 +82,4 @@ describe('ColorThemeService', () => {
       expect(localStorage.getItem('colorTheme')).toBe('light');
     });
   });
-
 });
