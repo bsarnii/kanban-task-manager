@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { BoardsStore } from './+store/boards.store';
 import { TasksStore } from './+store/tasks.store';
 import { SidebarToggleService } from './layout/sidebar/sidebar-toggle.service';
@@ -12,13 +12,16 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './task-management.component.html',
   styleUrl: './task-management.component.scss',
 })
-export class TaskManagementComponent implements OnDestroy {
+export class TaskManagementComponent {
   sidebarService = inject(SidebarToggleService);
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
+  destroyRef = inject(DestroyRef);
 
-  ngOnDestroy() {
-    this.boardsStore.reset();
-    this.tasksStore.reset();
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.boardsStore.reset();
+      this.tasksStore.reset();
+    });
   }
 }
