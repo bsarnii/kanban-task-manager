@@ -13,7 +13,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
@@ -23,7 +22,7 @@
     "paths": {
       "app/*": ["./src/app/*"],
       "assets/*": ["./src/assets/*"],
-      "environments/*": ["./src/environments/*"],
+      "environments/*": ["./src/environments/*"]
     }
   },
   "angularCompilerOptions": {
@@ -31,5 +30,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.spec.json" }]
 }

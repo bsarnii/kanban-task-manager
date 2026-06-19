@@ -1,27 +1,27 @@
-import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { environment } from "environments/environment";
-import { Board, BoardInputDto } from "../types/boards.interface";
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
+import { Board, BoardInputDto } from '../types/boards.interface';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class BoardsDataService {
-    http = inject(HttpClient);
-    apiUrl = environment.apiUrl;
+  http = inject(HttpClient);
+  apiUrl = environment.apiUrl;
 
-    getAll(): Observable<Board[]> {
-        return this.http.get<Board[]>(`${this.apiUrl}/boards`);
-    }
+  getAll(): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.apiUrl}/boards`);
+  }
 
-    create(board: BoardInputDto): Observable<Board> {
-        return this.http.post<Board>(`${this.apiUrl}/boards`, board);
-    }
+  create(board: BoardInputDto): Observable<Board> {
+    return this.http.post<Board>(`${this.apiUrl}/boards`, board);
+  }
 
-    update(id:string, board: Partial<BoardInputDto>): Observable<Board> {
-        return this.http.patch<Board>(`${this.apiUrl}/boards/${id}`, board);
-    }
+  update(id: string, board: Partial<BoardInputDto>): Observable<Board> {
+    return this.http.patch<Board>(`${this.apiUrl}/boards/${id}`, board);
+  }
 
-    delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/boards/${id}`);
-    }
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/boards/${id}`);
+  }
 }

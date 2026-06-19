@@ -7,10 +7,10 @@ import { UsersStore } from 'app/users/+store/users.store';
 import { AuthService } from 'app/auth/services/auth.service';
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    imports: [RouterLink, RouterLinkActive]
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  imports: [RouterLink, RouterLinkActive],
 })
 export class SidebarComponent {
   colorThemeService = inject(ColorThemeService);
@@ -19,24 +19,18 @@ export class SidebarComponent {
   usersStore = inject(UsersStore);
   authService = inject(AuthService);
 
-  handleOnBoardClick(){
+  closeSidebarOnMobile() {
     if (window.innerWidth <= 575) {
-      this.sidebarService.sidebarOpened = false
-    }
-  }
-  onCreateBoardClick(){
-    if (window.innerWidth <= 575) {
-      this.sidebarService.sidebarOpened = false
+      this.sidebarService.close();
     }
   }
 
   createNewBoardPath = computed(() => {
     const boardId = this.boardsStore.activeBoardId();
-    if(boardId){
+    if (boardId) {
       return ['/board', boardId, 'add-board'];
     } else {
       return ['/board-not-exists', 'add-board'];
     }
-  })
-
+  });
 }

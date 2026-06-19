@@ -3,12 +3,12 @@ import { ColorThemeService } from 'app/core/services/color-theme.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { LayoutComponent } from "../../ui/layout/layout.component";
+import { LayoutComponent } from '../../ui/layout/layout.component';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MessageModule } from "primeng/message";
-import {form, FormField, required, email, submit} from '@angular/forms/signals';
-import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { MessageModule } from 'primeng/message';
+import { form, FormField, required, email, submit } from '@angular/forms/signals';
+import { FieldWrapperComponent } from 'app/shared/ui/form/field-wrapper/field-wrapper.component';
 
 interface LoginData {
   email: string;
@@ -19,7 +19,7 @@ interface LoginData {
   selector: 'app-log-in',
   imports: [FormsModule, LayoutComponent, RouterLink, MessageModule, FormField, FieldWrapperComponent],
   templateUrl: './log-in.component.html',
-  styleUrl: './log-in.component.scss'
+  styleUrl: './log-in.component.scss',
 })
 export default class LogInComponent {
   colorThemeService = inject(ColorThemeService);
@@ -27,13 +27,12 @@ export default class LogInComponent {
   router = inject(Router);
 
   demo = input(false);
-  constructor(){
+  constructor() {
     effect(() => {
-      if(this.demo()){
+      if (this.demo()) {
         this.logInWithTestUser();
       }
-    })
-
+    });
   }
 
   loginModel = signal<LoginData>({
@@ -41,10 +40,10 @@ export default class LogInComponent {
     password: '',
   });
   loginForm = form(this.loginModel, (schemaPath) => {
-    required(schemaPath.email), {message: 'Email is required'};
+    required(schemaPath.email, { message: 'Email is required' });
     email(schemaPath.email);
 
-    required(schemaPath.password, {message: 'Password is required'});
+    required(schemaPath.password, { message: 'Password is required' });
   });
 
   errorMessage = signal('');
@@ -53,30 +52,35 @@ export default class LogInComponent {
   logIn() {
     submit(this.loginForm, async () => {
       this.loading.set(true);
-      this.authService.logIn(this.loginModel().email, this.loginModel().password).pipe(
-        tap(res => this.onLoginSuccess(res)),
-        catchError((err:HttpErrorResponse) => this.onLoginError(err))
-      ).subscribe();
-    })
+      this.authService
+        .logIn(this.loginModel().email, this.loginModel().password)
+        .pipe(
+          tap((res) => this.onLoginSuccess(res)),
+          catchError((err: HttpErrorResponse) => this.onLoginError(err)),
+        )
+        .subscribe();
+    });
   }
 
-  logInWithTestUser(){
+  logInWithTestUser() {
     this.loading.set(true);
-    this.authService.loginAsTestUser().pipe(
-      tap(res => this.onLoginSuccess(res)),
-      catchError((err:HttpErrorResponse) => this.onLoginError(err))
-    ).subscribe();
+    this.authService
+      .loginAsTestUser()
+      .pipe(
+        tap((res) => this.onLoginSuccess(res)),
+        catchError((err: HttpErrorResponse) => this.onLoginError(err)),
+      )
+      .subscribe();
   }
 
-  onLoginSuccess(res: {access_token: string}){
-    this.authService.setAuthToken(res.access_token)
+  onLoginSuccess(res: { access_token: string }) {
+    this.authService.setAuthToken(res.access_token);
     return this.router.navigate(['board']).then(() => this.loading.set(false));
   }
 
-  onLoginError(err:HttpErrorResponse){
+  onLoginError(err: HttpErrorResponse) {
     this.loading.set(false);
     this.errorMessage.set(err.error.message || 'Something went wrong');
     return EMPTY;
   }
 }
-

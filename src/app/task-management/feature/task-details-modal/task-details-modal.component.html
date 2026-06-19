@@ -1,10 +1,11 @@
-@if(!taskBeingEdited() && tasksStore.activeTaskExists()){
-  <app-modal (backdropClick)="close()" >
-
+@if (!taskBeingEdited() && tasksStore.activeTaskExists()) {
+  <app-modal (backdropClick)="close()">
     <div class="modal-head" modalHeader>
-      <h4 class="heading-l">{{task().name}}</h4>
-      @if(canEdit()){
-        <button (click)="toggleEditDeleteOverlay()" class="btn-vertical-dots"><img src="assets/icon-vertical-ellipsis.svg" alt="3 dots"></button>
+      <h4 class="heading-l">{{ task().name }}</h4>
+      @if (canEdit()) {
+        <button (click)="toggleEditDeleteOverlay()" class="btn-vertical-dots">
+          <img src="assets/icon-vertical-ellipsis.svg" alt="3 dots" />
+        </button>
       }
       @if (showEditDeleteOverlay) {
         <div class="edit-delete-overlay">
@@ -15,32 +16,39 @@
     </div>
 
     <ng-container modalBody>
-      @if(task().description){
-        <p class="body-l">{{task().description}}</p>
+      @if (task().description) {
+        <p class="body-l">{{ task().description }}</p>
       }
-      <h5 class="heading-s">Subtasks({{ completedSubtasks().length }} of {{task().subtasks.length}})</h5>
+      <h5 class="heading-s">Subtasks({{ completedSubtasks().length }} of {{ task().subtasks.length }})</h5>
       <div class="subtask-container">
         @for (subtask of task().subtasks; let i = $index; track i) {
-          <div
+          <label
             class="checkbox-container"
             [class.disabled]="!canEdit()"
             [aria-disabled]="!canEdit()"
+            tabindex="0"
+            (keypress)="canEdit() && handleCheckboxClick(subtask)"
             (click)="canEdit() && handleCheckboxClick(subtask)"
-            >
-            <input [checked]="subtask.completed" type="checkbox" aria-label="Subtask completed">
+          >
+            <input [checked]="subtask.completed" type="checkbox" aria-label="Subtask completed" />
             <span class="checkbox-replace"></span>
-            {{subtask.name}}
-          </div>
+            {{ subtask.name }}
+          </label>
         }
       </div>
       <div class="status-container">
-        <label class="heading-s">Current Status</label>
-        <select #status (change)="canEdit() && changeStatus(status.value)" name="status" id="status-select" class="select" [disabled]="!canEdit()">
+        <label class="heading-s" for="status-select">Current Status</label>
+        <select
+          #status
+          (change)="canEdit() && changeStatus(status.value)"
+          name="status"
+          id="status-select"
+          class="select"
+          [disabled]="!canEdit()"
+        >
           @for (status of statuses(); track status.id) {
-            <option
-              [value]="status.id"
-              [selected]="status.id === task().statusId">
-              {{status.name}}
+            <option [value]="status.id" [selected]="status.id === task().statusId">
+              {{ status.name }}
             </option>
           }
         </select>
@@ -48,16 +56,16 @@
     </ng-container>
   </app-modal>
 }
-@if(!taskBeingEdited() && !tasksStore.activeTaskExists()){
-  <app-active-task-not-found (close)="close()"/>
+@if (!taskBeingEdited() && !tasksStore.activeTaskExists()) {
+  <app-active-task-not-found (closeModal)="close()" />
 }
 
-@if(taskBeingDeleted()){
-  <app-confirm-delete-task 
-  [task]="task()"
-  (confirm)="deleteTask()" 
-  (cancel)="taskBeingDeleted.set(false)" 
+@if (taskBeingDeleted()) {
+  <app-confirm-delete-task
+    [task]="task()"
+    (confirmDelete)="deleteTask()"
+    (cancelDelete)="taskBeingDeleted.set(false)"
   />
 }
 
-<router-outlet (activate)="taskBeingEdited.set(true)" (deactivate)="taskBeingEdited.set(false)"/>
+<router-outlet (activate)="taskBeingEdited.set(true)" (deactivate)="taskBeingEdited.set(false)" />

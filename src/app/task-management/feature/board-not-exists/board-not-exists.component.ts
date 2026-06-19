@@ -6,12 +6,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   selector: 'app-board-not-exists',
   imports: [RouterOutlet, RouterLink],
   templateUrl: './board-not-exists.component.html',
-  styleUrl: './board-not-exists.component.scss'
+  styleUrl: './board-not-exists.component.scss',
 })
 export class BoardNotExistsComponent implements OnInit {
   boardsStore = inject(BoardsStore);
 
-  ngOnInit(){
+  ngOnInit() {
     this.boardsStore.setActiveBoardId(null);
   }
 }

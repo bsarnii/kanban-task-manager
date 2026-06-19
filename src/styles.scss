@@ -1,356 +1,358 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
-@import "primeicons/primeicons.css";
+@import 'primeicons/primeicons.css';
 
 // SCSS VARIABLES//
 $balck: #000112;
-$veryDarkGrey: #20212C;
-$darkGrey: #2B2C37;
-$darkLines: #3E3F4E;
-$mediumGrey: #828FA3;
-$lightLines: #E4EBFA;
-$lightGrey: #F4F7FD;
-$white: #FFFFFF;
-$mainPurple: #635FC7;
-$mainPurpleHover: #A8A4FF;
-$red: #EA5555;
-$redHover: #FF9898;
+$veryDarkGrey: #20212c;
+$darkGrey: #2b2c37;
+$darkLines: #3e3f4e;
+$mediumGrey: #828fa3;
+$lightLines: #e4ebfa;
+$lightGrey: #f4f7fd;
+$white: #ffffff;
+$mainPurple: #635fc7;
+$mainPurpleHover: #a8a4ff;
+$red: #ea5555;
+$redHover: #ff9898;
 
 //CSS VARIABLES//
-:root{
-    --color-bg: #20212C;
-    --color-sec-bg: #2B2C37;
-    --color-public-bg: linear-gradient(#131725, #2d3660);
-    --color-text: #FFFFFF;
-    --label-text-color: #FFFFFF;
-    --secondary-button-color: #FFFFFF;
-    --secondary-button-color-hover: #FFFFFF;
-    --checkbox-bg: #20212C;
-    --checkbox-color: #2B2C37;
-    --lines: #3E3F4E;
-    --sidebar-btn-hover: #FFFFFF;
-    --new-column-bg: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
-    --color-link: #3ea6ff;
+:root {
+  --color-bg: #20212c;
+  --color-sec-bg: #2b2c37;
+  --color-public-bg: linear-gradient(#131725, #2d3660);
+  --color-text: #ffffff;
+  --label-text-color: #ffffff;
+  --secondary-button-color: #ffffff;
+  --secondary-button-color-hover: #ffffff;
+  --checkbox-bg: #20212c;
+  --checkbox-color: #2b2c37;
+  --lines: #3e3f4e;
+  --sidebar-btn-hover: #ffffff;
+  --new-column-bg: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
+  --color-link: #3ea6ff;
 }
-[data-theme = 'light'] {
-    --color-bg: #F4F7FD;
-    --color-sec-bg: #FFFFFF;
-    --color-public-bg: linear-gradient(#c8c5ff, #fff);
-    --color-text: #000112;
-    --label-text-color: #828FA3;
-    --secondary-button-color: #F4F7FD;
-    --secondary-button-color-hover: #E4EBFA;
-    --checkbox-bg: #F4F7FD;
-    --checkbox-color: #FFFFFF;
-    --lines: #E4EBFA;
-    --sidebar-btn-hover: #F4F7FD;
-    --new-column-bg: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
-    --color-link: #0052cc;
-}
-
-html{
-    font-size: 14px;
+[data-theme='light'] {
+  --color-bg: #f4f7fd;
+  --color-sec-bg: #ffffff;
+  --color-public-bg: linear-gradient(#c8c5ff, #fff);
+  --color-text: #000112;
+  --label-text-color: #828fa3;
+  --secondary-button-color: #f4f7fd;
+  --secondary-button-color-hover: #e4ebfa;
+  --checkbox-bg: #f4f7fd;
+  --checkbox-color: #ffffff;
+  --lines: #e4ebfa;
+  --sidebar-btn-hover: #f4f7fd;
+  --new-column-bg: linear-gradient(180deg, #e9effa 0%, rgba(233, 239, 250, 0.5) 100%);
+  --color-link: #0052cc;
 }
 
-body{
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+html {
+  font-size: 14px;
 }
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 //TYPOGRAPHY//
-.heading-2xl{
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--color-text);
+.heading-2xl {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
 }
-.heading-xl{
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--color-text);
+.heading-xl {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
 }
-.heading-l{
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-text);
+.heading-l {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
 }
-.heading-m{
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--color-text);
+.heading-m {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
 }
-.heading-s{
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--label-text-color);
+.heading-s {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--label-text-color);
 }
-.body-xl{
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-text);
+.body-xl {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
 }
-.body-l{
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 23px;
-    color: var(--color-text);
+.body-l {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 23px;
+  color: var(--color-text);
 }
-.body-m{
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--color-text);
+.body-m {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 //BUTTONS//
 
-.btn{
-    font-family: "Plus Jakarta Sans", sans-serif;
-    border: none;
-    padding: 1em;
-    border-radius: 3rem;
-    cursor: pointer;
-    white-space: nowrap;
-    font-weight: 700;
+.btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  border: none;
+  padding: 1em;
+  border-radius: 3rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 700;
 }
-.button-primary-l{
-    font-size: 15px;
-    color: $white;
-    background-color: $mainPurple;
-    transition: background-color .3s;
-    &:hover{
-        background-color: $mainPurpleHover;
-    }
+.button-primary-l {
+  font-size: 15px;
+  color: $white;
+  background-color: $mainPurple;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $mainPurpleHover;
+  }
 }
-.button-primary-s{
-    font-size: 13px;
-    color: $white;
-    background-color: $mainPurple;
-    transition: background-color .3s;
-    &:hover{
-        background-color: $mainPurpleHover;
-    }
+.button-primary-s {
+  font-size: 13px;
+  color: $white;
+  background-color: $mainPurple;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $mainPurpleHover;
+  }
 }
 
-.button-secondary{
-    font-size: 13px;
-    color: $mainPurple;
-    background-color: var(--secondary-button-color);
-    transition: background-color .3s;
-    &:hover{
-        background-color: var(--secondary-button-color-hover);
-    }
+.button-secondary {
+  font-size: 13px;
+  color: $mainPurple;
+  background-color: var(--secondary-button-color);
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: var(--secondary-button-color-hover);
+  }
 }
-.button-destructive{
-    font-size: 13px;
-    color: $white;
-    background-color: $red;
-    transition: background-color .3s;
-    &:hover{
-        background-color: $redHover;
-    }
+.button-destructive {
+  font-size: 13px;
+  color: $white;
+  background-color: $red;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $redHover;
+  }
 }
-button:disabled{
-    opacity: .5;
-    cursor: default;
-    &:hover{
-        background-color: $mainPurple;
-    }
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  &:hover {
+    background-color: $mainPurple;
+  }
 }
+
 // FORM CHECKBOX //
 
-.checkbox-container{
-    padding: 1em;
-    background-color: var(--checkbox-bg);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    position: relative;
-    cursor: pointer;
-    transition: background-color .3s;
-    &:hover:not(.disabled){
-        background-color: rgba(99,95,199,.25);
+.checkbox-container {
+  padding: 1em;
+  background-color: var(--checkbox-bg);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover:not(.disabled) {
+    background-color: rgba(99, 95, 199, 0.25);
+  }
+  input {
+    visibility: hidden;
+    margin-right: 0.5em;
+    &:checked + .checkbox-replace {
+      background-color: $mainPurple;
+      border-color: transparent;
+      &::after {
+        border-color: $white;
+      }
     }
-    input{
-        visibility: hidden;
-        margin-right: .5em;
-        &:checked +.checkbox-replace{
-            background-color: $mainPurple;
-            border-color: transparent;
-            &::after{
-                    border-color: $white;
-                }
-        }
-    }
-    &:has(input:checked){
-        text-decoration: line-through;
-        color: $mediumGrey;
-    }
-    &.disabled{
-        cursor: default;
-        opacity: .5;
-    }
+  }
+  &:has(input:checked) {
+    text-decoration: line-through;
+    color: $mediumGrey;
+  }
+  &.disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
 
-    .checkbox-replace{
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 1em;
-        height: 15px;
-        width: 15px;
-        background-color: var(--checkbox-color);
-        border: 1px solid $mediumGrey;
-        border-radius: 2px;
-        transition: background-color .3s, border-color .3s;
-        &::after{
-            content: "";
-            position: absolute;
-            display: block;
-            left: 4.5px;
-            bottom: 4px;
-            width: 3px;
-            height: 6px;
-            border: solid transparent;
-            border-width: 0 2px 2px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-            transition: border-color .3s;
-        }
+  .checkbox-replace {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1em;
+    height: 15px;
+    width: 15px;
+    background-color: var(--checkbox-color);
+    border: 1px solid $mediumGrey;
+    border-radius: 2px;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s;
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      left: 4.5px;
+      bottom: 4px;
+      width: 3px;
+      height: 6px;
+      border: solid transparent;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      transition: border-color 0.3s;
     }
-    
+  }
 }
 
 //INPUT TEXT
-.text-input{
-    padding: .5rem;
-    border: 1px solid rgba(130, 143, 163,.25);
-    background: transparent;
-    color: var(--color-text);
-    outline: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: .25rem 0;
-    border-radius: 4px;
-    transition: border .3s;
-    position: relative;
-    width: 100%;
-    &:focus{
-        border: 1px solid #635FC7;
-    }
+.text-input {
+  padding: 0.5rem;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  background: transparent;
+  color: var(--color-text);
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0.25rem 0;
+  border-radius: 4px;
+  transition: border 0.3s;
+  position: relative;
+  width: 100%;
+  &:focus {
+    border: 1px solid #635fc7;
+  }
 }
-.text-input.ng-invalid.ng-touched, .text-input.ng-invalid.ng-dirty{
-    border: 1px solid $red;
-}
-
-.description-input{
-    padding: .5rem;
-    border: 1px solid rgba(130, 143, 163,.25);
-    background: transparent;
-    color: var(--color-text);
-    outline: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: .25rem 0;
-    min-height: 115px;
-    border-radius: 4px;
-    resize: none;
-    transition: border .3s;
-    width: 100%;
-    &:focus{
-        border: 1px solid #635FC7;
-    }
+.text-input.ng-invalid.ng-touched,
+.text-input.ng-invalid.ng-dirty {
+  border: 1px solid $red;
 }
 
-fieldset{
-    border: none;
-    padding: 0;
-    margin: 0;
+.description-input {
+  padding: 0.5rem;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  background: transparent;
+  color: var(--color-text);
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0.25rem 0;
+  min-height: 115px;
+  border-radius: 4px;
+  resize: none;
+  transition: border 0.3s;
+  width: 100%;
+  &:focus {
+    border: 1px solid #635fc7;
+  }
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 // FORM SELECT //
-.select{
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
-    border: 1px solid rgba(130, 143, 163,.25);
-    background: transparent;
-    color: var(--color-text);
-    outline: none;
-    padding: .5rem;
-    background-image: url(assets/icon-chevron-down.svg);
-    background-repeat: no-repeat;
-    background-position: 97.5%;
-    border-radius: 6px;
-    width: 100%;
-    option{
-        background-color: var(--color-bg);
-        padding: .5rem;
-    }
-    &:disabled{
-        opacity: .5;
-        cursor: default;
-    }
+.select {
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  background: transparent;
+  color: var(--color-text);
+  outline: none;
+  padding: 0.5rem;
+  background-image: url(assets/icon-chevron-down.svg);
+  background-repeat: no-repeat;
+  background-position: 97.5%;
+  border-radius: 6px;
+  width: 100%;
+  option {
+    background-color: var(--color-bg);
+    padding: 0.5rem;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 }
-.btn-vertical-dots{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    img{
-        padding: 0 1.5rem;
-    }
-    &:hover{
-        opacity: .8;
-    }
-}
-
-a{
-    text-decoration: none;
-    &:not([pButton]){
-        font-size: 13px;
-        color: var(--color-link);
-        &:hover{
-        text-decoration: underline;
-        }   
-    }
-
+.btn-vertical-dots {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  img {
+    padding: 0 1.5rem;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
-[data-theme = 'dark'] {
-    .slider:before{
-        background-color: #fff;
-        bottom: 3px;
-        content: "";
-        height: 14px;
-        right: 3px;
-        position: absolute;
-        transition: .4s;
-        width: 14px;
+a {
+  text-decoration: none;
+  &:not([pButton]) {
+    font-size: 13px;
+    color: var(--color-link);
+    &:hover {
+      text-decoration: underline;
     }
+  }
 }
-[data-theme = 'light'] {
-    .slider:before{
-        background-color: #fff;
-        bottom: 3px;
-        content: "";
-        height: 14px;
-        right: 3px;
-        position: absolute;
-        transition: .4s;
-        width: 14px;
-        transform: translateX(-20px);
-    }
+
+[data-theme='dark'] {
+  .slider:before {
+    background-color: #fff;
+    bottom: 3px;
+    content: '';
+    height: 14px;
+    right: 3px;
+    position: absolute;
+    transition: 0.4s;
+    width: 14px;
+  }
+}
+[data-theme='light'] {
+  .slider:before {
+    background-color: #fff;
+    bottom: 3px;
+    content: '';
+    height: 14px;
+    right: 3px;
+    position: absolute;
+    transition: 0.4s;
+    width: 14px;
+    transform: translateX(-20px);
+  }
 }
 
 @media screen and (max-width: 575px) {
-    .heading-xl{
-        font-size: 18px;
-    }
-    .heading-2xl{
-        font-size: 22px;
-    }
+  .heading-xl {
+    font-size: 18px;
+  }
+  .heading-2xl {
+    font-size: 22px;
+  }
 }
 
 //PRIMENG OVERRIDES//

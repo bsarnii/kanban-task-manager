@@ -8,9 +8,9 @@ import { MessageService } from 'primeng/api';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { email, form, minLength, required, FormField, submit } from '@angular/forms/signals';
-import { FieldWrapperComponent } from "app/shared/ui/form/field-wrapper/field-wrapper.component";
+import { FieldWrapperComponent } from 'app/shared/ui/form/field-wrapper/field-wrapper.component';
 
-type SignUpFormModel = {
+interface SignUpFormModel {
   name: string;
   email: string;
   password: string;
@@ -18,9 +18,9 @@ type SignUpFormModel = {
 
 @Component({
   selector: 'app-sign-up',
-  imports: [FormsModule,LayoutComponent, RouterLink, FieldWrapperComponent, FormField],
+  imports: [FormsModule, LayoutComponent, RouterLink, FieldWrapperComponent, FormField],
   templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss'
+  styleUrl: './sign-up.component.scss',
 })
 export default class SignUpComponent {
   colorThemeService = inject(ColorThemeService);
@@ -30,7 +30,7 @@ export default class SignUpComponent {
   model = signal<SignUpFormModel>({
     name: '',
     email: '',
-    password: ''
+    password: '',
   });
   signUpForm = form(this.model, (schemaPath) => {
     required(schemaPath.name);
@@ -40,57 +40,62 @@ export default class SignUpComponent {
 
     required(schemaPath.password);
     minLength(schemaPath.password, 8);
-  }) 
+  });
 
   signUpSuccess = signal(false);
   loading = signal(false);
   resendLoading = signal(false);
 
-
   signUp() {
     submit(this.signUpForm, async () => {
       this.loading.set(true);
-      this.authService.signUp(this.model()).pipe(
-        tap(() => {
-          this.signUpSuccess.set(true);
-          this.loading.set(false);
-        }),
-        catchError((err:HttpErrorResponse) => {
+      this.authService
+        .signUp(this.model())
+        .pipe(
+          tap(() => {
+            this.signUpSuccess.set(true);
+            this.loading.set(false);
+          }),
+          catchError((err: HttpErrorResponse) => {
             this.loading.set(false);
             this.messageService.add({
-                severity: 'error',
-                summary: 'HTTP Error',
-                detail: err.error.message || 'Something went wrong',
+              severity: 'error',
+              summary: 'HTTP Error',
+              detail: err.error.message || 'Something went wrong',
             });
             return EMPTY;
-        })
-      ).subscribe();
+          }),
+        )
+        .subscribe();
     });
   }
 
   resendVerificationEmail() {
-    if(this.resendLoading()) return;
+    if (this.resendLoading()) return;
 
     this.resendLoading.set(true);
 
-    this.authService.resendVerificationEmail(this.model().email).pipe(
-      tap(() => {
-        this.resendLoading.set(false);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Verification Email Resent',
-          detail: 'You should receive an email shortly',
-        });
-      }),
-      catchError((err:HttpErrorResponse) => {
+    this.authService
+      .resendVerificationEmail(this.model().email)
+      .pipe(
+        tap(() => {
           this.resendLoading.set(false);
           this.messageService.add({
-              severity: 'error',
-              summary: 'HTTP Error',
-              detail: err.error.message || 'Something went wrong',
+            severity: 'success',
+            summary: 'Verification Email Resent',
+            detail: 'You should receive an email shortly',
+          });
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this.resendLoading.set(false);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'HTTP Error',
+            detail: err.error.message || 'Something went wrong',
           });
           return EMPTY;
-      })
-    ).subscribe();
+        }),
+      )
+      .subscribe();
   }
 }

@@ -1,53 +1,53 @@
-form{
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-span{
-    .title-input{
-        margin-bottom: 1rem;
-    }
+span {
+  .title-input {
+    margin-bottom: 1rem;
+  }
 }
 
-.subtask-container{
-    .subtask{
-        display: flex;
-        justify-content: space-between;
-        input{
-            width: 100%;
-            margin-bottom: .5rem;
-        }
-        button{
-            background-color: transparent;
-            border: none;
-            padding: 1rem 0 1rem 1rem;
-            cursor: pointer;
-            &:hover{
-                svg{
-                    g{
-                        fill: #EA5555;
-                    }
-                }
-            }
-            svg{
-                g{
-                    transition: fill .3s;
-                }
-            }
-        }
+.subtask-container {
+  .subtask {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 100%;
+      margin-bottom: 0.5rem;
     }
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 1rem 0 1rem 1rem;
+      cursor: pointer;
+      &:hover {
+        svg {
+          g {
+            fill: #ea5555;
+          }
+        }
+      }
+      svg {
+        g {
+          transition: fill 0.3s;
+        }
+      }
+    }
+  }
 }
-.add-new-subtask{
-    margin-top: .5rem;
-    width: fit-content;
-    display: flex; 
-    gap: 0.5rem; 
-    align-items: center; 
-    justify-content: center;
+.add-new-subtask {
+  margin-top: 0.5rem;
+  width: fit-content;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
-.status-label{
-    margin: .5rem 0
+.status-label {
+  margin: 0.5rem 0;
 }
-.submit{
-    margin-top: 1.5rem;
+.submit {
+  margin-top: 1.5rem;
 }

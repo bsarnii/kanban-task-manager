@@ -1,16 +1,16 @@
 @if (boardsStore.activeBoard(); as activeBoard) {
   <p-toolbar>
     <ng-template #center>
-        <p-iconfield iconPosition="left">
-            <p-inputicon class="pi pi-search" />
-            <input type="search" pInputText placeholder="Search" [(ngModel)]="searchTerm" />
-        </p-iconfield>
+      <p-iconfield iconPosition="left">
+        <p-inputicon class="pi pi-search" />
+        <input type="search" pInputText placeholder="Search" [(ngModel)]="searchTerm" />
+      </p-iconfield>
     </ng-template>
-</p-toolbar>
-<div class="content">
+  </p-toolbar>
+  <div class="content">
     @if (!activeBoard.statuses.length) {
       <div class="empty-board">
-        @if(boardsStore.activeBoardMemberRole() === 'owner'){
+        @if (boardsStore.activeBoardMemberRole() === 'owner') {
           <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
           <button routerLink="./edit-board" class="btn button-primary-l">+ Add New Column</button>
         }
@@ -35,8 +35,8 @@
     }
   </div>
 }
-@if(!boardsStore.activeBoardExists()){
-  <app-active-board-not-found/>
+@if (!boardsStore.activeBoardExists()) {
+  <app-active-board-not-found />
 }
 
-<router-outlet/>
+<router-outlet />

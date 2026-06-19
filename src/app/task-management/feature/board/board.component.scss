@@ -1,74 +1,73 @@
-:host{
-    display: block;
+:host {
+  display: block;
 }
 
-p-toolbar{
-    border: none;
-    border-bottom: 1px solid var(--p-toolbar-border-color);
-    border-radius: 0;
+p-toolbar {
+  border: none;
+  border-bottom: 1px solid var(--p-toolbar-border-color);
+  border-radius: 0;
 }
-.content{
-    min-height: calc(100vh - 5rem - 57px);
-    height: calc(100vh - 5rem - 57px);
-    display: flex;
-    overflow: auto;
-    scrollbar-color: #635FC7 transparent;
-    scrollbar-width: thin;
-    &:has(.empty-board){
+.content {
+  min-height: calc(100vh - 5rem - 57px);
+  height: calc(100vh - 5rem - 57px);
+  display: flex;
+  overflow: auto;
+  scrollbar-color: #635fc7 transparent;
+  scrollbar-width: thin;
+  &:has(.empty-board) {
     display: flex;
     justify-content: center;
     align-items: center;
-    }
-    &::-webkit-scrollbar{
-        width: 6px;
-        height: 6px;
-    }
-    &::-webkit-scrollbar-track{
-        background: transparent;
-    }
-    &::-webkit-scrollbar-thumb{
-        background-color: #635FC7;
-        border-radius: 20px;
-    }
-    &::-webkit-scrollbar-corner{
-        background: transparent;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #635fc7;
+    border-radius: 20px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
-}
-.empty-board{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.empty-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+  text-align: center;
+  h1 {
+    color: #828fa3;
+  }
+  button {
     margin: 2rem;
-    text-align: center;
-    h1{
-        color: #828FA3;
-    }
-    button{
-        margin: 2rem;
-    }
+  }
 }
 
-.new-column{
-    margin-top: 47px;
-    margin-right: 1rem;
-    display: flex;
-    margin-left: 1rem;
-    min-width: 280px;
-    width: 280px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    background: var(--new-column-bg);
-    cursor: pointer;
-    h2{
-        color: #828FA3;
-        transition: color .3s;
-
+.new-column {
+  margin-top: 47px;
+  margin-right: 1rem;
+  display: flex;
+  margin-left: 1rem;
+  min-width: 280px;
+  width: 280px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--new-column-bg);
+  cursor: pointer;
+  h2 {
+    color: #828fa3;
+    transition: color 0.3s;
+  }
+  &:hover {
+    h2 {
+      color: #635fc7;
     }
-    &:hover{
-        h2{
-            color: #635FC7;
-        }
-    }
+  }
 }

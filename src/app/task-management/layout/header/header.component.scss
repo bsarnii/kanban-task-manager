@@ -1,140 +1,139 @@
-:host{
-    background-color: var(--color-sec-bg);
-    width: 100%;
+:host {
+  background-color: var(--color-sec-bg);
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--lines);
+  position: relative;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  .logo {
+    padding: 0 1.5rem;
+    height: 25px;
+    transition: margin-left 0.3s;
+  }
+  .logo.sidebarOpened {
+    margin-left: -196px;
+  }
+  .mobile-logo {
+    display: none;
+  }
+  .line {
+    width: 1px;
     height: 5rem;
+    background-color: var(--lines);
+  }
+  button {
+    background-color: transparent;
+    border: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    border-bottom: 1px solid var(--lines);
-    position: relative;
+    h1 {
+      padding: 0 1.5rem;
+      position: relative;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-align: start;
+    }
+    img {
+      display: none;
+      padding-inline: 0.5rem;
+    }
+  }
 }
-.header-left{
+.header-right {
+  display: flex;
+  align-items: center;
+  .edit-delete-overlay {
+    position: absolute;
     display: flex;
-    align-items: center;
-    .logo{
-        padding: 0 1.5rem;
-        height: 25px;
-        transition: margin-left .3s;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    border-radius: 8px;
+    right: 2.5rem;
+    bottom: 0;
+    transform: translateY(90%);
+    z-index: 10;
+    button {
+      background: transparent;
+      text-align: start;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: none;
+      padding: 1em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: rgba(99, 95, 199, 0.25);
+      }
+      &:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+      }
     }
-    .logo.sidebarOpened{
-        margin-left: -196px;
+    .edit-board-btn,
+    .board-members-btn {
+      color: #828fa3;
     }
-    .mobile-logo{
-        display: none;
+    .delete-board-btn {
+      color: #ea5555;
     }
-    .line{
-        width: 1px;
-        height: 5rem;
-        background-color: var(--lines);
-    }
-    button{
-        background-color: transparent;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        h1{
-            padding: 0 1.5rem;
-            position: relative;
-            font-family: "Plus Jakarta Sans", sans-serif;
-            font-weight: 700;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-align: start;
-        }
-        img{
-            display: none;
-            padding-inline: .5rem;
-        }
-    }
-}
-.header-right{
-    display: flex;
-    align-items: center;
-    .edit-delete-overlay{
-        position:absolute;
-        display: flex;
-        flex-direction: column;
-        background-color: var(--color-bg);
-        border-radius: 8px;
-        right: 2.5rem;
-        bottom: 0;
-        transform: translateY(90%);
-        z-index: 10;
-        button{
-            background: transparent;
-            text-align: start;
-            font-family: "Plus Jakarta Sans", sans-serif;
-            border: none;
-            padding: 1em;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background-color .3s;
-            &:hover{
-                background-color: rgba(99,95,199,.25);
-            }
-            &:first-child{
-                border-radius: 8px 8px 0 0;
-            }
-            &:last-child{
-                border-radius: 0 0 8px 8px;
-            }
-        }
-        .edit-board-btn, .board-members-btn{
-            color: #828FA3;
-        }
-        .delete-board-btn{
-            color: #EA5555;
-        }
-    }
-
+  }
 }
 
 @media screen and (max-width: 575px) {
-    :host{
-        height: 3rem;
-    }
+  :host {
+    height: 3rem;
+  }
 
-    .header-left{
-        .logo{
-            display: none!important;
-        }
-        .mobile-logo{
-            display: block;
-            padding: 0 1rem;
-        }
-        .line{
-            height: 3rem;
-            display: none;
-        }
-        button{
-            h1{
-                padding: 0;
-            }
-            img{
-                display:block;
-            }
-        }
+  .header-left {
+    .logo {
+      display: none !important;
     }
-
-    .header-right{
-        button:first-child{
-            padding: .5rem;
-            span{
-                display: none;
-            }
-        }
-        .btn-vertical-dots{
-            img{
-                height: 1rem;
-                padding: 0 1rem;
-            }
-        }
-        .edit-delete-container{
-            right: 1.5rem;
-        }
+    .mobile-logo {
+      display: block;
+      padding: 0 1rem;
     }
+    .line {
+      height: 3rem;
+      display: none;
+    }
+    button {
+      h1 {
+        padding: 0;
+      }
+      img {
+        display: block;
+      }
+    }
+  }
 
+  .header-right {
+    button:first-child {
+      padding: 0.5rem;
+      span {
+        display: none;
+      }
+    }
+    .btn-vertical-dots {
+      img {
+        height: 1rem;
+        padding: 0 1rem;
+      }
+    }
+    .edit-delete-container {
+      right: 1.5rem;
+    }
+  }
 }

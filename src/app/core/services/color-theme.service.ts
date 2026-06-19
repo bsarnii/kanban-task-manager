@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 export type ColorTheme = 'light' | 'dark';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ColorThemeService {
   colorTheme: ColorTheme = 'light';
 
-  constructor(){
-    this.getTheme();
+  constructor() {
+    this.initializeTheme();
   }
 
-  switchTheme(){
+  switchTheme() {
     this.colorTheme = this.colorTheme === 'light' ? 'dark' : 'light';
     this.setTheme(this.colorTheme);
-    document.documentElement.setAttribute('data-theme',this.colorTheme);
+    document.documentElement.setAttribute('data-theme', this.colorTheme);
 
     //FOR PRIMENG
     if (this.colorTheme === 'dark') {
@@ -24,11 +24,11 @@ export class ColorThemeService {
     }
   }
 
-  setTheme(theme:ColorTheme){
-    localStorage.setItem("colorTheme", theme)
+  setTheme(theme: ColorTheme) {
+    localStorage.setItem('colorTheme', theme);
   }
 
-  getTheme(){
+  initializeTheme() {
     const localSotrageTheme = localStorage['colorTheme'];
     if (localSotrageTheme === 'light' || localSotrageTheme === 'dark') {
       this.colorTheme = localSotrageTheme;
@@ -37,7 +37,6 @@ export class ColorThemeService {
     }
     document.documentElement.setAttribute('data-theme', this.colorTheme);
 
-
     //FOR PRIMENG
     if (this.colorTheme === 'dark') {
       document.documentElement.classList.add('my-app-dark');
@@ -45,5 +44,4 @@ export class ColorThemeService {
       document.documentElement.classList.remove('my-app-dark');
     }
   }
-
 }

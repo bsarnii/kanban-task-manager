@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SidebarToggleService {
-  sidebarOpened = true;
-  selectedIndex= 0;
+  // By default, the sidebar is open on larger screens and closed on smaller screens
+  sidebarOpened = signal(window.innerWidth <= 575 ? false : true);
 
-  toggleSidebar(){
-    this.sidebarOpened = !this.sidebarOpened;
+  toggle() {
+    this.sidebarOpened.set(!this.sidebarOpened());
   }
 
-  constructor() { }
+  open() {
+    this.sidebarOpened.set(true);
+  }
+
+  close() {
+    this.sidebarOpened.set(false);
+  }
 }

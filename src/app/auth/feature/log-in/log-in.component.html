@@ -1,31 +1,44 @@
 <app-auth-layout [colorTheme]="colorThemeService.colorTheme">
-    @if(errorMessage()){
-        <p-message severity="error" icon="pi pi-times-circle" size="small">
-            <p>{{ errorMessage() }}</p>
-        </p-message>
-    }
-    <form (ngSubmit)="logIn()">
-        
-        <app-field-wrapper [signalFormErrors]="loginForm.email().errors()" [canShowError]="loginForm.email().touched() || loginForm.email().dirty()">
-            <label for="email" class="heading-s">Email*</label>
-            <input [formField]="loginForm.email" type="email" id="email" class="text-input" autocomplete="email">
-        </app-field-wrapper>
+  @if (errorMessage()) {
+    <p-message severity="error" icon="pi pi-times-circle" size="small">
+      <p>{{ errorMessage() }}</p>
+    </p-message>
+  }
+  <form (ngSubmit)="logIn()">
+    <app-field-wrapper
+      [signalFormErrors]="loginForm.email().errors()"
+      [canShowError]="loginForm.email().touched() || loginForm.email().dirty()"
+    >
+      <label for="email" class="heading-s">Email*</label>
+      <input [formField]="loginForm.email" type="email" id="email" class="text-input" autocomplete="email" />
+    </app-field-wrapper>
 
-        <app-field-wrapper [signalFormErrors]="loginForm.password().errors()" [canShowError]="loginForm.password().touched() || loginForm.password().dirty()">
-            <label for="password" class="heading-s">Password*</label>
-            <input [formField]="loginForm.password" type="password" id="password" class="text-input" autocomplete="current-password">
-        </app-field-wrapper>
-        
-        <button type="submit" class="btn button-primary-s" [disabled]="loading()">
-            @if(loading()){
-                <i class="pi pi-spin pi-spinner"></i>
-            }@else{
-                Log In
-            }
-        </button>
-        
-    </form>
+    <app-field-wrapper
+      [signalFormErrors]="loginForm.password().errors()"
+      [canShowError]="loginForm.password().touched() || loginForm.password().dirty()"
+    >
+      <label for="password" class="heading-s">Password*</label>
+      <input
+        [formField]="loginForm.password"
+        type="password"
+        id="password"
+        class="text-input"
+        autocomplete="current-password"
+      />
+    </app-field-wrapper>
 
-    <a routerLink="../signup">Create an account</a>
-    <p class="body-l">Want to try the app? &nbsp; <a role="button" tabindex="0" (click)="!loading() && logInWithTestUser()">Log in as a test user</a></p>
+    <button type="submit" class="btn button-primary-s" [disabled]="loading()">
+      @if (loading()) {
+        <i class="pi pi-spin pi-spinner"></i>
+      } @else {
+        Log In
+      }
+    </button>
+  </form>
+
+  <a routerLink="../signup">Create an account</a>
+  <p class="body-l">
+    Want to try the app? &nbsp;
+    <a role="button" tabindex="0" (click)="!loading() && logInWithTestUser()">Log in as a test user</a>
+  </p>
 </app-auth-layout>
